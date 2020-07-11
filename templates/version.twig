@@ -1,0 +1,32 @@
+{% extends 'admin.twig' %}
+
+{% block content %}
+    <div class="piwik-content-intro">
+        <h2 class="ng-isolate-scope">
+            {{ 'PerformanceAudit_CoreAdminHome_PluginPerformance'|translate }}
+        </h2>
+    </div>
+
+    <div class="pluginsManagement card ng-isolate-scope">
+        <div class="card-content">
+            {{ 'PerformanceAudit_CoreAdminHome_VersionPerformance'|translate('<strong>', pluginVersion, '</strong>', pluginName)|raw }}
+        </div>
+    </div>
+
+    <div class="piwik-content-intro">
+        <h3 class="ng-isolate-scope">
+            {{ 'PerformanceAudit_SupportMe'|translate }}
+        </h3>
+    </div>
+
+    <div class="pluginsManagement card ng-isolate-scope">
+        <div class="card-content">
+            <p>{{ 'PerformanceAudit_SupportMeText'|translate('</p><p>')|raw }}</p>
+            <p>
+                <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=77KW4LBEYBD9U" target="_blank">
+                    <img src="https://dantheman827.github.io/images/donate-button.svg" width="130" alt="{{ 'PerformanceAudit_Donate'|translate }}" />
+                </a>
+            </p>
+        </div>
+    </div>
+{% endblock %}

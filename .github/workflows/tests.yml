@@ -1,0 +1,71 @@
+name: Tests
+
+on:
+    push:
+        paths-ignore:
+            - '*.md'
+
+env:
+    PLUGIN_NAME: PerformanceAudit
+    TEST_SUITE: PluginTests
+    MYSQL_ADAPTER: PDO_MYSQL
+
+jobs:
+    phpunit:
+        strategy:
+            matrix:
+                php-versions: ['7.1']
+                #php-versions: ['7.1', '7.2', '7.3', '7.4', '8.0']
+                matomo-versions: ['3.12.0', '3.13.6']
+                node-version: [12.x]
+                #node-version: [10.x, 12.x]
+
+        runs-on: ubuntu-latest
+
+        name: PHPUnit with PHP ${{ matrix.php-versions }}, Node.js ${{ matrix.node-version }} and Matomo ${{ matrix.matomo-versions }}
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php-versions }}
+                  extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, intl, gd, iconv
+                  coverage: none
+                  tools: composer, phpunit:7.5.20
+
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v1
+              with:
+                node-version: ${{ matrix.node-version }}
+
+            - name: Create database
+              run: |
+                  sudo /etc/init.d/mysql start
+                  mysql  -u root -proot -e 'CREATE DATABASE IF NOT EXISTS matomo_tests;'
+
+            - name: Clone Matomo and run plugin Tests
+              # TODO
+              run: |
+                  shopt -s extglob
+                  mkdir ${{ env.PLUGIN_NAME }}
+                  cp -R !(${{ env.PLUGIN_NAME }}) ${{ env.PLUGIN_NAME }}
+                  cp -R .git/ ${{ env.PLUGIN_NAME }}/
+
+                  git clone --config filter.lfs.smudge=true -q https://github.com/matomo-org/matomo.git matomo
+                  cd matomo
+                  git fetch --all
+                  git submodule update
+                  git checkout -q tags/${{ matrix.matomo-versions }}
+                  [ -d ./tests/travis/.git ] || sh -c "rm -rf ./tests/travis && git clone https://github.com/matomo-org/travis-scripts.git ./tests/travis"
+                  cd ./tests/travis
+                  git checkout master
+                  cd ../..
+                  [ ! -f ./tests/travis/check_plugin_compatible_with_piwik.php ] || php ./tests/travis/check_plugin_compatible_with_piwik.php "${{ env.PLUGIN_NAME }}"
+                  composer install --no-dev --no-progress
+                  rm -rf plugins/${{ env.PLUGIN_NAME }}
+                  mv ../${{ env.PLUGIN_NAME }} plugins
+                  echo './console tests:run PerformanceAudit'
+              env:
+                DB_PASSWORD: root

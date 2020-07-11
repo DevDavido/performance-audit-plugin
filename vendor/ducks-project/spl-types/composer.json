@@ -1,0 +1,33 @@
+{
+    "name": "ducks-project/spl-types",
+    "type": "library",
+    "description": "Polyfill Module for SplType PHP extension. This extension aims at helping people making PHP a stronger typed language and can be a good alternative to scalar type hinting. It provides different typehandling classes as such as integer, float, bool, enum and string",
+    "keywords": ["Enum", "SplTypes", "SplEnum", "enumerator", "POO", "SplBool", "SplFloat", "SplInt", "SplString", "SplType", "polyfill", "php", "compat"],
+    "homepage": "https://github.com/ducks-project/spl-types/",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Adrien Loyant",
+            "email": "donald_duck@team-df.org",
+            "homepage": "http://adrien.loyant.net",
+            "role": "Owner"
+        }
+    ],
+    "support": {
+        "email": "adrien.loyant@gmail.com"
+    },
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ducks\\Component\\SplTypes\\": ""
+        },
+        "files": [
+            "bootstrap.php"
+        ],
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    }
+}

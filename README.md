@@ -1,9 +1,9 @@
 # Performance Audit Plugin for Matomo
 
-[![Stable Version](https://poser.pugx.org/DevDavido/performance-audit-plugin/v/stable)](https://github.com/DevDavido/performance-audit-plugin/releases)
-[![GPL Licensed](https://img.shields.io/badge/license-GPL-brightgreen.svg)](LICENSE.md)
-[![Tests Badge](https://github.com/DevDavido/performance-audit-plugin/workflows/Tests/badge.svg)](https://github.com/DevDavido/performance-audit-plugin/actions)
-[![Open Issues](https://isitmaintained.com/badge/open/DevDavido/performance-audit-plugin.svg)](https://github.com/DevDavido/performance-audit-plugin/issues)
+[![Stable Version](https://img.shields.io/github/v/release/DevDavido/performance-audit-plugin)](https://github.com/DevDavido/performance-audit-plugin/releases)
+[![GPL Licensed](https://img.shields.io/github/license/DevDavido/performance-audit-plugin?color=yellow)](LICENSE.md)
+[![Tests Badge](https://img.shields.io/github/workflow/status/DevDavido/performance-audit-plugin/Tests?label=tests)](https://github.com/DevDavido/performance-audit-plugin/actions?query=workflow%3ATests)
+[![Open Issues](https://img.shields.io/github/issues-raw/DevDavido/performance-audit-plugin)](https://github.com/DevDavido/performance-audit-plugin/issues)
 
 Daily performance audits of all your sites in Matomo for the following metrics based on Google Lighthouse:
 - First Contentful Paint

@@ -67,8 +67,8 @@ class Tasks extends BaseTasks
      */
     public function auditSite(int $idSite)
     {
-        if ($this->hasTaskStartedToday($idSite)) {
-            Log::info('Performance Audit task for site ' . $idSite . ' has been already started today');
+        if ($this->hasAnyTaskStartedToday()) {
+            Log::info('Performance Audit tasks have been already started today');
             return;
         }
         Log::info('Performance Audit task for site ' . $idSite . ' will be started now');
@@ -87,6 +87,21 @@ class Tasks extends BaseTasks
             $this->removeAuditFiles($idSite);
         }
         Log::info('Performance Audit task for site ' . $idSite . ' has finished');
+    }
+
+    /**
+     * Check if any task has started today.
+     *
+     * @return bool
+     * @throws Exception
+     */
+    private function hasAnyTaskStartedToday()
+    {
+        $tasksStartedToday = array_map(function($site) {
+            return $this->hasTaskStartedToday((int) $site['idsite']);
+        }, Site::getSites());
+
+        return in_array(true, $tasksStartedToday);
     }
 
     /**

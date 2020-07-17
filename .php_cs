@@ -25,7 +25,7 @@ return PhpCsFixer\Config::create()
         'unary_operator_spaces' => true,
         'binary_operator_spaces' => true,
         'blank_line_before_statement' => [
-            'statements' => ['break', 'continue', 'declare', 'return', 'throw', 'try'],
+            'statements' => ['break', 'continue', 'declare'],
         ],
         'braces' => false,
         'phpdoc_single_line_var_spacing' => true,

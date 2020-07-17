@@ -42,7 +42,7 @@ abstract class PerformanceAuditIntegrationTest extends IntegrationTestCase
     public function setUp(): void
     {
         if (!$this->isServerRunning()) {
-            throw new Exception("Server not found on port localhost:80. For integration tests, an server must be running.");
+            throw new Exception('Server not found on port localhost:80. For integration tests, an server must be running.');
         }
 
         parent::setUp();

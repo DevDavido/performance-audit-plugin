@@ -67,41 +67,52 @@ class Tasks extends BaseTasks
      */
     public function auditSite(int $idSite)
     {
-        if ($this->hasAnyTaskStartedToday()) {
-            Log::info('Performance Audit tasks have been already started today');
+        if ($this->hasAnyTaskRunning()) {
+            Log::info('A Performance Audit task is currently already running');
             return;
         }
+        if ($this->hasTaskStartedToday($idSite)) {
+            Log::info('Performance Audit task for site ' . $idSite . ' has been already started today');
+            return;
+        }
+
         Log::info('Performance Audit task for site ' . $idSite . ' will be started now');
-        $this->markTaskAsStarted($idSite);
-        $siteSettings = new MeasurableSettings($idSite);
+        try {
+            $this->markTaskAsRunning();
+            $this->markTaskAsStartedToday($idSite);
+            $siteSettings = new MeasurableSettings($idSite);
 
-        $urls = $this->getPageUrls($idSite, 'last30');
-        $runs = range(1, (int) $siteSettings->getSetting('run_count')->getValue());
-        $emulatedDevices = EmulatedDevice::getList($siteSettings->getSetting('emulated_device')->getValue());
+            $urls = $this->getPageUrls($idSite, 'last30');
+            $runs = range(1, (int) $siteSettings->getSetting('run_count')->getValue());
+            $emulatedDevices = EmulatedDevice::getList($siteSettings->getSetting('emulated_device')->getValue());
 
-        $this->performAudits($idSite, $urls, $emulatedDevices, $runs);
-        $auditFileCount = iterator_count($this->getAuditFiles($idSite));
-        Log::debug('Audit file count: ' . $auditFileCount);
-        if ($auditFileCount > 0) {
-            $this->storeResultsInDatabase($idSite, $this->processAuditFiles($idSite));
-            $this->removeAuditFiles($idSite);
+            $this->performAudits($idSite, $urls, $emulatedDevices, $runs);
+            $auditFileCount = iterator_count($this->getAuditFiles($idSite));
+            Log::debug('Audit file count: ' . $auditFileCount);
+            if ($auditFileCount > 0) {
+                $this->storeResultsInDatabase($idSite, $this->processAuditFiles($idSite));
+                $this->removeAuditFiles($idSite);
+            }
+        } catch (Exception $exception) {
+            Log::error($exception->getMessage());
+        } finally {
+            $this->markTaskAsFinished();
         }
         Log::info('Performance Audit task for site ' . $idSite . ' has finished');
     }
 
     /**
-     * Check if any task has started today.
+     * Check if any task is currently running.
      *
      * @return bool
      * @throws Exception
      */
-    private function hasAnyTaskStartedToday()
+    private function hasAnyTaskRunning()
     {
-        $tasksStartedToday = array_map(function($site) {
-            return $this->hasTaskStartedToday((int) $site['idsite']);
-        }, Site::getSites());
+        Option::clearCachedOption($this->hasTaskRunningKey());
+        $hasTaskRunning = !!Option::get($this->hasTaskRunningKey());
 
-        return in_array(true, $tasksStartedToday);
+        return $hasTaskRunning;
     }
 
     /**
@@ -113,8 +124,8 @@ class Tasks extends BaseTasks
      */
     private function hasTaskStartedToday(int $idSite)
     {
-        Option::clearCachedOption($this->lastRunKey($idSite));
-        $lastRun = Option::get($this->lastRunKey($idSite));
+        Option::clearCachedOption($this->lastTaskRunKey($idSite));
+        $lastRun = Option::get($this->lastTaskRunKey($idSite));
         if (!$lastRun) {
             return false;
         }
@@ -123,16 +134,50 @@ class Tasks extends BaseTasks
     }
 
     /**
-     * Marks this task as started in DB.
+     * Marks a task as running in DB.
+     *
+     * @return void
+     * @throws Exception
+     */
+    private function markTaskAsRunning()
+    {
+        Log::debug('Mark task as running now');
+        Option::set($this->hasTaskRunningKey(), 1);
+    }
+
+    /**
+     * Marks a task as finished in DB by deleting the running option key.
+     *
+     * @return void
+     * @throws Exception
+     */
+    private function markTaskAsFinished()
+    {
+        Log::debug('Mark task as finished now');
+        Option::delete($this->hasTaskRunningKey());
+    }
+
+    /**
+     * Marks this task as started today in DB.
      *
      * @param int $idSite
      * @return void
      * @throws Exception
      */
-    private function markTaskAsStarted(int $idSite)
+    private function markTaskAsStartedToday(int $idSite)
     {
-        Log::debug('Mark task for site ' . $idSite . ' as started');
-        Option::set($this->lastRunKey($idSite), Date::factory('today')->getTimestamp());
+        Log::debug('Mark task for site ' . $idSite . ' as started today');
+        Option::set($this->lastTaskRunKey($idSite), Date::factory('today')->getTimestamp());
+    }
+
+    /**
+     * Returns the option name for a currently running task.
+     *
+     * @return string
+     */
+    private static function hasTaskRunningKey()
+    {
+        return 'hasRunningPerformanceAuditTask';
     }
 
     /**
@@ -141,7 +186,7 @@ class Tasks extends BaseTasks
      * @param int $idSite
      * @return string
      */
-    private static function lastRunKey($idSite)
+    private static function lastTaskRunKey($idSite)
     {
         return 'lastRunPerformanceAuditTask_' . $idSite;
     }
@@ -246,7 +291,7 @@ class Tasks extends BaseTasks
                             ->setEmulatedDevice($emulatedDevice)
                             ->audit($url);
                     } catch (AuditFailedException $exception) {
-                        echo $exception->getMessage();
+                        Log::error($exception->getMessage());
                     }
                 }
             }

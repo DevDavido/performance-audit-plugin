@@ -30,7 +30,7 @@ You can install this plugin by:
 2. Login to Matomo as Super User
 3. Navigate in your Matomo Installation to `Administration` › `Marketplace` (categorized under `Platform`)
 4. Click on `upload a Plugin` and upload the zip file from step 1
-5. Active this plugin `PerformanceAudit`
+5. Activate this plugin `PerformanceAudit`
 
 Note: If plugin upload is disabled, enable it in your `config/config.ini.php` like that:
 ```ini
@@ -49,7 +49,7 @@ If any errors occur during activation, please follow the instruction or informat
 ![Dashboard](/screenshots/Dashboard.png?raw=true)
 
 ### Overall Scores
-![Overall Scroes](/screenshots/OverallScores.png?raw=true)
+![Overall Scores](/screenshots/OverallScores.png?raw=true)
 
 ### First Contentful Paint
 ![First Contentful Paint](/screenshots/FirstContentfulPaint.png?raw=true)

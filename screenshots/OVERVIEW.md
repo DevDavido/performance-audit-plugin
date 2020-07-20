@@ -3,7 +3,7 @@
 ![Dashboard](/screenshots/Dashboard.png?raw=true)
 
 ### Overall Scores
-![Overall Scroes](/screenshots/OverallScores.png?raw=true)
+![Overall Scores](/screenshots/OverallScores.png?raw=true)
 
 ### First Contentful Paint
 ![First Contentful Paint](/screenshots/FirstContentfulPaint.png?raw=true)

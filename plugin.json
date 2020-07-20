@@ -1,11 +1,11 @@
 {
     "name": "PerformanceAudit",
-    "description": "Daily performance audits of all your sites in Matomo. \n Note: Requires minimum NPM v6.13 (part of Node.js 10.18 LTS) to be installed on your server, otherwise plugin cannot be activated.",
-    "version": "1.0.3",
+    "description": "Daily performance audits of all your sites in Matomo.",
+    "version": "1.0.4",
     "theme": false,
     "require": {
         "php": ">=7.1.3",
-        "matomo": ">=3.12.0,<4.0.0-b1"
+        "piwik": ">=3.12.0,<4.0.0-b1"
     },
     "authors": [
         {
@@ -28,7 +28,9 @@
         "audit",
         "monitor",
         "measure",
+        "report",
         "lighthouse",
+        "web vitals",
         "first contentful paint",
         "speed index",
         "largest contentful paint",

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.4
+- Fixed: Switched to require `piwik` instead `matomo` in `plugin.json` for Matomo 3.x compatibility
+- Improved: `plugin.json` plugin description
+
 ## 1.0.3
 - Added: PerformanceAudit is live on the Matomo plugin marketplace now 🎉
 - Added: Donation information in `plugin.json`

@@ -5,6 +5,7 @@
 [![Tests Badge](https://img.shields.io/github/workflow/status/DevDavido/performance-audit-plugin/Tests?label=tests)](https://github.com/DevDavido/performance-audit-plugin/actions?query=workflow%3ATests)
 [![Open Issues](https://img.shields.io/github/issues-raw/DevDavido/performance-audit-plugin)](https://github.com/DevDavido/performance-audit-plugin/issues)
 
+## Description
 Daily performance audits of all your sites in Matomo for the following metrics based on Google Lighthouse:
 - First Contentful Paint
 - Speed Index
@@ -14,14 +15,16 @@ Daily performance audits of all your sites in Matomo for the following metrics b
 - Cumulative Layout Shift
 - Overall Score
 
-Continuously monitor those metrics over time, allowing detection of underlying problems before they have an adverse effect for users or simply track changes made to the web application, allowing you to establish a baseline for comparison too.
+Continuously monitor those Web Vital metrics over time, allowing detection of underlying problems before they have an adverse effect for users or simply track changes made to the web application, allowing you to establish a baseline for comparison too.
 
-# Support me
+**Note:** Requires minimum NPM v6.13 (part of Node.js 10.18 LTS) to be installed on your server, otherwise plugin cannot be activated.
+
+## Support me
 If you installed this plugin and it was useful for you or your business, please don't hesitate to make a donation, I would highly appreciate it. Thank you!
 
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=77KW4LBEYBD9U" target="_blank"><img src="https://dantheman827.github.io/images/donate-button.svg" width="130" alt="Donate"></a>
 
-# Installation
+## Installation
 You can install this plugin by:
 1. [downloading the latest plugin zip file](https://github.com/DevDavido/performance-audit-plugin/releases/latest)
 2. Login to Matomo as Super User
@@ -36,12 +39,12 @@ enable_plugin_upload = 1
 ```
 If any errors occur during activation, please follow the instruction or information of the error message.
 
-# Minimum requirements
+## Minimum requirements
 - Matomo 3.12
 - PHP 7.1
 - NPM v6.13 (part of [Node.js](https://nodejs.org/en/download/) 10.18 LTS) to be installed on your server, otherwise plugin cannot be activated.
 
-# Screenshots
+## Screenshots
 ### Dashboard
 ![Dashboard](/screenshots/Dashboard.png?raw=true)
 
@@ -53,20 +56,20 @@ If any errors occur during activation, please follow the instruction or informat
 
 For more screenshots, check out the [screenshot overview](/screenshots/OVERVIEW.md).
 
-# Testing
+## Testing
 Run the tests with:
 
 ```shell
 ./console tests:run PerformanceAudit
 ```
-# Changelog
+## Changelog
 Please see the [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
-# Contact
+## Contact
 If you have any questions or inquiries, you can contact `github {at} diskoboss {døt} de`.
 
-# Security
+## Security
 If you discover any security related issues, please contact `github {at} diskoboss {døt} de` instead of using the issue tracker.
 
-# License
+## License
 Licensed under the [GPLv3 License](LICENSE.md).

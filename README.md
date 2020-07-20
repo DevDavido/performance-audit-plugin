@@ -25,12 +25,18 @@ If you installed this plugin and it was useful for you or your business, please 
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=77KW4LBEYBD9U" target="_blank"><img src="https://dantheman827.github.io/images/donate-button.svg" width="130" alt="Donate"></a>
 
 ## Installation
-You can install this plugin by:
+Preferably you install [this plugin](https://plugins.matomo.org/PerformanceAudit) automatically by:
+1. Login to Matomo as Super User
+2. Navigate in your Matomo Installation to `Administration` › `Marketplace` (categorized under `Platform`)
+3. Search for `Performance Audit`
+4. Click on `Install` and wait up to 1 minute for the installation to finish
+
+You can also install this plugin manually by:
 1. [downloading the latest plugin zip file](https://github.com/DevDavido/performance-audit-plugin/releases/latest)
 2. Login to Matomo as Super User
 3. Navigate in your Matomo Installation to `Administration` › `Marketplace` (categorized under `Platform`)
 4. Click on `upload a Plugin` and upload the zip file from step 1
-5. Activate this plugin `PerformanceAudit`
+5. Activate this plugin `PerformanceAudit` and wait up to 1 minute for the process to finish
 
 Note: If plugin upload is disabled, enable it in your `config/config.ini.php` like that:
 ```ini

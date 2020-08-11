@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.5
+- Added: Possibility to check plugin audit functionality
+
 ## 1.0.4
 - Fixed: Switched to require `piwik` instead `matomo` in `plugin.json` for Matomo 3.x compatibility
 - Improved: `plugin.json` plugin description

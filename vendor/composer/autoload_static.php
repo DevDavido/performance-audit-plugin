@@ -47,6 +47,7 @@ class ComposerStaticInit98dde460e8a16c8877d8f8d8a8e6921c
         'ComposerAutoloaderInit98dde460e8a16c8877d8f8d8a8e6921c' => __DIR__ . '/..' . '/composer/autoload_real.php',
         'Composer\\Autoload\\ClassLoader' => __DIR__ . '/..' . '/composer/ClassLoader.php',
         'Composer\\Autoload\\ComposerStaticInit98dde460e8a16c8877d8f8d8a8e6921c' => __DIR__ . '/..' . '/composer/autoload_static.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Ducks\\Component\\SplTypes\\SplBool' => __DIR__ . '/..' . '/ducks-project/spl-types/SplBool.php',
         'Ducks\\Component\\SplTypes\\SplEnum' => __DIR__ . '/..' . '/ducks-project/spl-types/SplEnum.php',
         'Ducks\\Component\\SplTypes\\SplFloat' => __DIR__ . '/..' . '/ducks-project/spl-types/SplFloat.php',

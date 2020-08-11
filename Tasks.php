@@ -47,6 +47,20 @@ class Tasks extends BaseTasks
     private static $lighthouse;
 
     /**
+     * Whether tasks are executed in debug mode or not.
+     *
+     * @var bool
+     */
+    private $debugMode = false;
+
+    /**
+     * Log output for enabled debug mode.
+     *
+     * @var array
+     */
+    private $logOutput;
+
+    /**
      * Schedule tasks.
      *
      * @return void
@@ -62,43 +76,58 @@ class Tasks extends BaseTasks
      * Runs performance audit for specified site.
      *
      * @param int $idSite
+     * @param bool $debug
      * @return void
      * @throws Exception
      */
-    public function auditSite(int $idSite)
+    public function auditSite(int $idSite, bool $debug = false)
     {
+        if ($debug) {
+            $this->enableDebug();
+            $this->logDebug('Debug mode enabled');
+        }
+
         if ($this->hasAnyTaskRunning()) {
-            Log::info('A Performance Audit task is currently already running');
+            $this->logInfo('A Performance Audit task is currently already running');
             return;
         }
-        if ($this->hasTaskStartedToday($idSite)) {
-            Log::info('Performance Audit task for site ' . $idSite . ' has been already started today');
+        if ($this->hasTaskStartedToday($idSite) && !$this->isInDebugMode()) {
+            $this->logInfo('Performance Audit task for site ' . $idSite . ' has been already started today');
+            return;
+        }
+        $urls = $this->getPageUrls($idSite, 'last30');
+        if (empty($urls)) {
+            $this->logWarning('Performance Audit task for site ' . $idSite . ' has no URLs to check');
             return;
         }
 
-        Log::info('Performance Audit task for site ' . $idSite . ' will be started now');
+        $this->logInfo('Performance Audit task for site ' . $idSite . ' will be started now');
         try {
             $this->markTaskAsRunning();
             $this->markTaskAsStartedToday($idSite);
             $siteSettings = new MeasurableSettings($idSite);
 
-            $urls = $this->getPageUrls($idSite, 'last30');
             $runs = range(1, (int) $siteSettings->getSetting('run_count')->getValue());
             $emulatedDevices = EmulatedDevice::getList($siteSettings->getSetting('emulated_device')->getValue());
 
+            if ($this->isInDebugMode()) {
+                $urls = [array_shift($urls)];
+                $runs = [1];
+            }
+
             $this->performAudits($idSite, $urls, $emulatedDevices, $runs);
             $auditFileCount = iterator_count($this->getAuditFiles($idSite));
-            Log::debug('Audit file count: ' . $auditFileCount);
+            $this->logDebug('Audit file count: ' . $auditFileCount);
             if ($auditFileCount > 0) {
                 $this->storeResultsInDatabase($idSite, $this->processAuditFiles($idSite));
                 $this->removeAuditFiles($idSite);
             }
         } catch (Exception $exception) {
-            Log::error($exception->getMessage());
+            $this->logError($exception->getMessage());
         } finally {
             $this->markTaskAsFinished();
         }
-        Log::info('Performance Audit task for site ' . $idSite . ' has finished');
+        $this->logInfo('Performance Audit task for site ' . $idSite . ' has finished');
     }
 
     /**
@@ -141,7 +170,7 @@ class Tasks extends BaseTasks
      */
     private function markTaskAsRunning()
     {
-        Log::debug('Mark task as running now');
+        $this->logDebug('Mark task as running now');
         Option::set($this->hasTaskRunningKey(), 1);
     }
 
@@ -153,7 +182,7 @@ class Tasks extends BaseTasks
      */
     private function markTaskAsFinished()
     {
-        Log::debug('Mark task as finished now');
+        $this->logDebug('Mark task as finished now');
         Option::delete($this->hasTaskRunningKey());
     }
 
@@ -166,7 +195,7 @@ class Tasks extends BaseTasks
      */
     private function markTaskAsStartedToday(int $idSite)
     {
-        Log::debug('Mark task for site ' . $idSite . ' as started today');
+        $this->logDebug('Mark task for site ' . $idSite . ' as started today');
         Option::set($this->lastTaskRunKey($idSite), Date::factory('today')->getTimestamp());
     }
 
@@ -270,13 +299,13 @@ class Tasks extends BaseTasks
     private function performAudits(int $idSite, array $urls, array $emulatedDevices, array $runs)
     {
         Piwik::postEvent('Performance.performAudit', [$idSite, $urls, $emulatedDevices, $runs]);
-        Log::debug('Performing audit for (site ID, URLs, URL count, emulated devices, runs): ' . json_encode([$idSite, $urls, count($urls), $emulatedDevices, $runs]));
+        $this->logDebug('Performing audit for (site ID, URLs, URL count, emulated devices, runs): ' . json_encode([$idSite, $urls, count($urls), $emulatedDevices, $runs]));
 
         foreach ($urls as $url) {
             foreach ($emulatedDevices as $emulatedDevice) {
                 foreach ($runs as $run) {
                     try {
-                        Log::info('Performing scheduled audit [' . $run . '/'. count($runs) . '] of site ' . $idSite . ' (device: ' . $emulatedDevice . ') for URL: ' . $url);
+                        $this->logInfo('Performing scheduled audit [' . $run . '/'. count($runs) . '] of site ' . $idSite . ' (device: ' . $emulatedDevice . ') for URL: ' . $url);
 
                         self::getLighthouse($idSite)
                             ->setOutput(sprintf(
@@ -291,7 +320,7 @@ class Tasks extends BaseTasks
                             ->setEmulatedDevice($emulatedDevice)
                             ->audit($url);
                     } catch (AuditFailedException $exception) {
-                        Log::error($exception->getMessage());
+                        $this->logError($exception->getMessage());
                     }
                 }
             }
@@ -330,7 +359,7 @@ class Tasks extends BaseTasks
     private function processAuditFiles(int $idSite)
     {
         $auditFiles = $this->getAuditFiles($idSite);
-        Log::debug('Process Audit files: ' . json_encode(iterator_to_array($auditFiles)));
+        $this->logDebug('Process Audit files: ' . json_encode(iterator_to_array($auditFiles)));
         $temporaryResults = [];
         foreach ($auditFiles as $auditFile) {
             $auditFileBasename = $auditFile->getBasename('.' . $auditFile->getExtension());
@@ -349,16 +378,16 @@ class Tasks extends BaseTasks
             $currentAudit = &$temporaryResults[$auditIdSite][$auditUrl][$auditEmulatedDevice];
             $this->appendMetricValues($currentAudit, $metricItems);
         }
-        Log::debug('Audit files processed as: ' . json_encode($temporaryResults));
+        $this->logDebug('Audit files processed as: ' . json_encode($temporaryResults));
 
         if (empty($temporaryResults)) {
-            Log::warning('Audit files result is empty!');
+            $this->logWarning('Audit files result is empty!');
 
             return [];
         }
 
         $results = $this->calculateMetricMinMaxMeanValuesAtDepth($temporaryResults, 3);
-        Log::debug('Final audit values: ' . json_encode($results));
+        $this->logDebug('Final audit values: ' . json_encode($results));
 
         return $results;
     }
@@ -472,7 +501,7 @@ class Tasks extends BaseTasks
     private function storeResultsInDatabase(int $idSite, array $results)
     {
         if (!isset($results[$idSite])) {
-            Log::warning('Results for database storage is either empty or site results is not available');
+            $this->logWarning('Results for database storage is either empty or site results is not available');
 
             return;
         }
@@ -481,6 +510,11 @@ class Tasks extends BaseTasks
         $urls = array_keys($siteResult);
         $actionIdLookupTable = $this->getActionLookupTable($urls, 'id');
         $today = Date::factory('today')->getDatetime();
+
+        if ($this->isInDebugMode()) {
+            $this->logInfo('Skipping database storing of results');
+            return;
+        }
 
         $rowsInserted = 0;
         foreach ($siteResult as $url => $emulatedDevices) {
@@ -507,7 +541,7 @@ class Tasks extends BaseTasks
                 }
             }
         }
-        Log::debug('Stored ' . $rowsInserted . ' entries in database');
+        $this->logDebug('Stored ' . $rowsInserted . ' entries in database');
     }
 
     /**
@@ -545,8 +579,94 @@ class Tasks extends BaseTasks
         foreach ($actionInformation as $action) {
             $actionLookupTable[$action['hash']] = $action[$type];
         }
-        Log::debug('Action IDs lookup table with URLs: ' . json_encode([$actionLookupTable, $urls]));
+        $this->logDebug('Action IDs lookup table with URLs: ' . json_encode([$actionLookupTable, $urls]));
 
         return $actionLookupTable;
+    }
+
+    /**
+     * Returns log output.
+     *
+     * @return array
+     */
+    public function getLogOutput()
+    {
+        return $this->logOutput;
+    }
+
+    /**
+     * Sets debug mode to true.
+     *
+     * @return void
+     */
+    private function enableDebug()
+    {
+        $this->debugMode = true;
+    }
+
+    /**
+     * Returns whether in debug mode or not.
+     *
+     * @return bool
+     */
+    private function isInDebugMode()
+    {
+        return $this->debugMode;
+    }
+
+    /**
+     * Internal debug logging proxy method.
+     *
+     * @param string $message
+     * @return void
+     */
+    private function logDebug(string $message)
+    {
+        if ($this->isInDebugMode()) {
+            $this->logOutput[] = '[debug] ' . $message;
+        }
+        Log::debug($message);
+    }
+
+    /**
+     * Internal info logging proxy method.
+     *
+     * @param string $message
+     * @return void
+     */
+    private function logInfo(string $message)
+    {
+        if ($this->isInDebugMode()) {
+            $this->logOutput[] = '[info] ' . $message;
+        }
+        Log::info($message);
+    }
+
+    /**
+     * Internal warning logging proxy method.
+     *
+     * @param string $message
+     * @return void
+     */
+    private function logWarning(string $message)
+    {
+        if ($this->isInDebugMode()) {
+            $this->logOutput[] = '[warning] ' . $message;
+        }
+        Log::warning($message);
+    }
+
+    /**
+     * Internal error logging proxy method.
+     *
+     * @param string $message
+     * @return void
+     */
+    private function logError(string $message)
+    {
+        if ($this->isInDebugMode()) {
+            $this->logOutput[] = '[error] ' . $message;
+        }
+        Log::error($message);
     }
 }

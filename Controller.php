@@ -10,8 +10,10 @@ namespace Piwik\Plugins\PerformanceAudit;
 
 require PIWIK_INCLUDE_PATH . '/plugins/PerformanceAudit/vendor/autoload.php';
 
+use Exception;
 use Piwik\Plugin;
 use Piwik\Plugin\Controller as BaseController;
+use Piwik\Site;
 
 class Controller extends BaseController
 {
@@ -27,6 +29,46 @@ class Controller extends BaseController
         return $this->renderTemplate('version', [
             'pluginVersion' => $plugin->getVersion(),
             'pluginName' => $plugin->getPluginName()
+        ]);
+    }
+
+    /**
+     * Render plugin check page.
+     *
+     * @return string
+     * @throws Exception
+     */
+    public function pluginCheck()
+    {
+        return $this->renderTemplate('pluginCheck', [
+            'checkStartUrl' => (new Menu())->getUrlForAction('pluginCheckStart')
+        ]);
+    }
+
+    /**
+     * Start plugin check.
+     *
+     * @return string
+     * @throws Exception
+     */
+    public function pluginCheckStart()
+    {
+        $tasks = new Tasks();
+        foreach (Site::getSites() as $site) {
+            $tasks->auditSite((int) $site['idsite'], $debug = true);
+        }
+
+        $hasErrorInOutput = false;
+        $logOutput = array_map('trim', array_map('stripslashes', $tasks->getLogOutput()));
+        foreach ($logOutput as $logEntry) {
+            if (stristr($logEntry, '[error]') || stristr($logEntry, '[warning]')) {
+                $hasErrorInOutput = true;
+            }
+        }
+
+        return $this->renderTemplate('pluginChecked', [
+            'hasErrorInOutput' => $hasErrorInOutput,
+            'logOutput' => nl2br(implode("\n", $logOutput))
         ]);
     }
 }

@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.6
+- Bugfix: Fixes file require bug from previous release
+
 ## 1.0.5
 - Added: Possibility to check plugin audit functionality
 

@@ -1,7 +1,7 @@
 {
     "name": "PerformanceAudit",
     "description": "Daily performance audits of all your sites in Matomo.",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "theme": false,
     "require": {
         "php": ">=7.1.3",

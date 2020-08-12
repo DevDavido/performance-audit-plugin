@@ -1,0 +1,21 @@
+{% extends 'admin.twig' %}
+
+{% block content %}
+    <div class="piwik-content-intro">
+        <h2 class="ng-isolate-scope">
+            {{ 'PerformanceAudit_PluginCheck'|translate }}
+        </h2>
+    </div>
+
+    <div class="pluginsManagement card ng-isolate-scope">
+        <div class="card-content">
+            <h3>{{ 'PerformanceAudit_PluginCheckLogOutput'|translate }}</h3>
+            {% if hasErrorInOutput %}
+                <div class="alert alert-warning">{{ 'PerformanceAudit_PluginCheckHasErrors'|translate }}</div>
+            {% endif %}
+            <div class="performance-audit-log-output">
+                {{ logOutput|raw }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

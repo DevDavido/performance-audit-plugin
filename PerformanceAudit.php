@@ -37,7 +37,8 @@ class PerformanceAudit extends Plugin
     public function registerEvents()
     {
         return [
-            'Db.getTablesInstalled' => 'getTablesInstalled'
+            'Db.getTablesInstalled' => 'getTablesInstalled',
+            'AssetManager.getStylesheetFiles' => 'getStylesheetFiles'
         ];
     }
 
@@ -248,10 +249,22 @@ class PerformanceAudit extends Plugin
      * Register the new tables.
      *
      * @param array $tablesInstalled
+     * @retrun void
      */
     public function getTablesInstalled(&$tablesInstalled)
     {
         $tablesInstalled[] = Common::prefixTable('log_performance');
+    }
+
+    /**
+     * Sets array of required CSS files.
+     *
+     * @param array $cssFiles
+     * @retrun void
+     */
+    public function getStylesheetFiles(&$cssFiles)
+    {
+        $cssFiles[] = 'plugins/PerformanceAudit/stylesheets/pluginCheck.css';
     }
 
     /**

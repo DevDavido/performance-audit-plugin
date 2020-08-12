@@ -1,254 +1,267 @@
-[
-    {
-        "name": "ducks-project/spl-types",
-        "version": "v1.1.0",
-        "version_normalized": "1.1.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/ducks-project/spl-types.git",
-            "reference": "814f5b719fb39975321db0eaf66c4e0d2d93f53e"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/ducks-project/spl-types/zipball/814f5b719fb39975321db0eaf66c4e0d2d93f53e",
-            "reference": "814f5b719fb39975321db0eaf66c4e0d2d93f53e",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "time": "2019-03-06T13:11:02+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Ducks\\Component\\SplTypes\\": ""
+{
+    "packages": [
+        {
+            "name": "ducks-project/spl-types",
+            "version": "v1.1.0",
+            "version_normalized": "1.1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ducks-project/spl-types.git",
+                "reference": "814f5b719fb39975321db0eaf66c4e0d2d93f53e"
             },
-            "files": [
-                "bootstrap.php"
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ducks-project/spl-types/zipball/814f5b719fb39975321db0eaf66c4e0d2d93f53e",
+                "reference": "814f5b719fb39975321db0eaf66c4e0d2d93f53e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "time": "2019-03-06T13:11:02+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Ducks\\Component\\SplTypes\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ],
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
             ],
-            "exclude-from-classmap": [
-                "/Tests/"
-            ]
+            "authors": [
+                {
+                    "name": "Adrien Loyant",
+                    "email": "donald_duck@team-df.org",
+                    "homepage": "http://adrien.loyant.net",
+                    "role": "Owner"
+                }
+            ],
+            "description": "Polyfill Module for SplType PHP extension. This extension aims at helping people making PHP a stronger typed language and can be a good alternative to scalar type hinting. It provides different typehandling classes as such as integer, float, bool, enum and string",
+            "homepage": "https://github.com/ducks-project/spl-types/",
+            "keywords": [
+                "SplBool",
+                "SplFloat",
+                "SplInt",
+                "SplString",
+                "SplType",
+                "SplTypes",
+                "compat",
+                "enum",
+                "enumerator",
+                "php",
+                "polyfill",
+                "poo",
+                "splenum"
+            ],
+            "install-path": "../ducks-project/spl-types"
         },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Adrien Loyant",
-                "email": "donald_duck@team-df.org",
-                "homepage": "http://adrien.loyant.net",
-                "role": "Owner"
-            }
-        ],
-        "description": "Polyfill Module for SplType PHP extension. This extension aims at helping people making PHP a stronger typed language and can be a good alternative to scalar type hinting. It provides different typehandling classes as such as integer, float, bool, enum and string",
-        "homepage": "https://github.com/ducks-project/spl-types/",
-        "keywords": [
-            "SplBool",
-            "SplFloat",
-            "SplInt",
-            "SplString",
-            "SplType",
-            "SplTypes",
-            "compat",
-            "enum",
-            "enumerator",
-            "php",
-            "polyfill",
-            "poo",
-            "splenum"
-        ]
-    },
-    {
-        "name": "jeroen-g/lighthouse",
-        "version": "v0.2",
-        "version_normalized": "0.2.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Jeroen-G/lighthouse-php.git",
-            "reference": "9cabb6a857b1a9ccc537328956b4e0af2c370f9a"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Jeroen-G/lighthouse-php/zipball/9cabb6a857b1a9ccc537328956b4e0af2c370f9a",
-            "reference": "9cabb6a857b1a9ccc537328956b4e0af2c370f9a",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.5",
-            "symfony/process": "^4.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "^6.1|^7.0"
-        },
-        "time": "2019-01-25T12:14:39+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Dzava\\Lighthouse\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Dimitris Zavantias",
-                "email": "dzavantias@gmail.com"
-            }
-        ],
-        "description": "Interface for the Google Lighthouse project",
-        "homepage": "https://github.com/dzava/lighthouse-php",
-        "keywords": [
-            "lighthouse"
-        ]
-    },
-    {
-        "name": "symfony/polyfill-mbstring",
-        "version": "v1.18.0",
-        "version_normalized": "1.18.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/polyfill-mbstring.git",
-            "reference": "a6977d63bf9a0ad4c65cd352709e230876f9904a"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/a6977d63bf9a0ad4c65cd352709e230876f9904a",
-            "reference": "a6977d63bf9a0ad4c65cd352709e230876f9904a",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.3.3"
-        },
-        "suggest": {
-            "ext-mbstring": "For best performance"
-        },
-        "time": "2020-07-14T12:35:20+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.18-dev"
+        {
+            "name": "jeroen-g/lighthouse",
+            "version": "v0.2",
+            "version_normalized": "0.2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Jeroen-G/lighthouse-php.git",
+                "reference": "9cabb6a857b1a9ccc537328956b4e0af2c370f9a"
             },
-            "thanks": {
-                "name": "symfony/polyfill",
-                "url": "https://github.com/symfony/polyfill"
-            }
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Jeroen-G/lighthouse-php/zipball/9cabb6a857b1a9ccc537328956b4e0af2c370f9a",
+                "reference": "9cabb6a857b1a9ccc537328956b4e0af2c370f9a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5",
+                "symfony/process": "^4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.1|^7.0"
+            },
+            "time": "2019-01-25T12:14:39+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Dzava\\Lighthouse\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dimitris Zavantias",
+                    "email": "dzavantias@gmail.com"
+                }
+            ],
+            "description": "Interface for the Google Lighthouse project",
+            "homepage": "https://github.com/dzava/lighthouse-php",
+            "keywords": [
+                "lighthouse"
+            ],
+            "install-path": "../jeroen-g/lighthouse"
         },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Polyfill\\Mbstring\\": ""
+        {
+            "name": "symfony/polyfill-mbstring",
+            "version": "v1.18.1",
+            "version_normalized": "1.18.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-mbstring.git",
+                "reference": "a6977d63bf9a0ad4c65cd352709e230876f9904a"
             },
-            "files": [
-                "bootstrap.php"
-            ]
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/a6977d63bf9a0ad4c65cd352709e230876f9904a",
+                "reference": "a6977d63bf9a0ad4c65cd352709e230876f9904a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "suggest": {
+                "ext-mbstring": "For best performance"
+            },
+            "time": "2020-07-14T12:35:20+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.18-dev"
+                },
+                "thanks": {
+                    "name": "symfony/polyfill",
+                    "url": "https://github.com/symfony/polyfill"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Mbstring\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for the Mbstring extension",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "mbstring",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.18.1"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "install-path": "../symfony/polyfill-mbstring"
         },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Nicolas Grekas",
-                "email": "p@tchwork.com"
+        {
+            "name": "symfony/process",
+            "version": "v4.4.11",
+            "version_normalized": "4.4.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/process.git",
+                "reference": "65e70bab62f3da7089a8d4591fb23fbacacb3479"
             },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony polyfill for the Mbstring extension",
-        "homepage": "https://symfony.com",
-        "keywords": [
-            "compatibility",
-            "mbstring",
-            "polyfill",
-            "portable",
-            "shim"
-        ],
-        "funding": [
-            {
-                "url": "https://symfony.com/sponsor",
-                "type": "custom"
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/process/zipball/65e70bab62f3da7089a8d4591fb23fbacacb3479",
+                "reference": "65e70bab62f3da7089a8d4591fb23fbacacb3479",
+                "shasum": ""
             },
-            {
-                "url": "https://github.com/fabpot",
-                "type": "github"
+            "require": {
+                "php": ">=7.1.3"
             },
-            {
-                "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                "type": "tidelift"
-            }
-        ]
-    },
-    {
-        "name": "symfony/process",
-        "version": "v4.4.10",
-        "version_normalized": "4.4.10.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/symfony/process.git",
-            "reference": "c714958428a85c86ab97e3a0c96db4c4f381b7f5"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/symfony/process/zipball/c714958428a85c86ab97e3a0c96db4c4f381b7f5",
-            "reference": "c714958428a85c86ab97e3a0c96db4c4f381b7f5",
-            "shasum": ""
-        },
-        "require": {
-            "php": "^7.1.3"
-        },
-        "time": "2020-05-30T20:06:45+00:00",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "4.4-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Symfony\\Component\\Process\\": ""
+            "time": "2020-07-23T08:31:43+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.4-dev"
+                }
             },
-            "exclude-from-classmap": [
-                "/Tests/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Process\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
             },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
-            }
-        ],
-        "description": "Symfony Process Component",
-        "homepage": "https://symfony.com",
-        "funding": [
-            {
-                "url": "https://symfony.com/sponsor",
-                "type": "custom"
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Process Component",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/process/tree/4.4"
             },
-            {
-                "url": "https://github.com/fabpot",
-                "type": "github"
-            },
-            {
-                "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                "type": "tidelift"
-            }
-        ]
-    }
-]
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "install-path": "../symfony/process"
+        }
+    ],
+    "dev": false
+}

@@ -26,6 +26,18 @@ class Menu extends BaseMenu
      */
     public function configureAdminMenu(MenuAdmin $menu)
     {
-        $menu->addItem('PerformanceAudit_CoreAdminHome_MenuPerformance', 'PerformanceAudit_Version', $this->urlForAction('version'), $orderId = 4);
+        $menu->addItem('PerformanceAudit_CoreAdminHome_MenuPerformance', 'PerformanceAudit_PluginCheck', $this->urlForAction('pluginCheck'), $orderId = 4);
+        $menu->addItem('PerformanceAudit_CoreAdminHome_MenuPerformance', 'PerformanceAudit_Version', $this->urlForAction('version'), $orderId = 5);
+    }
+
+    /**
+     * Returns URL for action.
+     *
+     * @param string $name
+     * @return string
+     */
+    public function getUrlForAction(string $name)
+    {
+        return http_build_query($this->urlForActionWithDefaultUserParams($name));
     }
 }

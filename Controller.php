@@ -40,8 +40,21 @@ class Controller extends BaseController
      */
     public function pluginCheck()
     {
+        $plugin = new PerformanceAudit();
+
+        $error = '';
+        try {
+            $plugin->checkInternetAvailability();
+            $plugin->checkDirectoriesWriteable();
+            $plugin->checkNpm();
+            $plugin->checkNpmDependencies();
+        } catch (Exception $exception) {
+            $error = $exception->getMessage();
+        }
+
         return $this->renderTemplate('pluginCheck', [
-            'checkStartUrl' => (new Menu())->getUrlForAction('pluginCheckStart')
+            'checkStartUrl' => (new Menu())->getUrlForAction('pluginCheckStart'),
+            'error' => $error
         ]);
     }
 

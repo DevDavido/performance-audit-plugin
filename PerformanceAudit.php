@@ -120,7 +120,7 @@ class PerformanceAudit extends Plugin
      * @return void
      * @throws DirectoryNotWriteableException
      */
-    private function checkDirectoriesWriteable()
+    public function checkDirectoriesWriteable()
     {
         $directories = ['Audits', 'node_modules'];
         clearstatcache();
@@ -138,11 +138,26 @@ class PerformanceAudit extends Plugin
      * @return void
      * @throws DependencyUnexpectedResultException
      */
-    private function checkNpm()
+    public function checkNpm()
     {
         $npmVersion = $this->checkDependency('npm', ['-v']);
         if ($npmVersion < self::MINIMUM_NPM_VERSION) {
             throw new DependencyUnexpectedResultException('npm needs to be at least v' . self::MINIMUM_NPM_VERSION . ' but v' . $npmVersion . ' is installed instead.');
+        }
+    }
+
+    /**
+     * Check if Chrome is properly installed.
+     *
+     * @return void
+     * @throws DependencyUnexpectedResultException
+     */
+    public function checkNpmDependencies()
+    {
+        $lighthouse = new Lighthouse();
+        $chromeVersion = $this->checkDependency($lighthouse->getChromePath(), ['--version']);
+        if ($chromeVersion < self::MINIMUM_CHROME_VERSION) {
+            throw new DependencyUnexpectedResultException('Chrome needs to be at least v' . self::MINIMUM_CHROME_VERSION . ' but v' . $chromeVersion . ' is installed instead.');
         }
     }
 
@@ -188,21 +203,6 @@ class PerformanceAudit extends Plugin
         }
 
         return trim($process->getOutput());
-    }
-
-    /**
-     * Check if Chrome is properly installed.
-     *
-     * @return void
-     * @throws DependencyUnexpectedResultException
-     */
-    private function checkNpmDependencies()
-    {
-        $lighthouse = new Lighthouse();
-        $chromeVersion = $this->checkDependency($lighthouse->getChromePath(), ['--version']);
-        if ($chromeVersion < self::MINIMUM_CHROME_VERSION) {
-            throw new DependencyUnexpectedResultException('Chrome needs to be at least v' . self::MINIMUM_CHROME_VERSION . ' but v' . $chromeVersion . ' is installed instead.');
-        }
     }
 
     /**
@@ -282,7 +282,7 @@ class PerformanceAudit extends Plugin
      * @return void
      * @throws InternetUnavailableException
      */
-    private function checkInternetAvailability()
+    public function checkInternetAvailability()
     {
         if ($this->requiresInternetConnection() && !SettingsPiwik::isInternetEnabled()) {
             throw new InternetUnavailableException('Internet needs to be enabled in order to use this plugin.');

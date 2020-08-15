@@ -8,6 +8,10 @@
     margin-top: 0;
 }
 
+.pluginsManagement .card-content .alert.no-margin-bottom {
+    margin-bottom: 0;
+}
+
 .pluginsManagement .performance-audit-log-output {
     overflow-y: auto;
     max-height: 336px;

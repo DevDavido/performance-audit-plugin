@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.8
+- Improved: Refactored plugin base class, additionally removed now unneeded update classes
+- Fixed: Updates could remove Node dependencies which now get reinstalled (regression bug)
+- Fixed: Plugin cleanup now removes also symlinked directories
+
 ## 1.0.7
 - Improved: Plugin check is now also running pre-checks first
 - Improved: Plugin check is now independent of regular audit flow

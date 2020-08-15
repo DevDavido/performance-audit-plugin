@@ -32,6 +32,8 @@
         "Report_TotalBlockingTime_Documentation_Information": "total blocking time",
         "Report_CumulativeLayoutShift_Documentation_Information": "cumulative layout shift",
         "PluginCheck": "Plugin Check",
+        "PluginCheckAlertSystemIssue": "There is an issue with your system. The following error occurred:",
+        "PluginCheckAlertNoSystemIssues": "All plugin pre-checks were successful, no errors occurred. You can now start the actual plugin check with a click on the following button:",
         "PluginCheckStartButton": "Start plugin check",
         "PluginCheckStartButtonClicked": "Plugin check started, please wait up to 5 minutes...",
         "PluginCheckLogOutput": "Log Output",

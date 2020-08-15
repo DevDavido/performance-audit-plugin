@@ -63,7 +63,7 @@ If any errors occur during activation, please follow the instruction or informat
 For more screenshots, check out the [screenshot overview](/screenshots/OVERVIEW.md).
 
 ## Testing
-Run the tests with:
+Run the integration and unit tests with:
 
 ```shell
 ./console tests:run PerformanceAudit

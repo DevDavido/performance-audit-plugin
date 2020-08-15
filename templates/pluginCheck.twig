@@ -9,12 +9,24 @@
 
     <div class="pluginsManagement card ng-isolate-scope">
         <div class="card-content">
-            <div class="ng-isolate-scope">
-                <a href="?{{ checkStartUrl }}" class="btn" ng-click="toggle = true" ng-class="{ linkDisabled: toggle }">
-                    <span ng-show="toggle">{{ 'PerformanceAudit_PluginCheckStartButtonClicked'|translate }}</span>
-                    <span ng-hide="toggle">{{ 'PerformanceAudit_PluginCheckStartButton'|translate }}</span>
-                </a>
-            </div>
+            {% if error %}
+                <div class="alert alert-warning no-margin-bottom">
+                    {{ 'PerformanceAudit_PluginCheckAlertSystemIssue'|translate }}
+                    <br />
+                    {{ error }}
+                </div>
+            {% else %}
+                <div class="alert alert-success">
+                    {{ 'PerformanceAudit_PluginCheckAlertNoSystemIssues'|translate }}
+                </div>
+
+                <div class="ng-isolate-scope">
+                    <a href="?{{ checkStartUrl }}" class="btn" ng-click="toggle = true" ng-class="{ linkDisabled: toggle }">
+                        <span ng-show="toggle">{{ 'PerformanceAudit_PluginCheckStartButtonClicked'|translate }}</span>
+                        <span ng-hide="toggle">{{ 'PerformanceAudit_PluginCheckStartButton'|translate }}</span>
+                    </a>
+                </div>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

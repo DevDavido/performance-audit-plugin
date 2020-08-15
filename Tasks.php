@@ -87,7 +87,7 @@ class Tasks extends BaseTasks
             $this->logDebug('Debug mode enabled');
         }
 
-        if ($this->hasAnyTaskRunning()) {
+        if ($this->hasAnyTaskRunning() && !$this->isInDebugMode()) {
             $this->logInfo('A Performance Audit task is currently already running');
             return;
         }
@@ -103,8 +103,10 @@ class Tasks extends BaseTasks
 
         $this->logInfo('Performance Audit task for site ' . $idSite . ' will be started now');
         try {
-            $this->markTaskAsRunning();
-            $this->markTaskAsStartedToday($idSite);
+            if (!$this->isInDebugMode()) {
+                $this->markTaskAsRunning();
+                $this->markTaskAsStartedToday($idSite);
+            }
             $siteSettings = new MeasurableSettings($idSite);
 
             $runs = range(1, (int) $siteSettings->getSetting('run_count')->getValue());
@@ -125,7 +127,9 @@ class Tasks extends BaseTasks
         } catch (Exception $exception) {
             $this->logError($exception->getMessage());
         } finally {
-            $this->markTaskAsFinished();
+            if (!$this->isInDebugMode()) {
+                $this->markTaskAsFinished();
+            }
         }
         $this->logInfo('Performance Audit task for site ' . $idSite . ' has finished');
     }
@@ -309,12 +313,13 @@ class Tasks extends BaseTasks
 
                         self::getLighthouse($idSite)
                             ->setOutput(sprintf(
-                                '%s%s%d-%s-%s-%d.json',
+                                '%s%s%d-%s-%s-%s%d.json',
                                 __DIR__ . DIRECTORY_SEPARATOR,
                                 self::AUDIT_FOLDER . DIRECTORY_SEPARATOR,
                                 $idSite,
                                 $emulatedDevice,
                                 sha1($this->getUrlWithoutProtocolAndSubdomain($url, 'www')),
+                                ($this->isInDebugMode()) ? 'debug-' : '',
                                 $run
                             ))
                             ->setEmulatedDevice($emulatedDevice)
@@ -344,7 +349,11 @@ class Tasks extends BaseTasks
             ),
             function ($file) use ($idSite) {
                 $idSiteFile = intval(current(explode('-', $file->getFilename(), 2)));
-                return $file->getExtension() === 'json' && $idSiteFile === $idSite;
+                $isDebugFile = !!strstr($file->getFilename(), '-debug-');
+                // Match if both booleans are logical equal
+                $isInMatchingMode = !($this->isInDebugMode() XOR $isDebugFile);
+
+                return $file->getExtension() === 'json' && $idSiteFile === $idSite && $isInMatchingMode;
             }
         );
     }

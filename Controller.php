@@ -40,14 +40,15 @@ class Controller extends BaseController
      */
     public function pluginCheck()
     {
-        $plugin = new PerformanceAudit();
+        $installer = new NodeDependencyInstaller();
 
         $error = '';
         try {
-            $plugin->checkInternetAvailability();
-            $plugin->checkDirectoriesWriteable();
-            $plugin->checkNpm();
-            $plugin->checkNpmDependencies();
+            Helper::checkDirectoriesWriteable(['Audits', 'node_modules']);
+
+            $installer->checkInternetAvailability();
+            $installer->checkNpm();
+            $installer->checkNpmDependencies();
         } catch (Exception $exception) {
             $error = $exception->getMessage();
         }

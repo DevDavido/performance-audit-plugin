@@ -1,7 +1,13 @@
 # Changelog
 
+## 1.0.7
+- Improved: Plugin check is now also running pre-checks first
+- Improved: Plugin check is now independent of regular audit flow
+- Improved: Wording in README text regarding tests
+- Fixed: Updates could remove Node dependencies which now get reinstalled
+
 ## 1.0.6
-- Bugfix: Fixes file require bug from previous release
+- Fixed: Correct file require bug from previous release
 
 ## 1.0.5
 - Added: Possibility to check plugin audit functionality

@@ -26,7 +26,7 @@ class GetPerformanceLargestContentfulPaintMobile extends GetPerformanceBase
     {
         parent::init();
 
-        $this->name = 'PerformanceAudit_LargestContentfulPaint';
+        $this->name = Piwik::translate('PerformanceAudit_Report_Header_LargestContentfulPaint_Mobile');
         $this->subcategoryId = Piwik::translate('PerformanceAudit_SubCategory_LargestContentfulPaint');
         $this->documentation = Piwik::translate('PerformanceAudit_Report_Documentation', [
             Piwik::translate('PerformanceAudit_Report_LargestContentfulPaint_Documentation_Information'),

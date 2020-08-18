@@ -24,6 +24,7 @@ use Piwik\Plugins\PerformanceAudit\EmulatedDevice;
 use Piwik\Plugins\PerformanceAudit\MeasurableSettings;
 use Piwik\Report\ReportWidgetFactory;
 use Piwik\Widget\WidgetsList;
+use ReflectionClass;
 
 class GetPerformanceBase extends Report
 {
@@ -41,7 +42,9 @@ class GetPerformanceBase extends Report
      */
     protected function init()
     {
-        $this->checkIsEnabled();
+        if (!Common::getRequestVar('idSite', false)) {
+            return;
+        }
 
         $siteSettings = new MeasurableSettings(Common::getRequestVar('idSite'));
         $defaultMetrics = [
@@ -50,6 +53,7 @@ class GetPerformanceBase extends Report
             new MaxSeconds()
         ];
 
+        $this->name = 'PerformanceAudit_Base';
         $this->dimension = new PageUrl();
         $this->categoryId = Piwik::translate('PerformanceAudit_Category');
 
@@ -71,6 +75,13 @@ class GetPerformanceBase extends Report
      */
     public function isEnabled()
     {
+        if (!Common::getRequestVar('idSite', false)) {
+            return false;
+        }
+        // Disable report if initialised as instance of itself
+        if ((new ReflectionClass($this))->getShortName() === 'GetPerformanceBase') {
+            return false;
+        }
         $idSite = Common::getRequestVar('idSite');
 
         return Piwik::isUserHasViewAccess($idSite);
@@ -141,7 +152,7 @@ class GetPerformanceBase extends Report
         }
 
         $widget = $factory->createWidget()
-            ->setName('PerformanceAudit_Widget_Header_' . $widgetName . '_' . ucfirst(EmulatedDevice::Mobile))
+            ->setName('PerformanceAudit_Report_Header_' . $widgetName . '_' . ucfirst(EmulatedDevice::Mobile))
             ->setOrder(1);
 
         if ($hasWideWidget) {
@@ -169,7 +180,7 @@ class GetPerformanceBase extends Report
         }
 
         $widget = $factory->createWidget()
-            ->setName('PerformanceAudit_Widget_Header_' . $widgetName . '_' . ucfirst(EmulatedDevice::Desktop))
+            ->setName('PerformanceAudit_Report_Header_' . $widgetName . '_' . ucfirst(EmulatedDevice::Desktop))
             ->setOrder(2);
 
         if ($hasWideWidget) {

@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '0c62ee6ca3ec1f072d44df006a4ea31ce4b00b2b',
+    'reference' => 'f7885ec46b0728677584018e5402f57ee56c6caf',
     'name' => 'devdavido/performance-audit-plugin',
   ),
   'versions' => 
@@ -31,7 +31,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '0c62ee6ca3ec1f072d44df006a4ea31ce4b00b2b',
+      'reference' => 'f7885ec46b0728677584018e5402f57ee56c6caf',
     ),
     'ducks-project/spl-types' => 
     array (

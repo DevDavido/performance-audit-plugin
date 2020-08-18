@@ -26,7 +26,7 @@ class GetPerformanceInteractiveMobile extends GetPerformanceBase
     {
         parent::init();
 
-        $this->name = 'PerformanceAudit_Interactive';
+        $this->name = Piwik::translate('PerformanceAudit_Report_Header_Interactive_Mobile');
         $this->subcategoryId = Piwik::translate('PerformanceAudit_SubCategory_Interactive');
         $this->documentation = Piwik::translate('PerformanceAudit_Report_Documentation', [
             Piwik::translate('PerformanceAudit_Report_Interactive_Documentation_Information'),

@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.9
+- Fixed: Schedule Reports and mobile app threw exception due to missing name attribute
+
 ## 1.0.8
 - Improved: Refactored plugin base class, additionally removed now unneeded update classes
 - Fixed: Updates could remove Node dependencies which now get reinstalled (regression bug)

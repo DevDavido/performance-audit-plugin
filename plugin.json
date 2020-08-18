@@ -4,8 +4,8 @@
     "version": "1.0.9.1",
     "theme": false,
     "require": {
-        "php": ">=7.2.5",
-        "matomo": ">=4.0.0-b1,<5.0.0-b1"
+        "php": ">=7.1.3",
+        "piwik": ">=3.12.0,<4.0.0-b1"
     },
     "authors": [
         {

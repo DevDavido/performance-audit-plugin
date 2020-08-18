@@ -1,24 +1,24 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => 'dev-4.x-dev',
-    'version' => 'dev-4.x-dev',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => 'd50ba7ec7b0a4c414e658035ebfe31302309d348',
+    'reference' => 'f7885ec46b0728677584018e5402f57ee56c6caf',
     'name' => 'devdavido/performance-audit-plugin',
   ),
   'versions' => 
   array (
     'devdavido/performance-audit-plugin' => 
     array (
-      'pretty_version' => 'dev-4.x-dev',
-      'version' => 'dev-4.x-dev',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => 'd50ba7ec7b0a4c414e658035ebfe31302309d348',
+      'reference' => 'f7885ec46b0728677584018e5402f57ee56c6caf',
     ),
     'ducks-project/spl-types' => 
     array (

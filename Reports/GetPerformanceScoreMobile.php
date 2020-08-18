@@ -41,7 +41,7 @@ class GetPerformanceScoreMobile extends GetPerformanceBase
         $this->defaultSortColumn = (new MedianPercent())->getName();
         $this->defaultSortOrderDesc = false;
 
-        $this->name = 'PerformanceAudit_Score';
+        $this->name = Piwik::translate('PerformanceAudit_Report_Header_Score_Mobile');
         $this->subcategoryId = Piwik::translate('PerformanceAudit_SubCategory_Score');
         $this->documentation = Piwik::translate('PerformanceAudit_Report_Documentation', [
             Piwik::translate('PerformanceAudit_Report_Score_Documentation_Information'),

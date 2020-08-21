@@ -26,7 +26,7 @@ class GetPerformanceTotalBlockingTimeMobile extends GetPerformanceBase
     {
         parent::init();
 
-        $this->name = 'PerformanceAudit_TotalBlockingTime';
+        $this->name = Piwik::translate('PerformanceAudit_Report_Header_TotalBlockingTime_Mobile');
         $this->subcategoryId = Piwik::translate('PerformanceAudit_SubCategory_TotalBlockingTime');
         $this->documentation = Piwik::translate('PerformanceAudit_Report_Documentation', [
             Piwik::translate('PerformanceAudit_Report_TotalBlockingTime_Documentation_Information'),

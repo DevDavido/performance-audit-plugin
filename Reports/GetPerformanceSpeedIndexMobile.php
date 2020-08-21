@@ -26,7 +26,7 @@ class GetPerformanceSpeedIndexMobile extends GetPerformanceBase
     {
         parent::init();
 
-        $this->name = 'PerformanceAudit_SpeedIndex';
+        $this->name = Piwik::translate('PerformanceAudit_Report_Header_SpeedIndex_Mobile');
         $this->subcategoryId = Piwik::translate('PerformanceAudit_SubCategory_SpeedIndex');
         $this->documentation = Piwik::translate('PerformanceAudit_Report_Documentation', [
             Piwik::translate('PerformanceAudit_Report_SpeedIndex_Documentation_Information'),

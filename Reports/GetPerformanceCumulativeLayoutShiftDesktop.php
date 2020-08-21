@@ -26,7 +26,7 @@ class GetPerformanceCumulativeLayoutShiftDesktop extends GetPerformanceBase
     {
         parent::init();
 
-        $this->name = 'PerformanceAudit_CumulativeLayoutShift';
+        $this->name = Piwik::translate('PerformanceAudit_Report_Header_CumulativeLayoutShift_Desktop');
         $this->subcategoryId = Piwik::translate('PerformanceAudit_SubCategory_CumulativeLayoutShift');
         $this->documentation = Piwik::translate('PerformanceAudit_Report_Documentation', [
             Piwik::translate('PerformanceAudit_Report_CumulativeLayoutShift_Documentation_Information'),

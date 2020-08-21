@@ -71,6 +71,9 @@ Run the integration and unit tests with:
 ## Changelog
 Please see the [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
+## ToDo
+- Add support for [mobile Matomo app](https://matomo.org/mobile/).
+
 ## Contact
 If you have any questions or inquiries, you can contact `github {at} diskoboss {døt} de`.
 

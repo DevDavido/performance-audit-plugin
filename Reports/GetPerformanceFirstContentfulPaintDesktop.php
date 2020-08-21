@@ -26,7 +26,7 @@ class GetPerformanceFirstContentfulPaintDesktop extends GetPerformanceBase
     {
         parent::init();
 
-        $this->name = 'PerformanceAudit_FirstContentfulPaint';
+        $this->name = Piwik::translate('PerformanceAudit_Report_Header_FirstContentfulPaint_Desktop');
         $this->subcategoryId = Piwik::translate('PerformanceAudit_SubCategory_FirstContentfulPaint');
         $this->documentation = Piwik::translate('PerformanceAudit_Report_Documentation', [
             Piwik::translate('PerformanceAudit_Report_FirstContentfulPaint_Documentation_Information'),

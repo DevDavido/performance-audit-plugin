@@ -1,4 +1,7 @@
 # Changelog
+## 2.0.0-Beta2
+- Improved: Merged changes from 1.0.8 into 2.0.0-Beta2
+
 ## 2.0.0-Beta1
 - Added: Support for Matomo 4 🎉
 - Updated: Bumped the minimum PHP version to 7.2.5 for this new major plugin version, just as Matomo 4 itself

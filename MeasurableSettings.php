@@ -24,6 +24,9 @@ class MeasurableSettings extends BaseMeasurableSettings
     public $emulatedDevice;
 
     /** @var Setting */
+    public $hasUrlsWithoutQueryString;
+
+    /** @var Setting */
     public $hasExtraHttpHeader;
 
     /** @var Setting */
@@ -47,6 +50,7 @@ class MeasurableSettings extends BaseMeasurableSettings
 
         $this->runCount = $this->makeRunCountSetting();
         $this->emulatedDevice = $this->makeEmulatedDeviceSetting();
+        $this->hasUrlsWithoutQueryString = $this->makeHasUrlsWithoutQueryStringSetting();
         $this->hasExtraHttpHeader = $this->makeHasExtraHttpHeaderSetting();
         $this->extraHttpHeaderKey = $this->makeExtraHttpHeaderKeySetting();
         $this->extraHttpHeaderValue = $this->makeExtraHttpHeaderValueSetting();
@@ -100,6 +104,21 @@ class MeasurableSettings extends BaseMeasurableSettings
                     throw new ValidatorException(Piwik::translate('PerformanceAudit_ValidatorNotInSelect'));
                 }
             };
+        });
+    }
+
+    /**
+     * Create a grouped URLs setting.
+     *
+     * @return MeasurableSetting
+     * @throws ValidatorException|Exception
+     */
+    private function makeHasUrlsWithoutQueryStringSetting()
+    {
+        return $this->makeSetting('has_urls_without_query_string', false, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
+            $field->title = Piwik::translate('PerformanceAudit_Settings_HasUrlsWithoutQueryString_Title');
+            $field->inlineHelp = Piwik::translate('PerformanceAudit_Settings_HasUrlsWithoutQueryString_Help');
+            $field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;
         });
     }
 
@@ -176,5 +195,35 @@ class MeasurableSettings extends BaseMeasurableSettings
                 }
             };
         });
+    }
+
+    /**
+     * Returns array of runs of site.
+     *
+     * @return array
+     */
+    public function getRuns()
+    {
+        return range(1, (int) $this->getSetting('run_count')->getValue());
+    }
+
+    /**
+     * Returns list of emulated devices of site.
+     *
+     * @return array
+     */
+    public function getEmulatedDevicesList()
+    {
+        return EmulatedDevice::getList($this->getSetting('emulated_device')->getValue());
+    }
+
+    /**
+     * Returns if site has URLs without query strings for site.
+     *
+     * @return bool
+     */
+    public function hasUrlsWithoutQueryString()
+    {
+        return $this->getSetting('has_urls_without_query_string')->getValue();
     }
 }

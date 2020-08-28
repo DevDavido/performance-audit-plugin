@@ -109,8 +109,12 @@ class Tasks extends BaseTasks
             }
             $siteSettings = new MeasurableSettings($idSite);
 
-            $runs = range(1, (int) $siteSettings->getSetting('run_count')->getValue());
-            $emulatedDevices = EmulatedDevice::getList($siteSettings->getSetting('emulated_device')->getValue());
+            $runs = $siteSettings->getRuns();
+            $emulatedDevices = $siteSettings->getEmulatedDevicesList();
+
+            if ($siteSettings->hasUrlsWithoutQueryString()) {
+                $this->removeQueryStrings($urls);
+            }
 
             if ($this->isInDebugMode()) {
                 $urls = [array_shift($urls)];
@@ -285,8 +289,35 @@ class Tasks extends BaseTasks
                 }
             }
         }
+        $this->removeUrlDuplicates($urls);
 
-        return array_values(array_unique($urls, SORT_STRING));
+        return $urls;
+    }
+
+    /**
+     * Remove query string from each url.
+     *
+     * @param array $urls
+     * @return void
+     */
+    private function removeQueryStrings(array &$urls)
+    {
+        foreach ($urls as $key => $url) {
+            $urls[$key] = current(explode('?', $url, 2));
+        }
+
+        $this->removeUrlDuplicates($urls);
+    }
+
+    /**
+     * Remove url duplicates.
+     *
+     * @param array $urls
+     * @return void
+     */
+    private function removeUrlDuplicates(array &$urls)
+    {
+        $urls = array_values(array_unique($urls, SORT_STRING));
     }
 
     /**

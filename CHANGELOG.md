@@ -3,6 +3,10 @@
 - Added: Support for Matomo 4 🎉
 - Updated: Bumped the minimum PHP version to 7.2.5 for this new major plugin version, just as Matomo 4 itself
 
+## 1.0.11
+- Added: Option to remove query strings from audited URLs
+- Improved: Small refactoring in settings
+
 ## 1.0.10
 - Fixed: Issue with previous release as version number was incompatible with plugin marketplace
 

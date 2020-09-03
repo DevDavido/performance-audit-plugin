@@ -77,6 +77,7 @@ class ComposerStaticInit98dde460e8a16c8877d8f8d8a8e6921c
         'Piwik\\Plugins\\PerformanceAudit\\EmulatedDevice' => __DIR__ . '/../..' . '/EmulatedDevice.php',
         'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\AuditFailedException' => __DIR__ . '/../..' . '/Exceptions/AuditFailedException.php',
         'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\DependencyMissingException' => __DIR__ . '/../..' . '/Exceptions/DependencyMissingException.php',
+        'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\DependencyNpmMisconfigurationException' => __DIR__ . '/../..' . '/Exceptions/DependencyNpmMisconfigurationException.php',
         'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\DependencyOfChromeMissingException' => __DIR__ . '/../..' . '/Exceptions/DependencyOfChromeMissingException.php',
         'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\DependencyUnexpectedResultException' => __DIR__ . '/../..' . '/Exceptions/DependencyUnexpectedResultException.php',
         'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\DirectoryNotWriteableException' => __DIR__ . '/../..' . '/Exceptions/DirectoryNotWriteableException.php',

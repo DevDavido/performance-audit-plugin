@@ -39,6 +39,7 @@ return array(
     'Piwik\\Plugins\\PerformanceAudit\\EmulatedDevice' => $baseDir . '/EmulatedDevice.php',
     'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\AuditFailedException' => $baseDir . '/Exceptions/AuditFailedException.php',
     'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\DependencyMissingException' => $baseDir . '/Exceptions/DependencyMissingException.php',
+    'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\DependencyNpmMisconfigurationException' => $baseDir . '/Exceptions/DependencyNpmMisconfigurationException.php',
     'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\DependencyOfChromeMissingException' => $baseDir . '/Exceptions/DependencyOfChromeMissingException.php',
     'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\DependencyUnexpectedResultException' => $baseDir . '/Exceptions/DependencyUnexpectedResultException.php',
     'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\DirectoryNotWriteableException' => $baseDir . '/Exceptions/DirectoryNotWriteableException.php',

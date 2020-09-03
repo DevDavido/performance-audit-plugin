@@ -25,7 +25,9 @@ use Piwik\Option;
 use Piwik\Piwik;
 use Piwik\Plugin\Tasks as BaseTasks;
 use Piwik\Plugins\PerformanceAudit\Columns\Metrics\Audit;
+use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedAuthoriseRefusedException;
 use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedException;
+use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedNotFoundException;
 use Piwik\Site;
 use Piwik\Tracker\Action;
 use Piwik\Tracker\Db\DbException;
@@ -355,6 +357,8 @@ class Tasks extends BaseTasks
                             ))
                             ->setEmulatedDevice($emulatedDevice)
                             ->audit($url);
+                    } catch (AuditFailedAuthoriseRefusedException | AuditFailedNotFoundException $exception) {
+                        $this->logWarning($exception->getMessage());
                     } catch (AuditFailedException $exception) {
                         $this->logError($exception->getMessage());
                     }

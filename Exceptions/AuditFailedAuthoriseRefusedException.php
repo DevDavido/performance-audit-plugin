@@ -10,7 +10,9 @@ namespace Piwik\Plugins\PerformanceAudit\Exceptions;
 
 require PIWIK_INCLUDE_PATH . '/plugins/PerformanceAudit/vendor/autoload.php';
 
-class AuditFailedAuthoriseRefusedException extends AuditFailedException
+use Exception;
+
+class AuditFailedAuthoriseRefusedException extends Exception
 {
     /**
      * AuditFailedAuthoriseRefusedException constructor.

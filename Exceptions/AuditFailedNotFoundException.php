@@ -10,7 +10,9 @@ namespace Piwik\Plugins\PerformanceAudit\Exceptions;
 
 require PIWIK_INCLUDE_PATH . '/plugins/PerformanceAudit/vendor/autoload.php';
 
-class AuditFailedNotFoundException extends AuditFailedException
+use Exception;
+
+class AuditFailedNotFoundException extends Exception
 {
     /**
      * AuditFailedNotFoundException constructor.

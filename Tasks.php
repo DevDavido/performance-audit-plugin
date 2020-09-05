@@ -103,6 +103,9 @@ class Tasks extends BaseTasks
             return;
         }
 
+        $this->setDatabaseTimeoutConfiguration();
+        $this->logInfo('Database timeout configuration: ' . json_encode($this->getDatabaseTimeoutConfiguration()));
+
         $this->logInfo('Performance Audit task for site ' . $idSite . ' will be started now');
         try {
             if (!$this->isInDebugMode()) {
@@ -320,6 +323,30 @@ class Tasks extends BaseTasks
     private function removeUrlDuplicates(array &$urls)
     {
         $urls = array_values(array_unique($urls, SORT_STRING));
+    }
+
+    /**
+     * Set timeout configuration of the current database connection.
+     *
+     * @return void
+     * @throws Exception
+     */
+    private function setDatabaseTimeoutConfiguration()
+    {
+        // Set timeouts to maximum 1 week
+        Db::get()->exec('SET SESSION wait_timeout=604800;');
+        Db::get()->exec('SET SESSION interactive_timeout=604800;');
+    }
+
+    /**
+     * Return timeout configuration of the database.
+     *
+     * @return array
+     * @throws DbException
+     */
+    private function getDatabaseTimeoutConfiguration()
+    {
+        return Db::get()->fetchAll('SHOW VARIABLES LIKE "%timeout%"');
     }
 
     /**

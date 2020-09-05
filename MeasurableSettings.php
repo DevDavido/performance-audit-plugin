@@ -46,7 +46,7 @@ class MeasurableSettings extends BaseMeasurableSettings
      */
     protected function init()
     {
-        Piwik::checkUserHasSomeAdminAccess();
+        Piwik::checkUserHasSomeViewAccess();
 
         $this->runCount = $this->makeRunCountSetting();
         $this->emulatedDevice = $this->makeEmulatedDeviceSetting();

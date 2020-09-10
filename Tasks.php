@@ -25,7 +25,9 @@ use Piwik\Option;
 use Piwik\Piwik;
 use Piwik\Plugin\Tasks as BaseTasks;
 use Piwik\Plugins\PerformanceAudit\Columns\Metrics\Audit;
+use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedAuthoriseRefusedException;
 use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedException;
+use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedNotFoundException;
 use Piwik\Site;
 use Piwik\Tracker\Action;
 use Piwik\Tracker\Db\DbException;
@@ -101,6 +103,9 @@ class Tasks extends BaseTasks
             return;
         }
 
+        $this->setDatabaseTimeoutConfiguration();
+        $this->logInfo('Database timeout configuration: ' . json_encode($this->getDatabaseTimeoutConfiguration()));
+
         $this->logInfo('Performance Audit task for site ' . $idSite . ' will be started now');
         try {
             if (!$this->isInDebugMode()) {
@@ -112,8 +117,8 @@ class Tasks extends BaseTasks
             $runs = $siteSettings->getRuns();
             $emulatedDevices = $siteSettings->getEmulatedDevicesList();
 
-            if ($siteSettings->hasUrlsWithoutQueryString()) {
-                $this->removeQueryStrings($urls);
+            if ($siteSettings->hasGroupedUrls()) {
+                $this->groupUrlsByPath($urls);
             }
 
             if ($this->isInDebugMode()) {
@@ -295,16 +300,24 @@ class Tasks extends BaseTasks
     }
 
     /**
-     * Remove query string from each url.
+     * Group by path and remove duplicates of URLs
+     * which only differ in their query strings.
      *
      * @param array $urls
      * @return void
      */
-    private function removeQueryStrings(array &$urls)
+    private function groupUrlsByPath(array &$urls)
     {
         foreach ($urls as $key => $url) {
-            $urls[$key] = current(explode('?', $url, 2));
+            $urlBase = current(explode('?', $url, 2));
+            // Remove any URLs which differ only by query string
+            // by setting URL base as key and assign actual URL as value
+            $urls[$urlBase] = $url;
+            // Remove old entry by key
+            unset($urls[$key]);
         }
+        // Reset keys
+        $urls = array_values($urls);
 
         $this->removeUrlDuplicates($urls);
     }
@@ -318,6 +331,30 @@ class Tasks extends BaseTasks
     private function removeUrlDuplicates(array &$urls)
     {
         $urls = array_values(array_unique($urls, SORT_STRING));
+    }
+
+    /**
+     * Set timeout configuration of the current database connection.
+     *
+     * @return void
+     * @throws Exception
+     */
+    private function setDatabaseTimeoutConfiguration()
+    {
+        // Set timeouts to maximum 1 week
+        Db::get()->exec('SET SESSION wait_timeout=604800;');
+        Db::get()->exec('SET SESSION interactive_timeout=604800;');
+    }
+
+    /**
+     * Return timeout configuration of the database.
+     *
+     * @return array
+     * @throws DbException
+     */
+    private function getDatabaseTimeoutConfiguration()
+    {
+        return Db::get()->fetchAll('SHOW VARIABLES LIKE "%timeout%"');
     }
 
     /**
@@ -355,6 +392,8 @@ class Tasks extends BaseTasks
                             ))
                             ->setEmulatedDevice($emulatedDevice)
                             ->audit($url);
+                    } catch (AuditFailedAuthoriseRefusedException | AuditFailedNotFoundException $exception) {
+                        $this->logWarning($exception->getMessage());
                     } catch (AuditFailedException $exception) {
                         $this->logError($exception->getMessage());
                     }
@@ -560,6 +599,11 @@ class Tasks extends BaseTasks
         foreach ($siteResult as $url => $emulatedDevices) {
             foreach ($emulatedDevices as $emulatedDevice => $metrics) {
                 foreach ($metrics as $key => $values) {
+                    // Skip URL without an entry in lookup table
+                    if (!isset($actionIdLookupTable[$url])) {
+                        $this->logWarning('Entry for the following hashed URL in lookup table is missing: ' . $url);
+                        continue;
+                    }
                     [$min, $median, $max] = $values;
 
                     $result = Db::get()->query('

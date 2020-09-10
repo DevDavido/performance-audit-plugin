@@ -11,7 +11,9 @@ namespace Piwik\Plugins\PerformanceAudit;
 require PIWIK_INCLUDE_PATH . '/plugins/PerformanceAudit/vendor/autoload.php';
 
 use Dzava\Lighthouse\Lighthouse as BaseLighthouse;
+use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedAuthoriseRefusedException;
 use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedException;
+use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedNotFoundException;
 use Piwik\Plugins\PerformanceAudit\Exceptions\DependencyMissingException;
 use Piwik\Plugins\PerformanceAudit\Exceptions\DependencyUnexpectedResultException;
 use UnexpectedValueException;
@@ -38,7 +40,7 @@ class Lighthouse extends BaseLighthouse
      *
      * @param string $url
      * @return string
-     * @throws AuditFailedException
+     * @throws AuditFailedAuthoriseRefusedException|AuditFailedNotFoundException|AuditFailedException
      */
     public function audit($url)
     {
@@ -49,7 +51,7 @@ class Lighthouse extends BaseLighthouse
         $process->setTimeout($this->timeout)->run();
 
         if (!$process->isSuccessful()) {
-            throw new AuditFailedException($url, $process->getErrorOutput());
+            $this->throwAuditException($url, $process->getErrorOutput());
         }
 
         return $process->getOutput();
@@ -146,6 +148,19 @@ class Lighthouse extends BaseLighthouse
     }
 
     /**
+     * Enable audit.
+     *
+     * @param string $audit
+     * @return self
+     */
+    public function enableAudit($audit)
+    {
+        $this->setAudit($audit, true);
+
+        return $this;
+    }
+
+    /**
      * Creates the config file used during the audit.
      *
      * @return self
@@ -191,15 +206,21 @@ class Lighthouse extends BaseLighthouse
     }
 
     /**
-     * Enable audit.
+     * Throw an corresponding exception if audit fails.
      *
-     * @param string $audit
-     * @return self
+     * @param string $url
+     * @param string $errorOutput
+     * @return void
+     * @throws AuditFailedAuthoriseRefusedException|AuditFailedNotFoundException|AuditFailedException
      */
-    public function enableAudit($audit)
+    protected function throwAuditException($url, $errorOutput)
     {
-        $this->setAudit($audit, true);
+        if (stristr($errorOutput, 'Status code: 403')) {
+            throw new AuditFailedAuthoriseRefusedException($url, $errorOutput);
+        } elseif (stristr($errorOutput, 'Status code: 404')) {
+            throw new AuditFailedNotFoundException($url, $errorOutput);
+        }
 
-        return $this;
+        throw new AuditFailedException($url, $errorOutput);
     }
 }

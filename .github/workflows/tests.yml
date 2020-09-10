@@ -16,7 +16,7 @@ jobs:
             matrix:
                 php-versions: ['7.1']
                 #php-versions: ['7.1', '7.2', '7.3', '7.4', '8.0']
-                matomo-versions: ['3.12.0', '3.13.6']
+                matomo-versions: ['3.12.0', '3.14.0']
                 node-version: [12.x]
                 #node-version: [10.x, 12.x]
 
@@ -57,7 +57,7 @@ jobs:
                   cd matomo
                   git fetch --all
                   git submodule update
-                  git checkout -q tags/${{ matrix.matomo-versions }}
+                  git checkout -f -q tags/${{ matrix.matomo-versions }}
                   [ -d ./tests/travis/.git ] || sh -c "rm -rf ./tests/travis && git clone https://github.com/matomo-org/travis-scripts.git ./tests/travis"
                   cd ./tests/travis
                   git checkout master

@@ -3,6 +3,16 @@
 - Added: Support for Matomo 4 🎉
 - Updated: Bumped the minimum PHP version to 7.2.5 for this new major plugin version, just as Matomo 4 itself
 
+## 1.1.0
+- Fixed: Regular users cannot login anymore if plugin is activated
+- Fixed: Renamed and fixed option to remove query strings from audited URLs which is now named group URLs and it doesn't throw SQL warnings anymore in certain (edge) cases
+- Improved: Added security information for applied no sandbox mode of Chromium
+- Improved: Increase database connection timeouts for longer running site audits
+- Improved: Increase timeout for (audit) processes to 5 minutes
+- Improved: Throw warning instead error for audited pages with HTTP 403 / 404 response
+- Improved: Added FAQ entry for missing Chromium dependencies
+- Improved: Error message during installation if directory permissions are incorrect
+
 ## 1.0.11
 - Added: Option to remove query strings from audited URLs
 - Improved: Small refactoring in settings

@@ -24,7 +24,7 @@ class MeasurableSettings extends BaseMeasurableSettings
     public $emulatedDevice;
 
     /** @var Setting */
-    public $hasUrlsWithoutQueryString;
+    public $hasGroupedUrls;
 
     /** @var Setting */
     public $hasExtraHttpHeader;
@@ -46,11 +46,11 @@ class MeasurableSettings extends BaseMeasurableSettings
      */
     protected function init()
     {
-        Piwik::checkUserHasSomeAdminAccess();
+        Piwik::checkUserHasSomeViewAccess();
 
         $this->runCount = $this->makeRunCountSetting();
         $this->emulatedDevice = $this->makeEmulatedDeviceSetting();
-        $this->hasUrlsWithoutQueryString = $this->makeHasUrlsWithoutQueryStringSetting();
+        $this->hasGroupedUrls = $this->makeHasGroupedUrlsSetting();
         $this->hasExtraHttpHeader = $this->makeHasExtraHttpHeaderSetting();
         $this->extraHttpHeaderKey = $this->makeExtraHttpHeaderKeySetting();
         $this->extraHttpHeaderValue = $this->makeExtraHttpHeaderValueSetting();
@@ -113,11 +113,11 @@ class MeasurableSettings extends BaseMeasurableSettings
      * @return MeasurableSetting
      * @throws ValidatorException|Exception
      */
-    private function makeHasUrlsWithoutQueryStringSetting()
+    private function makeHasGroupedUrlsSetting()
     {
-        return $this->makeSetting('has_urls_without_query_string', false, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
-            $field->title = Piwik::translate('PerformanceAudit_Settings_HasUrlsWithoutQueryString_Title');
-            $field->inlineHelp = Piwik::translate('PerformanceAudit_Settings_HasUrlsWithoutQueryString_Help');
+        return $this->makeSetting('has_grouped_urls', false, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
+            $field->title = Piwik::translate('PerformanceAudit_Settings_HasGroupedUrls_Title');
+            $field->inlineHelp = Piwik::translate('PerformanceAudit_Settings_HasGroupedUrls_Help');
             $field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;
         });
     }
@@ -218,12 +218,12 @@ class MeasurableSettings extends BaseMeasurableSettings
     }
 
     /**
-     * Returns if site has URLs without query strings for site.
+     * Returns if site has grouped URLs for site.
      *
      * @return bool
      */
-    public function hasUrlsWithoutQueryString()
+    public function hasGroupedUrls()
     {
-        return $this->getSetting('has_urls_without_query_string')->getValue();
+        return $this->getSetting('has_grouped_urls')->getValue();
     }
 }

@@ -15,3 +15,7 @@ You need to wait at least 24h until the reports are getting generated in the bac
 __I want to use a custom HTTP header for authentication, so the audit plugin can access my protected pages, how do I do that?__
 
 Under `General Settings` > `Websites` > `Manage` click on the edit button of the site you want to change the setting of and scroll to the checkbox `Use Custom HTTP header` and activate it in order to change the HTTP header key and its value. The audit tool will send then the entered header value paired with the selected header key to the server with every request.
+
+__The plugin cannot install because Chromium cannot be installed due to a missing library?__
+
+Make sure [all necessary dependencies](https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#chrome-headless-doesnt-launch-on-unix) for Chromium are installed.

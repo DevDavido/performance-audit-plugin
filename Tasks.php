@@ -117,8 +117,8 @@ class Tasks extends BaseTasks
             $runs = $siteSettings->getRuns();
             $emulatedDevices = $siteSettings->getEmulatedDevicesList();
 
-            if ($siteSettings->hasUrlsWithoutQueryString()) {
-                $this->removeQueryStrings($urls);
+            if ($siteSettings->hasGroupedUrls()) {
+                $this->groupUrlsByPath($urls);
             }
 
             if ($this->isInDebugMode()) {
@@ -300,16 +300,24 @@ class Tasks extends BaseTasks
     }
 
     /**
-     * Remove query string from each url.
+     * Group by path and remove duplicates of URLs
+     * which only differ in their query strings.
      *
      * @param array $urls
      * @return void
      */
-    private function removeQueryStrings(array &$urls)
+    private function groupUrlsByPath(array &$urls)
     {
         foreach ($urls as $key => $url) {
-            $urls[$key] = current(explode('?', $url, 2));
+            $urlBase = current(explode('?', $url, 2));
+            // Remove any URLs which differ only by query string
+            // by setting URL base as key and assign actual URL as value
+            $urls[$urlBase] = $url;
+            // Remove old entry by key
+            unset($urls[$key]);
         }
+        // Reset keys
+        $urls = array_values($urls);
 
         $this->removeUrlDuplicates($urls);
     }
@@ -591,6 +599,11 @@ class Tasks extends BaseTasks
         foreach ($siteResult as $url => $emulatedDevices) {
             foreach ($emulatedDevices as $emulatedDevice => $metrics) {
                 foreach ($metrics as $key => $values) {
+                    // Skip URL without an entry in lookup table
+                    if (!isset($actionIdLookupTable[$url])) {
+                        $this->logWarning('Entry for the following hashed URL in lookup table is missing: ' . $url);
+                        continue;
+                    }
                     [$min, $median, $max] = $values;
 
                     $result = Db::get()->query('

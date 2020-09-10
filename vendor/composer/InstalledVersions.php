@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'f7885ec46b0728677584018e5402f57ee56c6caf',
+    'reference' => '7bdc4c0854dc063ec552a639d3d1c71da2720f19',
     'name' => 'devdavido/performance-audit-plugin',
   ),
   'versions' => 
@@ -31,7 +31,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'f7885ec46b0728677584018e5402f57ee56c6caf',
+      'reference' => '7bdc4c0854dc063ec552a639d3d1c71da2720f19',
     ),
     'ducks-project/spl-types' => 
     array (
@@ -62,8 +62,8 @@ private static $installed = array (
     ),
     'symfony/process' => 
     array (
-      'pretty_version' => 'v4.4.11',
-      'version' => '4.4.11.0',
+      'pretty_version' => 'v4.4.13',
+      'version' => '4.4.13.0',
       'aliases' => 
       array (
       ),

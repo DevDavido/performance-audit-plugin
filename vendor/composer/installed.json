@@ -195,8 +195,8 @@
         },
         {
             "name": "symfony/process",
-            "version": "v4.4.11",
-            "version_normalized": "4.4.11.0",
+            "version": "v4.4.13",
+            "version_normalized": "4.4.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
@@ -244,7 +244,7 @@
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/process/tree/4.4"
+                "source": "https://github.com/symfony/process/tree/v4.4.12"
             },
             "funding": [
                 {

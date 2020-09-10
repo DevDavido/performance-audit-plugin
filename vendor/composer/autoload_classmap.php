@@ -71,6 +71,7 @@ return array(
     'Piwik\\Plugins\\PerformanceAudit\\Reports\\GetPerformanceTotalBlockingTimeDesktop' => $baseDir . '/Reports/GetPerformanceTotalBlockingTimeDesktop.php',
     'Piwik\\Plugins\\PerformanceAudit\\Reports\\GetPerformanceTotalBlockingTimeMobile' => $baseDir . '/Reports/GetPerformanceTotalBlockingTimeMobile.php',
     'Piwik\\Plugins\\PerformanceAudit\\Tasks' => $baseDir . '/Tasks.php',
+    'Piwik\\Plugins\\PerformanceAudit\\Updates_1_1_0' => $baseDir . '/Updates/1.1.0.php',
     'Piwik\\Plugins\\PerformanceAudit\\tests\\Integration\\ApiTest' => $baseDir . '/tests/Integration/ApiTest.php',
     'Piwik\\Plugins\\PerformanceAudit\\tests\\Integration\\PerformanceAuditIntegrationTest' => $baseDir . '/tests/Integration/PerformanceAuditIntegrationTest.php',
     'Piwik\\Plugins\\PerformanceAudit\\tests\\Unit\\Filter\\AuditScoreClassifierTest' => $baseDir . '/tests/Unit/Filter/AuditScoreClassifierTest.php',

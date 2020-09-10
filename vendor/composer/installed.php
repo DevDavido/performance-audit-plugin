@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '7bdc4c0854dc063ec552a639d3d1c71da2720f19',
+    'reference' => '674a5e8d09a059e62bda1ab8ad1cdadb3b2603a0',
     'name' => 'devdavido/performance-audit-plugin',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '7bdc4c0854dc063ec552a639d3d1c71da2720f19',
+      'reference' => '674a5e8d09a059e62bda1ab8ad1cdadb3b2603a0',
     ),
     'ducks-project/spl-types' => 
     array (

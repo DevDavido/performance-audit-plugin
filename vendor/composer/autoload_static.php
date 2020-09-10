@@ -109,6 +109,7 @@ class ComposerStaticInit98dde460e8a16c8877d8f8d8a8e6921c
         'Piwik\\Plugins\\PerformanceAudit\\Reports\\GetPerformanceTotalBlockingTimeDesktop' => __DIR__ . '/../..' . '/Reports/GetPerformanceTotalBlockingTimeDesktop.php',
         'Piwik\\Plugins\\PerformanceAudit\\Reports\\GetPerformanceTotalBlockingTimeMobile' => __DIR__ . '/../..' . '/Reports/GetPerformanceTotalBlockingTimeMobile.php',
         'Piwik\\Plugins\\PerformanceAudit\\Tasks' => __DIR__ . '/../..' . '/Tasks.php',
+        'Piwik\\Plugins\\PerformanceAudit\\Updates_1_1_0' => __DIR__ . '/../..' . '/Updates/1.1.0.php',
         'Piwik\\Plugins\\PerformanceAudit\\tests\\Integration\\ApiTest' => __DIR__ . '/../..' . '/tests/Integration/ApiTest.php',
         'Piwik\\Plugins\\PerformanceAudit\\tests\\Integration\\PerformanceAuditIntegrationTest' => __DIR__ . '/../..' . '/tests/Integration/PerformanceAuditIntegrationTest.php',
         'Piwik\\Plugins\\PerformanceAudit\\tests\\Unit\\Filter\\AuditScoreClassifierTest' => __DIR__ . '/../..' . '/tests/Unit/Filter/AuditScoreClassifierTest.php',

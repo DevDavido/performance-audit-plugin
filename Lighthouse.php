@@ -13,9 +13,13 @@ require PIWIK_INCLUDE_PATH . '/plugins/PerformanceAudit/vendor/autoload.php';
 use Dzava\Lighthouse\Lighthouse as BaseLighthouse;
 use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedAuthoriseRefusedException;
 use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedException;
+use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedMethodNotAllowedException;
 use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedNotFoundException;
 use Piwik\Plugins\PerformanceAudit\Exceptions\DependencyMissingException;
 use Piwik\Plugins\PerformanceAudit\Exceptions\DependencyUnexpectedResultException;
+use Symfony\Component\Process\Exception\ProcessSignaledException;
+use Symfony\Component\Process\Exception\ProcessTimedOutException;
+use Symfony\Component\Process\Exception\RuntimeException;
 use UnexpectedValueException;
 
 class Lighthouse extends BaseLighthouse
@@ -40,7 +44,9 @@ class Lighthouse extends BaseLighthouse
      *
      * @param string $url
      * @return string
-     * @throws AuditFailedAuthoriseRefusedException|AuditFailedNotFoundException|AuditFailedException
+     * @throws AuditFailedAuthoriseRefusedException|AuditFailedNotFoundException
+     * @throws AuditFailedMethodNotAllowedException|AuditFailedException
+     * @throws RuntimeException|ProcessTimedOutException|ProcessSignaledException
      */
     public function audit($url)
     {
@@ -211,7 +217,8 @@ class Lighthouse extends BaseLighthouse
      * @param string $url
      * @param string $errorOutput
      * @return void
-     * @throws AuditFailedAuthoriseRefusedException|AuditFailedNotFoundException|AuditFailedException
+     * @throws AuditFailedAuthoriseRefusedException|AuditFailedNotFoundException
+     * @throws AuditFailedMethodNotAllowedException|AuditFailedException
      */
     protected function throwAuditException($url, $errorOutput)
     {
@@ -219,6 +226,8 @@ class Lighthouse extends BaseLighthouse
             throw new AuditFailedAuthoriseRefusedException($url, $errorOutput);
         } elseif (stristr($errorOutput, 'Status code: 404')) {
             throw new AuditFailedNotFoundException($url, $errorOutput);
+        } elseif (stristr($errorOutput, 'Status code: 405')) {
+            throw new AuditFailedMethodNotAllowedException($url, $errorOutput);
         }
 
         throw new AuditFailedException($url, $errorOutput);

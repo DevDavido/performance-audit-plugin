@@ -3,6 +3,14 @@
 - Added: Support for Matomo 4 🎉
 - Updated: Bumped the minimum PHP version to 7.2.5 for this new major plugin version, just as Matomo 4 itself
 
+## 1.1.1
+- Added: Scheduled weekly clearing of task running flag (in case of unexpected audit cancellation)
+- Added: Console command to clear task running flag
+- Fixed: Avoid race condition in case of which audit was called multiple times simultaneously
+- Improved: Garbage collection after each audit
+- Improved: Certain timeout/runtime exceptions don't stop following page audits anymore
+- Improved: Set timeout for (audit) processes to 1 minute
+
 ## 1.1.0
 - Fixed: Regular users cannot login anymore if plugin is activated
 - Fixed: Renamed and fixed option to remove query strings from audited URLs which is now named group URLs and it doesn't throw SQL warnings anymore in certain (edge) cases

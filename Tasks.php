@@ -33,6 +33,8 @@ use Piwik\Tracker\Action;
 use Piwik\Tracker\Db\DbException;
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
+use Symfony\Component\Process\Exception\ProcessTimedOutException;
+use Symfony\Component\Process\Exception\RuntimeException;
 
 class Tasks extends BaseTasks
 {
@@ -69,9 +71,24 @@ class Tasks extends BaseTasks
      */
     public function schedule()
     {
+        $this->weekly('clearTaskRunningFlag', null, self::HIGH_PRIORITY);
+
         foreach (Site::getSites() as $site) {
             $this->daily('auditSite', (int) $site['idsite'], self::LOW_PRIORITY);
         }
+    }
+
+    /**
+     * Clear the task running flag once a week
+     * in case of any unexpected abrupt failure
+     * where the flag has not been deleted.
+     *
+     * @return void
+     */
+    public function clearTaskRunningFlag()
+    {
+        $this->logDebug('Clear task running flag now');
+        Option::delete($this->hasTaskRunningKey());
     }
 
     /**
@@ -87,6 +104,11 @@ class Tasks extends BaseTasks
         if ($debug) {
             $this->enableDebug();
             $this->logDebug('Debug mode enabled');
+        } else {
+            // In case audit was called multiple times simultaneously
+            // start at different times by sleeping between 1 and 5 seconds
+            // to make sure the audit is only executed once by using flags afterwards
+            usleep(random_int(1 * 1000000, 5 * 1000000));
         }
 
         if ($this->hasAnyTaskRunning() && !$this->isInDebugMode()) {
@@ -106,7 +128,7 @@ class Tasks extends BaseTasks
         $this->setDatabaseTimeoutConfiguration();
         $this->logInfo('Database timeout configuration: ' . json_encode($this->getDatabaseTimeoutConfiguration()));
 
-        $this->logInfo('Performance Audit task for site ' . $idSite . ' will be started now');
+        $this->logInfo('Performance Audit task for site ' . $idSite . ' will be started now (microtime: ' . microtime() . ')');
         try {
             if (!$this->isInDebugMode()) {
                 $this->markTaskAsRunning();
@@ -140,6 +162,7 @@ class Tasks extends BaseTasks
                 $this->markTaskAsFinished();
             }
         }
+        $this->runGarbageCollection();
         $this->logInfo('Performance Audit task for site ' . $idSite . ' has finished');
     }
 
@@ -217,7 +240,7 @@ class Tasks extends BaseTasks
      *
      * @return string
      */
-    private static function hasTaskRunningKey()
+    public static function hasTaskRunningKey()
     {
         return 'hasRunningPerformanceAuditTask';
     }
@@ -228,7 +251,7 @@ class Tasks extends BaseTasks
      * @param int $idSite
      * @return string
      */
-    private static function lastTaskRunKey($idSite)
+    public static function lastTaskRunKey($idSite)
     {
         return 'lastRunPerformanceAuditTask_' . $idSite;
     }
@@ -371,7 +394,7 @@ class Tasks extends BaseTasks
     private function performAudits(int $idSite, array $urls, array $emulatedDevices, array $runs)
     {
         Piwik::postEvent('Performance.performAudit', [$idSite, $urls, $emulatedDevices, $runs]);
-        $this->logDebug('Performing audit for (site ID, URLs, URL count, emulated devices, runs): ' . json_encode([$idSite, $urls, count($urls), $emulatedDevices, $runs]));
+        $this->logDebug('Performing audit for (site ID, URLs, URL count, emulated devices, runs): ' . json_encode([$idSite, $urls, count($urls), $emulatedDevices, $runs], JSON_UNESCAPED_SLASHES));
 
         foreach ($urls as $url) {
             foreach ($emulatedDevices as $emulatedDevice) {
@@ -392,9 +415,10 @@ class Tasks extends BaseTasks
                             ))
                             ->setEmulatedDevice($emulatedDevice)
                             ->audit($url);
+                        $this->runGarbageCollection();
                     } catch (AuditFailedAuthoriseRefusedException | AuditFailedNotFoundException $exception) {
                         $this->logWarning($exception->getMessage());
-                    } catch (AuditFailedException $exception) {
+                    } catch (AuditFailedException | ProcessTimedOutException | RuntimeException $exception) {
                         $this->logError($exception->getMessage());
                     }
                 }
@@ -666,6 +690,18 @@ class Tasks extends BaseTasks
         $this->logDebug('Action IDs lookup table with URLs: ' . json_encode([$actionLookupTable, $urls]));
 
         return $actionLookupTable;
+    }
+
+    /**
+     * Forces collection of any existing garbage cycles.
+     *
+     * @return void
+     */
+    private function runGarbageCollection()
+    {
+        if (gc_enabled()) {
+            gc_collect_cycles();
+        }
     }
 
     /**

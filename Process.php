@@ -33,6 +33,6 @@ class Process extends BaseProcess
             ];
         }
 
-        parent::__construct($command, __DIR__, $env, null, 300);
+        parent::__construct($command, __DIR__, $env, null, 60);
     }
 }

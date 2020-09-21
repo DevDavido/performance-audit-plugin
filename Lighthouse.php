@@ -37,6 +37,7 @@ class Lighthouse extends BaseLighthouse
 
         $this->setChromePath($this->getChromePath());
         $this->setLighthousePath(ExecutableFinder::search('lighthouse'));
+        $this->setTimeout(60);
     }
 
     /**

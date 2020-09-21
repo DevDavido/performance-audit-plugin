@@ -33,6 +33,8 @@ use Piwik\Tracker\Action;
 use Piwik\Tracker\Db\DbException;
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
+use Symfony\Component\Process\Exception\ProcessTimedOutException;
+use Symfony\Component\Process\Exception\RuntimeException;
 
 class Tasks extends BaseTasks
 {
@@ -387,7 +389,7 @@ class Tasks extends BaseTasks
     private function performAudits(int $idSite, array $urls, array $emulatedDevices, array $runs)
     {
         Piwik::postEvent('Performance.performAudit', [$idSite, $urls, $emulatedDevices, $runs]);
-        $this->logDebug('Performing audit for (site ID, URLs, URL count, emulated devices, runs): ' . json_encode([$idSite, $urls, count($urls), $emulatedDevices, $runs]));
+        $this->logDebug('Performing audit for (site ID, URLs, URL count, emulated devices, runs): ' . json_encode([$idSite, $urls, count($urls), $emulatedDevices, $runs], JSON_UNESCAPED_SLASHES));
 
         foreach ($urls as $url) {
             foreach ($emulatedDevices as $emulatedDevice) {
@@ -411,7 +413,7 @@ class Tasks extends BaseTasks
                         $this->runGarbageCollection();
                     } catch (AuditFailedAuthoriseRefusedException | AuditFailedNotFoundException $exception) {
                         $this->logWarning($exception->getMessage());
-                    } catch (AuditFailedException $exception) {
+                    } catch (AuditFailedException | ProcessTimedOutException | RuntimeException $exception) {
                         $this->logError($exception->getMessage());
                     }
                 }

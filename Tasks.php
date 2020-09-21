@@ -155,6 +155,7 @@ class Tasks extends BaseTasks
                 $this->markTaskAsFinished();
             }
         }
+        $this->runGarbageCollection();
         $this->logInfo('Performance Audit task for site ' . $idSite . ' has finished');
     }
 
@@ -407,6 +408,7 @@ class Tasks extends BaseTasks
                             ))
                             ->setEmulatedDevice($emulatedDevice)
                             ->audit($url);
+                        $this->runGarbageCollection();
                     } catch (AuditFailedAuthoriseRefusedException | AuditFailedNotFoundException $exception) {
                         $this->logWarning($exception->getMessage());
                     } catch (AuditFailedException $exception) {
@@ -681,6 +683,18 @@ class Tasks extends BaseTasks
         $this->logDebug('Action IDs lookup table with URLs: ' . json_encode([$actionLookupTable, $urls]));
 
         return $actionLookupTable;
+    }
+
+    /**
+     * Forces collection of any existing garbage cycles.
+     *
+     * @return void
+     */
+    private function runGarbageCollection()
+    {
+        if (gc_enabled()) {
+            gc_collect_cycles();
+        }
     }
 
     /**

@@ -69,9 +69,24 @@ class Tasks extends BaseTasks
      */
     public function schedule()
     {
+        $this->weekly('clearTaskRunningFlag', null, self::HIGH_PRIORITY);
+
         foreach (Site::getSites() as $site) {
             $this->daily('auditSite', (int) $site['idsite'], self::LOW_PRIORITY);
         }
+    }
+
+    /**
+     * Clear the task running flag once a week
+     * in case of any unexpected abrupt failure
+     * where the flag has not been deleted.
+     *
+     * @return void
+     */
+    public function clearTaskRunningFlag()
+    {
+        $this->logDebug('Clear task running flag now');
+        Option::delete($this->hasTaskRunningKey());
     }
 
     /**
@@ -217,7 +232,7 @@ class Tasks extends BaseTasks
      *
      * @return string
      */
-    private static function hasTaskRunningKey()
+    public static function hasTaskRunningKey()
     {
         return 'hasRunningPerformanceAuditTask';
     }
@@ -228,7 +243,7 @@ class Tasks extends BaseTasks
      * @param int $idSite
      * @return string
      */
-    private static function lastTaskRunKey($idSite)
+    public static function lastTaskRunKey($idSite)
     {
         return 'lastRunPerformanceAuditTask_' . $idSite;
     }

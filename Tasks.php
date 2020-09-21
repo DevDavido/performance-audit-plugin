@@ -104,6 +104,11 @@ class Tasks extends BaseTasks
         if ($debug) {
             $this->enableDebug();
             $this->logDebug('Debug mode enabled');
+        } else {
+            // In case audit was called multiple times simultaneously
+            // start at different times by sleeping between 1 and 5 seconds
+            // to make sure the audit is only executed once by using flags afterwards
+            usleep(random_int(1 * 1000000, 5 * 1000000));
         }
 
         if ($this->hasAnyTaskRunning() && !$this->isInDebugMode()) {
@@ -123,7 +128,7 @@ class Tasks extends BaseTasks
         $this->setDatabaseTimeoutConfiguration();
         $this->logInfo('Database timeout configuration: ' . json_encode($this->getDatabaseTimeoutConfiguration()));
 
-        $this->logInfo('Performance Audit task for site ' . $idSite . ' will be started now');
+        $this->logInfo('Performance Audit task for site ' . $idSite . ' will be started now (microtime: ' . microtime() . ')');
         try {
             if (!$this->isInDebugMode()) {
                 $this->markTaskAsRunning();

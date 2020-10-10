@@ -121,7 +121,7 @@ class Tasks extends BaseTasks
         }
 
         $siteSettings = new MeasurableSettings($idSite);
-        if ($siteSettings->isAuditEnabled() && !$this->isInDebugMode()) {
+        if (!$siteSettings->isAuditEnabled() && !$this->isInDebugMode()) {
             $this->logInfo('Performance Audit task for site ' . $idSite . ' will be skipped due to setting which disables it for this site');
             return;
         }

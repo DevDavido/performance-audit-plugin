@@ -21,6 +21,12 @@ use Piwik\Validators\Exception as ValidatorException;
 class MeasurableSettings extends BaseMeasurableSettings
 {
     /** @var Setting */
+    public $isEnabled;
+
+    /** @var Setting */
+    public $runCount;
+
+    /** @var Setting */
     public $emulatedDevice;
 
     /** @var Setting */
@@ -35,9 +41,6 @@ class MeasurableSettings extends BaseMeasurableSettings
     /** @var Setting */
     public $extraHttpHeaderValue;
 
-    /** @var Setting */
-    public $runCount;
-
     /**
      * Initialise plugin settings.
      *
@@ -48,12 +51,28 @@ class MeasurableSettings extends BaseMeasurableSettings
     {
         Piwik::checkUserHasSomeViewAccess();
 
+        $this->isEnabled = $this->makeIsEnabledSetting();
         $this->runCount = $this->makeRunCountSetting();
         $this->emulatedDevice = $this->makeEmulatedDeviceSetting();
         $this->hasGroupedUrls = $this->makeHasGroupedUrlsSetting();
         $this->hasExtraHttpHeader = $this->makeHasExtraHttpHeaderSetting();
         $this->extraHttpHeaderKey = $this->makeExtraHttpHeaderKeySetting();
         $this->extraHttpHeaderValue = $this->makeExtraHttpHeaderValueSetting();
+    }
+
+    /**
+     * Create is enabled setting.
+     *
+     * @return MeasurableSetting
+     * @throws ValidatorException|Exception
+     */
+    private function makeIsEnabledSetting()
+    {
+        return $this->makeSetting('is_enabled', true, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
+            $field->title = Piwik::translate('PerformanceAudit_Settings_IsEnabled_Title');
+            $field->inlineHelp = Piwik::translate('PerformanceAudit_Settings_IsEnabled_Help');
+            $field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;
+        });
     }
 
     /**
@@ -67,6 +86,7 @@ class MeasurableSettings extends BaseMeasurableSettings
         return $this->makeSetting('run_count', 3, FieldConfig::TYPE_INT, function (FieldConfig $field) {
             $field->title = Piwik::translate('PerformanceAudit_Settings_RunCount_Title');
             $field->inlineHelp = Piwik::translate('PerformanceAudit_Settings_RunCount_Help');
+            $field->condition = 'is_enabled';
             $field->uiControl = FieldConfig::UI_CONTROL_TEXT;
             $field->validate = function ($value) {
                 if (empty($value) && $value != 0) {
@@ -90,6 +110,7 @@ class MeasurableSettings extends BaseMeasurableSettings
         return $this->makeSetting('emulated_device', EmulatedDevice::__default, FieldConfig::TYPE_STRING, function (FieldConfig $field) {
             $field->title = Piwik::translate('PerformanceAudit_Settings_EmulatedDevice_Title');
             $field->inlineHelp = Piwik::translate('PerformanceAudit_Settings_EmulatedDevice_Help');
+            $field->condition = 'is_enabled';
             $field->uiControl = FieldConfig::UI_CONTROL_SINGLE_SELECT;
             $field->availableValues = [
                 EmulatedDevice::Desktop => ucfirst(Piwik::translate('PerformanceAudit_EnvironmentDesktop')),
@@ -118,6 +139,7 @@ class MeasurableSettings extends BaseMeasurableSettings
         return $this->makeSetting('has_grouped_urls', false, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
             $field->title = Piwik::translate('PerformanceAudit_Settings_HasGroupedUrls_Title');
             $field->inlineHelp = Piwik::translate('PerformanceAudit_Settings_HasGroupedUrls_Help');
+            $field->condition = 'is_enabled';
             $field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;
         });
     }
@@ -133,6 +155,7 @@ class MeasurableSettings extends BaseMeasurableSettings
         return $this->makeSetting('has_extra_http_header', false, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
             $field->title = Piwik::translate('PerformanceAudit_Settings_HasExtraHttpHeader_Title');
             $field->inlineHelp = Piwik::translate('PerformanceAudit_Settings_HasExtraHttpHeader_Help');
+            $field->condition = 'is_enabled';
             $field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;
         });
     }
@@ -150,14 +173,14 @@ class MeasurableSettings extends BaseMeasurableSettings
         return $this->makeSetting('extra_http_header_key', '', FieldConfig::TYPE_STRING, function (FieldConfig $field) use ($self) {
             $field->title = Piwik::translate('PerformanceAudit_Settings_ExtraHttpHeaderKey_Title');
             $field->inlineHelp = Piwik::translate('PerformanceAudit_Settings_ExtraHttpHeaderKey_Help');
-            $field->condition = 'has_extra_http_header';
+            $field->condition = 'is_enabled && has_extra_http_header';
             $field->uiControl = FieldConfig::UI_CONTROL_SINGLE_SELECT;
             $field->availableValues = [
                 'Authorization' => Piwik::translate('PerformanceAudit_Settings_ExtraHttpHeaderKey_Authorization'),
                 'Cookie' => Piwik::translate('PerformanceAudit_Settings_ExtraHttpHeaderKey_Cookie'),
             ];
             $field->validate = function ($value) use ($self, $field) {
-                if ($self->getSetting($field->condition)->getValue()) {
+                if ($self->getSetting('has_extra_http_header')->getValue()) {
                     if (empty($value)) {
                         throw new ValidatorException(Piwik::translate('General_ValidatorErrorEmptyValue'));
                     }
@@ -182,10 +205,10 @@ class MeasurableSettings extends BaseMeasurableSettings
         return $this->makeSetting('extra_http_header_value', '', FieldConfig::TYPE_STRING, function (FieldConfig $field) use ($self) {
             $field->title = Piwik::translate('PerformanceAudit_Settings_ExtraHttpHeaderValue_Title');
             $field->inlineHelp = Piwik::translate('PerformanceAudit_Settings_ExtraHttpHeaderValue_Help');
-            $field->condition = 'has_extra_http_header';
+            $field->condition = 'is_enabled && has_extra_http_header';
             $field->uiControl = FieldConfig::UI_CONTROL_TEXT;
             $field->validate = function ($value) use ($self, $field) {
-                if ($self->getSetting($field->condition)->getValue()) {
+                if ($self->getSetting('has_extra_http_header')->getValue()) {
                     if (empty($value)) {
                         throw new ValidatorException(Piwik::translate('General_ValidatorErrorEmptyValue'));
                     }
@@ -215,6 +238,16 @@ class MeasurableSettings extends BaseMeasurableSettings
     public function getEmulatedDevicesList()
     {
         return EmulatedDevice::getList($this->getSetting('emulated_device')->getValue());
+    }
+
+    /**
+     * Returns if site has audits enabled or not.
+     *
+     * @return bool
+     */
+    public function isAuditEnabled()
+    {
+        return $this->getSetting('is_enabled')->getValue();
     }
 
     /**

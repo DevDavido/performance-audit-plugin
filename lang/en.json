@@ -63,6 +63,8 @@
         "Metrics_Max_Seconds_Documentation": "The upper boundary in seconds the page took in this performance category.",
         "Metrics_Tooltip": "%1$s%2$s is classified as %3$s! \n Values between %4$s%2$s – %5$s%2$s are in this classification group.",
         "Metrics_Tooltip_OutOfRange": "%s%s is out of range of all classification groups.",
+        "Settings_IsEnabled_Title": "Perform performance audit for this site",
+        "Settings_IsEnabled_Help": "You can decide on a per-website basis if website performance audits are performed after all.",
         "Settings_RunCount_Title": "Number of performance audit iterations",
         "Settings_RunCount_Help": "Set how many times the audit should be performed on each page for stable results. Any number between 1 and 5 is possible. 5 iterations are twice as stable, but prolongs the processing time the most. Just use such high values like 5 iterations only if enough server resources are generally available. 3 iterations are usually the best balance between reproducibility and resource consumption.",
         "Settings_EmulatedDevice_Title": "Performance simulation environment",

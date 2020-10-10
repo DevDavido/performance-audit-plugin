@@ -47,6 +47,9 @@ class GetPerformanceBase extends Report
         }
 
         $siteSettings = new MeasurableSettings(Common::getRequestVar('idSite'));
+        if (!$siteSettings->isAuditEnabled()) {
+            return;
+        }
         $defaultMetrics = [
             new MinSeconds(),
             new MedianSeconds(),

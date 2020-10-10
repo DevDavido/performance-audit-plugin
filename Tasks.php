@@ -119,6 +119,13 @@ class Tasks extends BaseTasks
             $this->logInfo('Performance Audit task for site ' . $idSite . ' has been already started today');
             return;
         }
+
+        $siteSettings = new MeasurableSettings($idSite);
+        if (!$siteSettings->isAuditEnabled() && !$this->isInDebugMode()) {
+            $this->logInfo('Performance Audit task for site ' . $idSite . ' will be skipped due to setting which disables it for this site');
+            return;
+        }
+
         $urls = $this->getPageUrls($idSite, 'last30');
         if (empty($urls)) {
             $this->logWarning('Performance Audit task for site ' . $idSite . ' has no URLs to check');
@@ -134,7 +141,6 @@ class Tasks extends BaseTasks
                 $this->markTaskAsRunning();
                 $this->markTaskAsStartedToday($idSite);
             }
-            $siteSettings = new MeasurableSettings($idSite);
 
             $runs = $siteSettings->getRuns();
             $emulatedDevices = $siteSettings->getEmulatedDevicesList();

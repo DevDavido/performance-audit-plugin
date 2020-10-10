@@ -96,7 +96,7 @@ class Archiver extends BaseArchiver
         $emulatedDevices = EmulatedDevice::getList(EmulatedDevice::Both);
 
         foreach ($idSites as $idSite) {
-            Log::info("Will process performance for website id = {$idSite}, period = {$period}");
+            Log::info("Will process performance audit for website id = {$idSite}, period = {$period}");
             foreach ($metrics as $metric) {
                 foreach ($emulatedDevices as $emulatedDevice) {
                     $table = new DataTable();

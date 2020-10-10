@@ -145,6 +145,7 @@ class NodeDependencyInstaller
         $npmPath = ExecutableFinder::search('npm');
         // Puppeteer + Lighthouse
         $process = new Process([$npmPath, 'install', '--quiet', '--no-progress', '--no-audit', '--force', '--only=production', '--prefix=' . __DIR__, 'puppeteer@^3.0', 'lighthouse@^6.0']);
+        $process->setTimeout(300);
         $process->run();
 
         if (!$process->isSuccessful()) {

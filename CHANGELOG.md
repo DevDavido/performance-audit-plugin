@@ -3,6 +3,10 @@
 - Added: Support for Matomo 4 🎉
 - Updated: Bumped the minimum PHP version to 7.2.5 for this new major plugin version, just as Matomo 4 itself
 
+## 1.1.2
+- Added: Possibility to enable or disable audit for each site
+- Improved: Set timeout for installation process to 5 minutes
+
 ## 1.1.1
 - Added: Scheduled weekly clearing of task running flag (in case of unexpected audit cancellation)
 - Added: Console command to clear task running flag

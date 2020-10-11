@@ -49,6 +49,7 @@ If any errors occur during activation, please follow the instruction or informat
 - Matomo 3.12
 - PHP 7.1
 - NPM v6.13 (part of [Node.js](https://nodejs.org/en/download/) 10.18 LTS) to be installed on your server, otherwise plugin cannot be activated.
+- If you use a UNIX based OS [these dependencies are required](https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#chrome-headless-doesnt-launch-on-unix)
 
 ## Screenshots
 ### Dashboard

@@ -24,6 +24,9 @@ class MeasurableSettings extends BaseMeasurableSettings
     public $isEnabled;
 
     /** @var Setting */
+    public $hasExtendedTimeout;
+
+    /** @var Setting */
     public $runCount;
 
     /** @var Setting */
@@ -52,6 +55,7 @@ class MeasurableSettings extends BaseMeasurableSettings
         Piwik::checkUserHasSomeViewAccess();
 
         $this->isEnabled = $this->makeIsEnabledSetting();
+        $this->hasExtendedTimeout = $this->makeHasExtendedTimeoutSetting();
         $this->runCount = $this->makeRunCountSetting();
         $this->emulatedDevice = $this->makeEmulatedDeviceSetting();
         $this->hasGroupedUrls = $this->makeHasGroupedUrlsSetting();
@@ -71,6 +75,21 @@ class MeasurableSettings extends BaseMeasurableSettings
         return $this->makeSetting('is_enabled', true, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
             $field->title = Piwik::translate('PerformanceAudit_Settings_IsEnabled_Title');
             $field->inlineHelp = Piwik::translate('PerformanceAudit_Settings_IsEnabled_Help');
+            $field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;
+        });
+    }
+
+    /**
+     * Create has extended timeout setting.
+     *
+     * @return MeasurableSetting
+     * @throws ValidatorException|Exception
+     */
+    private function makeHasExtendedTimeoutSetting()
+    {
+        return $this->makeSetting('has_extended_timeout', false, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
+            $field->title = Piwik::translate('PerformanceAudit_Settings_HasExtendedTimeout_Title');
+            $field->inlineHelp = Piwik::translate('PerformanceAudit_Settings_HasExtendedTimeout_Help');
             $field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;
         });
     }
@@ -248,6 +267,16 @@ class MeasurableSettings extends BaseMeasurableSettings
     public function isAuditEnabled()
     {
         return $this->getSetting('is_enabled')->getValue();
+    }
+
+    /**
+     * Returns if site has extended timeout for site audit.
+     *
+     * @return bool
+     */
+    public function hasExtendedTimeout()
+    {
+        return $this->getSetting('has_extended_timeout')->getValue();
     }
 
     /**

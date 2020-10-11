@@ -65,6 +65,8 @@
         "Metrics_Tooltip_OutOfRange": "%s%s is out of range of all classification groups.",
         "Settings_IsEnabled_Title": "Perform performance audit for this site",
         "Settings_IsEnabled_Help": "You can decide on a per-website basis if website performance audits are performed after all.",
+        "Settings_HasExtendedTimeout_Title": "Increase timeout for performance audits",
+        "Settings_HasExtendedTimeout_Help": "You can decide on a per-website basis if website performance audit timeouts should be extended to 5 minutes instead of the default 1 minute. Extending the timeout is only recommended if you encounter regular timeouts, e.g. if your server is not fast enough to perform the audits within 1 minute.",
         "Settings_RunCount_Title": "Number of performance audit iterations",
         "Settings_RunCount_Help": "Set how many times the audit should be performed on each page for stable results. Any number between 1 and 5 is possible. 5 iterations are twice as stable, but prolongs the processing time the most. Just use such high values like 5 iterations only if enough server resources are generally available. 3 iterations are usually the best balance between reproducibility and resource consumption.",
         "Settings_EmulatedDevice_Title": "Performance simulation environment",

@@ -24,6 +24,9 @@ class MeasurableSettings extends BaseMeasurableSettings
     public $isEnabled;
 
     /** @var Setting */
+    public $hasExtendedTimeout;
+
+    /** @var Setting */
     public $runCount;
 
     /** @var Setting */
@@ -52,6 +55,7 @@ class MeasurableSettings extends BaseMeasurableSettings
         Piwik::checkUserHasSomeViewAccess();
 
         $this->isEnabled = $this->makeIsEnabledSetting();
+        $this->hasExtendedTimeout = $this->makeHasExtendedTimeoutSetting();
         $this->runCount = $this->makeRunCountSetting();
         $this->emulatedDevice = $this->makeEmulatedDeviceSetting();
         $this->hasGroupedUrls = $this->makeHasGroupedUrlsSetting();
@@ -71,6 +75,21 @@ class MeasurableSettings extends BaseMeasurableSettings
         return $this->makeSetting('is_enabled', true, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
             $field->title = Piwik::translate('PerformanceAudit_Settings_IsEnabled_Title');
             $field->inlineHelp = Piwik::translate('PerformanceAudit_Settings_IsEnabled_Help');
+            $field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;
+        });
+    }
+
+    /**
+     * Create has extended timeout setting.
+     *
+     * @return MeasurableSetting
+     * @throws ValidatorException|Exception
+     */
+    private function makeHasExtendedTimeoutSetting()
+    {
+        return $this->makeSetting('has_extended_timeout', false, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
+            $field->title = Piwik::translate('PerformanceAudit_Settings_HasExtendedTimeout_Title');
+            $field->inlineHelp = Piwik::translate('PerformanceAudit_Settings_HasExtendedTimeout_Help');
             $field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;
         });
     }
@@ -180,7 +199,7 @@ class MeasurableSettings extends BaseMeasurableSettings
                 'Cookie' => Piwik::translate('PerformanceAudit_Settings_ExtraHttpHeaderKey_Cookie'),
             ];
             $field->validate = function ($value) use ($self, $field) {
-                if ($self->getSetting('has_extra_http_header')->getValue()) {
+                if ($self->hasExtraHttpHeader()) {
                     if (empty($value)) {
                         throw new ValidatorException(Piwik::translate('General_ValidatorErrorEmptyValue'));
                     }
@@ -208,7 +227,7 @@ class MeasurableSettings extends BaseMeasurableSettings
             $field->condition = 'is_enabled && has_extra_http_header';
             $field->uiControl = FieldConfig::UI_CONTROL_TEXT;
             $field->validate = function ($value) use ($self, $field) {
-                if ($self->getSetting('has_extra_http_header')->getValue()) {
+                if ($self->hasExtraHttpHeader()) {
                     if (empty($value)) {
                         throw new ValidatorException(Piwik::translate('General_ValidatorErrorEmptyValue'));
                     }
@@ -251,6 +270,16 @@ class MeasurableSettings extends BaseMeasurableSettings
     }
 
     /**
+     * Returns if site has extended timeout for site audit.
+     *
+     * @return bool
+     */
+    public function hasExtendedTimeout()
+    {
+        return $this->getSetting('has_extended_timeout')->getValue();
+    }
+
+    /**
      * Returns if site has grouped URLs for site.
      *
      * @return bool
@@ -258,5 +287,15 @@ class MeasurableSettings extends BaseMeasurableSettings
     public function hasGroupedUrls()
     {
         return $this->getSetting('has_grouped_urls')->getValue();
+    }
+
+    /**
+     * Returns if site has extra HTTP header for site.
+     *
+     * @return bool
+     */
+    public function hasExtraHttpHeader()
+    {
+        return $this->getSetting('has_extra_http_header')->getValue();
     }
 }

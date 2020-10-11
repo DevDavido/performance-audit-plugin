@@ -276,7 +276,10 @@ class Tasks extends BaseTasks
             Audit::enableEachLighthouseAudit(self::$lighthouse[$idSite]);
 
             $siteSettings = new MeasurableSettings($idSite);
-            if ($siteSettings->getSetting('has_extra_http_header')->getValue()) {
+            if ($siteSettings->hasExtendedTimeout()) {
+                self::$lighthouse[$idSite]->setTimeout(300);
+            }
+            if ($siteSettings->hasExtraHttpHeader()) {
                 self::$lighthouse[$idSite]->setHeaders([
                     $siteSettings->getSetting('extra_http_header_key')->getValue() => $siteSettings->getSetting('extra_http_header_value')->getValue()
                 ]);

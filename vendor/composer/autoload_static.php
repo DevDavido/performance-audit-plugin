@@ -73,6 +73,7 @@ class ComposerStaticInit98dde460e8a16c8877d8f8d8a8e6921c
         'Piwik\\Plugins\\PerformanceAudit\\Columns\\Metrics\\MinPercent' => __DIR__ . '/../..' . '/Columns/Metrics/MinPercent.php',
         'Piwik\\Plugins\\PerformanceAudit\\Columns\\Metrics\\MinSeconds' => __DIR__ . '/../..' . '/Columns/Metrics/MinSeconds.php',
         'Piwik\\Plugins\\PerformanceAudit\\Columns\\PageUrl' => __DIR__ . '/../..' . '/Columns/PageUrl.php',
+        'Piwik\\Plugins\\PerformanceAudit\\Commands\\ClearTaskRunningFlag' => __DIR__ . '/../..' . '/Commands/ClearTaskRunningFlag.php',
         'Piwik\\Plugins\\PerformanceAudit\\Controller' => __DIR__ . '/../..' . '/Controller.php',
         'Piwik\\Plugins\\PerformanceAudit\\EmulatedDevice' => __DIR__ . '/../..' . '/EmulatedDevice.php',
         'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\AuditFailedAuthoriseRefusedException' => __DIR__ . '/../..' . '/Exceptions/AuditFailedAuthoriseRefusedException.php',

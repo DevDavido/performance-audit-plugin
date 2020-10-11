@@ -3,6 +3,11 @@
 - Added: Support for Matomo 4 🎉
 - Updated: Bumped the minimum PHP version to 7.2.5 for this new major plugin version, just as Matomo 4 itself
 
+## 1.1.3
+- Added: Possibility to set extended audit timeout for each site
+- Improved: Minor internal refactoring for site settings
+- Updated: Bumped `symfony/process` dependency version
+
 ## 1.1.2
 - Added: Possibility to enable or disable audit for each site
 - Improved: Set timeout for installation process to 5 minutes

@@ -199,7 +199,7 @@ class MeasurableSettings extends BaseMeasurableSettings
                 'Cookie' => Piwik::translate('PerformanceAudit_Settings_ExtraHttpHeaderKey_Cookie'),
             ];
             $field->validate = function ($value) use ($self, $field) {
-                if ($self->getSetting('has_extra_http_header')->getValue()) {
+                if ($self->hasExtraHttpHeader()) {
                     if (empty($value)) {
                         throw new ValidatorException(Piwik::translate('General_ValidatorErrorEmptyValue'));
                     }
@@ -227,7 +227,7 @@ class MeasurableSettings extends BaseMeasurableSettings
             $field->condition = 'is_enabled && has_extra_http_header';
             $field->uiControl = FieldConfig::UI_CONTROL_TEXT;
             $field->validate = function ($value) use ($self, $field) {
-                if ($self->getSetting('has_extra_http_header')->getValue()) {
+                if ($self->hasExtraHttpHeader()) {
                     if (empty($value)) {
                         throw new ValidatorException(Piwik::translate('General_ValidatorErrorEmptyValue'));
                     }
@@ -287,5 +287,15 @@ class MeasurableSettings extends BaseMeasurableSettings
     public function hasGroupedUrls()
     {
         return $this->getSetting('has_grouped_urls')->getValue();
+    }
+
+    /**
+     * Returns if site has extra HTTP header for site.
+     *
+     * @return bool
+     */
+    public function hasExtraHttpHeader()
+    {
+        return $this->getSetting('has_extra_http_header')->getValue();
     }
 }

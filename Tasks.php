@@ -279,7 +279,7 @@ class Tasks extends BaseTasks
             if ($siteSettings->hasExtendedTimeout()) {
                 self::$lighthouse[$idSite]->setTimeout(300);
             }
-            if ($siteSettings->getSetting('has_extra_http_header')->getValue()) {
+            if ($siteSettings->hasExtraHttpHeader()) {
                 self::$lighthouse[$idSite]->setHeaders([
                     $siteSettings->getSetting('extra_http_header_key')->getValue() => $siteSettings->getSetting('extra_http_header_value')->getValue()
                 ]);

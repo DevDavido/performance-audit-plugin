@@ -35,6 +35,7 @@ return array(
     'Piwik\\Plugins\\PerformanceAudit\\Columns\\Metrics\\MinPercent' => $baseDir . '/Columns/Metrics/MinPercent.php',
     'Piwik\\Plugins\\PerformanceAudit\\Columns\\Metrics\\MinSeconds' => $baseDir . '/Columns/Metrics/MinSeconds.php',
     'Piwik\\Plugins\\PerformanceAudit\\Columns\\PageUrl' => $baseDir . '/Columns/PageUrl.php',
+    'Piwik\\Plugins\\PerformanceAudit\\Commands\\ClearTaskRunningFlag' => $baseDir . '/Commands/ClearTaskRunningFlag.php',
     'Piwik\\Plugins\\PerformanceAudit\\Controller' => $baseDir . '/Controller.php',
     'Piwik\\Plugins\\PerformanceAudit\\EmulatedDevice' => $baseDir . '/EmulatedDevice.php',
     'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\AuditFailedAuthoriseRefusedException' => $baseDir . '/Exceptions/AuditFailedAuthoriseRefusedException.php',

@@ -3,6 +3,11 @@
 - Added: Support for Matomo 4 🎉
 - Updated: Bumped the minimum PHP version to 7.2.5 for this new major plugin version, just as Matomo 4 itself
 
+## 1.1.4
+- Improved: Exception handling for failed audit due to too many requests response
+- Fixed: One performance audit setting has been displayed after disabling audits for the site in settings
+- Fixed: Disabled performance audits for site renders dashboard empty
+
 ## 1.1.3
 - Added: Possibility to set extended audit timeout for each site
 - Improved: Minor internal refactoring for site settings

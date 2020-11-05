@@ -80,6 +80,7 @@ class ComposerStaticInit98dde460e8a16c8877d8f8d8a8e6921c
         'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\AuditFailedException' => __DIR__ . '/../..' . '/Exceptions/AuditFailedException.php',
         'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\AuditFailedMethodNotAllowedException' => __DIR__ . '/../..' . '/Exceptions/AuditFailedMethodNotAllowedException.php',
         'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\AuditFailedNotFoundException' => __DIR__ . '/../..' . '/Exceptions/AuditFailedNotFoundException.php',
+        'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\AuditFailedTooManyRequestsException' => __DIR__ . '/../..' . '/Exceptions/AuditFailedTooManyRequestsException.php',
         'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\DependencyMissingException' => __DIR__ . '/../..' . '/Exceptions/DependencyMissingException.php',
         'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\DependencyNpmMisconfigurationException' => __DIR__ . '/../..' . '/Exceptions/DependencyNpmMisconfigurationException.php',
         'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\DependencyOfChromeMissingException' => __DIR__ . '/../..' . '/Exceptions/DependencyOfChromeMissingException.php',

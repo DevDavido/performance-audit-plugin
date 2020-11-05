@@ -42,6 +42,7 @@ return array(
     'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\AuditFailedException' => $baseDir . '/Exceptions/AuditFailedException.php',
     'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\AuditFailedMethodNotAllowedException' => $baseDir . '/Exceptions/AuditFailedMethodNotAllowedException.php',
     'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\AuditFailedNotFoundException' => $baseDir . '/Exceptions/AuditFailedNotFoundException.php',
+    'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\AuditFailedTooManyRequestsException' => $baseDir . '/Exceptions/AuditFailedTooManyRequestsException.php',
     'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\DependencyMissingException' => $baseDir . '/Exceptions/DependencyMissingException.php',
     'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\DependencyNpmMisconfigurationException' => $baseDir . '/Exceptions/DependencyNpmMisconfigurationException.php',
     'Piwik\\Plugins\\PerformanceAudit\\Exceptions\\DependencyOfChromeMissingException' => $baseDir . '/Exceptions/DependencyOfChromeMissingException.php',

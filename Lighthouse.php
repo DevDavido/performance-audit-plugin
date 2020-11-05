@@ -15,6 +15,7 @@ use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedAuthoriseRefusedExcepti
 use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedException;
 use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedMethodNotAllowedException;
 use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedNotFoundException;
+use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedTooManyRequestsException;
 use Piwik\Plugins\PerformanceAudit\Exceptions\DependencyMissingException;
 use Piwik\Plugins\PerformanceAudit\Exceptions\DependencyUnexpectedResultException;
 use Symfony\Component\Process\Exception\ProcessSignaledException;
@@ -220,6 +221,7 @@ class Lighthouse extends BaseLighthouse
      * @return void
      * @throws AuditFailedAuthoriseRefusedException|AuditFailedNotFoundException
      * @throws AuditFailedMethodNotAllowedException|AuditFailedException
+     * @throws AuditFailedTooManyRequestsException
      */
     protected function throwAuditException($url, $errorOutput)
     {
@@ -229,6 +231,8 @@ class Lighthouse extends BaseLighthouse
             throw new AuditFailedNotFoundException($url, $errorOutput);
         } elseif (stristr($errorOutput, 'Status code: 405')) {
             throw new AuditFailedMethodNotAllowedException($url, $errorOutput);
+        } elseif (stristr($errorOutput, 'Status code: 429')) {
+            throw new AuditFailedTooManyRequestsException($url, $errorOutput);
         }
 
         throw new AuditFailedException($url, $errorOutput);

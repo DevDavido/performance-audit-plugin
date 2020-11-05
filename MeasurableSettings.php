@@ -90,6 +90,7 @@ class MeasurableSettings extends BaseMeasurableSettings
         return $this->makeSetting('has_extended_timeout', false, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
             $field->title = Piwik::translate('PerformanceAudit_Settings_HasExtendedTimeout_Title');
             $field->inlineHelp = Piwik::translate('PerformanceAudit_Settings_HasExtendedTimeout_Help');
+            $field->condition = 'is_enabled';
             $field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;
         });
     }

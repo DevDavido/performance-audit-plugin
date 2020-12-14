@@ -1,4 +1,7 @@
 # Changelog
+## 2.0.0-Beta3
+- Improved: Merged changes from 1.1.4 into 2.0.0-Beta2
+
 ## 2.0.0-Beta2
 - Improved: Merged changes from 1.0.8 into 2.0.0-Beta2
 

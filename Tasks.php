@@ -25,12 +25,18 @@ use Piwik\Option;
 use Piwik\Piwik;
 use Piwik\Plugin\Tasks as BaseTasks;
 use Piwik\Plugins\PerformanceAudit\Columns\Metrics\Audit;
+use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedAuthoriseRefusedException;
 use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedException;
+use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedMethodNotAllowedException;
+use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedNotFoundException;
+use Piwik\Plugins\PerformanceAudit\Exceptions\AuditFailedTooManyRequestsException;
 use Piwik\Site;
 use Piwik\Tracker\Action;
 use Piwik\Tracker\Db\DbException;
 use RecursiveArrayIterator;
 use RecursiveIteratorIterator;
+use Symfony\Component\Process\Exception\ProcessTimedOutException;
+use Symfony\Component\Process\Exception\RuntimeException;
 
 class Tasks extends BaseTasks
 {
@@ -67,9 +73,24 @@ class Tasks extends BaseTasks
      */
     public function schedule()
     {
+        $this->weekly('clearTaskRunningFlag', null, self::HIGH_PRIORITY);
+
         foreach (Site::getSites() as $site) {
             $this->daily('auditSite', (int) $site['idsite'], self::LOW_PRIORITY);
         }
+    }
+
+    /**
+     * Clear the task running flag once a week
+     * in case of any unexpected abrupt failure
+     * where the flag has not been deleted.
+     *
+     * @return void
+     */
+    public function clearTaskRunningFlag()
+    {
+        $this->logDebug('Clear task running flag now');
+        Option::delete($this->hasTaskRunningKey());
     }
 
     /**
@@ -85,6 +106,11 @@ class Tasks extends BaseTasks
         if ($debug) {
             $this->enableDebug();
             $this->logDebug('Debug mode enabled');
+        } else {
+            // In case audit was called multiple times simultaneously
+            // start at different times by sleeping between 1 and 5 seconds
+            // to make sure the audit is only executed once by using flags afterwards
+            usleep(random_int(1 * 1000000, 5 * 1000000));
         }
 
         if ($this->hasAnyTaskRunning() && !$this->isInDebugMode()) {
@@ -95,22 +121,35 @@ class Tasks extends BaseTasks
             $this->logInfo('Performance Audit task for site ' . $idSite . ' has been already started today');
             return;
         }
+
+        $siteSettings = new MeasurableSettings($idSite);
+        if (!$siteSettings->isAuditEnabled() && !$this->isInDebugMode()) {
+            $this->logInfo('Performance Audit task for site ' . $idSite . ' will be skipped due to setting which disables it for this site');
+            return;
+        }
+
         $urls = $this->getPageUrls($idSite, 'last30');
         if (empty($urls)) {
             $this->logWarning('Performance Audit task for site ' . $idSite . ' has no URLs to check');
             return;
         }
 
-        $this->logInfo('Performance Audit task for site ' . $idSite . ' will be started now');
+        $this->setDatabaseTimeoutConfiguration();
+        $this->logInfo('Database timeout configuration: ' . json_encode($this->getDatabaseTimeoutConfiguration()));
+
+        $this->logInfo('Performance Audit task for site ' . $idSite . ' will be started now (microtime: ' . microtime() . ')');
         try {
             if (!$this->isInDebugMode()) {
                 $this->markTaskAsRunning();
                 $this->markTaskAsStartedToday($idSite);
             }
-            $siteSettings = new MeasurableSettings($idSite);
 
-            $runs = range(1, (int) $siteSettings->getSetting('run_count')->getValue());
-            $emulatedDevices = EmulatedDevice::getList($siteSettings->getSetting('emulated_device')->getValue());
+            $runs = $siteSettings->getRuns();
+            $emulatedDevices = $siteSettings->getEmulatedDevicesList();
+
+            if ($siteSettings->hasGroupedUrls()) {
+                $this->groupUrlsByPath($urls);
+            }
 
             if ($this->isInDebugMode()) {
                 $urls = [array_shift($urls)];
@@ -131,6 +170,7 @@ class Tasks extends BaseTasks
                 $this->markTaskAsFinished();
             }
         }
+        $this->runGarbageCollection();
         $this->logInfo('Performance Audit task for site ' . $idSite . ' has finished');
     }
 
@@ -208,7 +248,7 @@ class Tasks extends BaseTasks
      *
      * @return string
      */
-    private static function hasTaskRunningKey()
+    public static function hasTaskRunningKey()
     {
         return 'hasRunningPerformanceAuditTask';
     }
@@ -219,7 +259,7 @@ class Tasks extends BaseTasks
      * @param int $idSite
      * @return string
      */
-    private static function lastTaskRunKey($idSite)
+    public static function lastTaskRunKey($idSite)
     {
         return 'lastRunPerformanceAuditTask_' . $idSite;
     }
@@ -238,7 +278,10 @@ class Tasks extends BaseTasks
             Audit::enableEachLighthouseAudit(self::$lighthouse[$idSite]);
 
             $siteSettings = new MeasurableSettings($idSite);
-            if ($siteSettings->getSetting('has_extra_http_header')->getValue()) {
+            if ($siteSettings->hasExtendedTimeout()) {
+                self::$lighthouse[$idSite]->setTimeout(300);
+            }
+            if ($siteSettings->hasExtraHttpHeader()) {
                 self::$lighthouse[$idSite]->setHeaders([
                     $siteSettings->getSetting('extra_http_header_key')->getValue() => $siteSettings->getSetting('extra_http_header_value')->getValue()
                 ]);
@@ -285,8 +328,67 @@ class Tasks extends BaseTasks
                 }
             }
         }
+        $this->removeUrlDuplicates($urls);
 
-        return array_values(array_unique($urls, SORT_STRING));
+        return $urls;
+    }
+
+    /**
+     * Group by path and remove duplicates of URLs
+     * which only differ in their query strings.
+     *
+     * @param array $urls
+     * @return void
+     */
+    private function groupUrlsByPath(array &$urls)
+    {
+        foreach ($urls as $key => $url) {
+            $urlBase = current(explode('?', $url, 2));
+            // Remove any URLs which differ only by query string
+            // by setting URL base as key and assign actual URL as value
+            $urls[$urlBase] = $url;
+            // Remove old entry by key
+            unset($urls[$key]);
+        }
+        // Reset keys
+        $urls = array_values($urls);
+
+        $this->removeUrlDuplicates($urls);
+    }
+
+    /**
+     * Remove url duplicates.
+     *
+     * @param array $urls
+     * @return void
+     */
+    private function removeUrlDuplicates(array &$urls)
+    {
+        $urls = array_values(array_unique($urls, SORT_STRING));
+    }
+
+    /**
+     * Set timeout configuration of the current database connection.
+     *
+     * @return void
+     * @throws Exception
+     */
+    private function setDatabaseTimeoutConfiguration()
+    {
+        // Set timeouts to maximum 1 week
+        Db::get()->exec('SET SESSION wait_timeout=604800;');
+        Db::get()->exec('SET SESSION interactive_timeout=604800;');
+    }
+
+    /**
+     * Return timeout configuration of the database.
+     *
+     * @return array
+     * @throws DbException
+     */
+    private function getDatabaseTimeoutConfiguration()
+    {
+        return Db::get()->fetchAll('SHOW VARIABLES LIKE "%timeout%"');
     }
 
     /**
@@ -303,7 +405,7 @@ class Tasks extends BaseTasks
     private function performAudits(int $idSite, array $urls, array $emulatedDevices, array $runs)
     {
         Piwik::postEvent('Performance.performAudit', [$idSite, $urls, $emulatedDevices, $runs]);
-        $this->logDebug('Performing audit for (site ID, URLs, URL count, emulated devices, runs): ' . json_encode([$idSite, $urls, count($urls), $emulatedDevices, $runs]));
+        $this->logDebug('Performing audit for (site ID, URLs, URL count, emulated devices, runs): ' . json_encode([$idSite, $urls, count($urls), $emulatedDevices, $runs], JSON_UNESCAPED_SLASHES));
 
         foreach ($urls as $url) {
             foreach ($emulatedDevices as $emulatedDevice) {
@@ -324,7 +426,10 @@ class Tasks extends BaseTasks
                             ))
                             ->setEmulatedDevice($emulatedDevice)
                             ->audit($url);
-                    } catch (AuditFailedException $exception) {
+                        $this->runGarbageCollection();
+                    } catch (AuditFailedAuthoriseRefusedException | AuditFailedNotFoundException | AuditFailedMethodNotAllowedException | AuditFailedTooManyRequestsException $exception) {
+                        $this->logWarning($exception->getMessage());
+                    } catch (AuditFailedException | ProcessTimedOutException | RuntimeException $exception) {
                         $this->logError($exception->getMessage());
                     }
                 }
@@ -529,6 +634,11 @@ class Tasks extends BaseTasks
         foreach ($siteResult as $url => $emulatedDevices) {
             foreach ($emulatedDevices as $emulatedDevice => $metrics) {
                 foreach ($metrics as $key => $values) {
+                    // Skip URL without an entry in lookup table
+                    if (!isset($actionIdLookupTable[$url])) {
+                        $this->logWarning('Entry for the following hashed URL in lookup table is missing: ' . $url);
+                        continue;
+                    }
                     [$min, $median, $max] = $values;
 
                     $result = Db::get()->query('
@@ -591,6 +701,18 @@ class Tasks extends BaseTasks
         $this->logDebug('Action IDs lookup table with URLs: ' . json_encode([$actionLookupTable, $urls]));
 
         return $actionLookupTable;
+    }
+
+    /**
+     * Forces collection of any existing garbage cycles.
+     *
+     * @return void
+     */
+    private function runGarbageCollection()
+    {
+        if (gc_enabled()) {
+            gc_collect_cycles();
+        }
     }
 
     /**

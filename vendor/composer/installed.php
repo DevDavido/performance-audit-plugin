@@ -1,24 +1,24 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => 'dev-4.x-dev',
-    'version' => 'dev-4.x-dev',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => 'd50ba7ec7b0a4c414e658035ebfe31302309d348',
+    'reference' => 'fa02858d47f977e486689baf845e3df5367ed647',
     'name' => 'devdavido/performance-audit-plugin',
   ),
   'versions' => 
   array (
     'devdavido/performance-audit-plugin' => 
     array (
-      'pretty_version' => 'dev-4.x-dev',
-      'version' => 'dev-4.x-dev',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => 'd50ba7ec7b0a4c414e658035ebfe31302309d348',
+      'reference' => 'fa02858d47f977e486689baf845e3df5367ed647',
     ),
     'ducks-project/spl-types' => 
     array (
@@ -49,12 +49,12 @@
     ),
     'symfony/process' => 
     array (
-      'pretty_version' => 'v4.4.11',
-      'version' => '4.4.11.0',
+      'pretty_version' => 'v4.4.15',
+      'version' => '4.4.15.0',
       'aliases' => 
       array (
       ),
-      'reference' => '65e70bab62f3da7089a8d4591fb23fbacacb3479',
+      'reference' => '9b887acc522935f77555ae8813495958c7771ba7',
     ),
   ),
 );

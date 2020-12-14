@@ -29,14 +29,14 @@ Preferably you install [this plugin](https://plugins.matomo.org/PerformanceAudit
 1. Login to Matomo as Super User
 2. Navigate in your Matomo Installation to `Administration` › `Marketplace` (categorized under `Platform`)
 3. Search for `Performance Audit`
-4. Click on `Install` and wait up to 1 minute for the installation to finish
+4. Click on `Install` and wait up to 5 minutes for the installation to finish
 
 You can also install this plugin manually by:
 1. [downloading the latest plugin zip file](https://github.com/DevDavido/performance-audit-plugin/releases/latest)
 2. Login to Matomo as Super User
 3. Navigate in your Matomo Installation to `Administration` › `Marketplace` (categorized under `Platform`)
 4. Click on `upload a Plugin` and upload the zip file from step 1
-5. Activate this plugin `PerformanceAudit` and wait up to 1 minute for the process to finish
+5. Activate this plugin `PerformanceAudit` and wait up to 5 minutes for the process to finish
 
 Note: If plugin upload is disabled, enable it in your `config/config.ini.php` like that:
 ```ini
@@ -46,9 +46,10 @@ enable_plugin_upload = 1
 If any errors occur during activation, please follow the instruction or information of the error message.
 
 ## Minimum requirements
-- Matomo 3.12
-- PHP 7.1
+- Matomo 4.0
+- PHP 7.2.5
 - NPM v6.13 (part of [Node.js](https://nodejs.org/en/download/) 10.18 LTS) to be installed on your server, otherwise plugin cannot be activated.
+- If you use a UNIX based OS [these dependencies are required](https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#chrome-headless-doesnt-launch-on-unix)
 
 ## Screenshots
 ### Dashboard
@@ -79,6 +80,8 @@ If you have any questions or inquiries, you can contact `github {at} diskoboss {
 
 ## Security
 If you discover any security related issues, please contact `github {at} diskoboss {døt} de` instead of using the issue tracker.
+
+Please note that the performance audits will be performed with Chromium which renders Matomo-tracked web pages on your server without the sandbox mode of Chromium. You can find more information about this possible issue on the [lighthouse-cli repository](https://github.com/GoogleChrome/lighthouse-ci/tree/master/docs/recipes/docker-client#--no-sandbox-issues-explained).
 
 ## License
 Licensed under the [GPLv3 License](LICENSE.md).

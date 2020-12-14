@@ -12,6 +12,7 @@ require PIWIK_INCLUDE_PATH . '/plugins/PerformanceAudit/vendor/autoload.php';
 
 use Exception;
 use Piwik\Log;
+use Piwik\Plugins\PerformanceAudit\Exceptions\DependencyNpmMisconfigurationException;
 use Piwik\Plugins\PerformanceAudit\Exceptions\DependencyOfChromeMissingException;
 use Piwik\Plugins\PerformanceAudit\Exceptions\DependencyUnexpectedResultException;
 use Piwik\Plugins\PerformanceAudit\Exceptions\InstallationFailedException;
@@ -121,9 +122,13 @@ class NodeDependencyInstaller
 
         if (!$process->isSuccessful()) {
             $errorOutput = $process->getErrorOutput();
-            throw (stristr($errorOutput, 'libX11-xcb')) ?
-                new DependencyOfChromeMissingException() :
-                new DependencyUnexpectedResultException(ucfirst($executableName) . ' has the following unexpected output: ' . PHP_EOL . $errorOutput);
+            if (stristr($errorOutput, 'libX11-xcb')) {
+                throw new DependencyOfChromeMissingException();
+            } elseif (stristr($errorOutput, 'cache folder contains root-owned files')) {
+                throw new DependencyNpmMisconfigurationException($executableName . ' has the following issue: ' . PHP_EOL . $errorOutput);
+            }
+
+            throw new DependencyUnexpectedResultException(ucfirst($executableName) . ' has the following unexpected output: ' . PHP_EOL . $errorOutput);
         }
 
         return floatval(trim(preg_replace('/[^0-9.]/', '', $process->getOutput())));
@@ -140,6 +145,7 @@ class NodeDependencyInstaller
         $npmPath = ExecutableFinder::search('npm');
         // Puppeteer + Lighthouse
         $process = new Process([$npmPath, 'install', '--quiet', '--no-progress', '--no-audit', '--force', '--only=production', '--prefix=' . __DIR__, 'puppeteer@^3.0', 'lighthouse@^6.0']);
+        $process->setTimeout(300);
         $process->run();
 
         if (!$process->isSuccessful()) {

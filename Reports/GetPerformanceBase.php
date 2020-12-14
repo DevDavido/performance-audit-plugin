@@ -75,14 +75,19 @@ class GetPerformanceBase extends Report
      */
     public function isEnabled()
     {
-        if (!Common::getRequestVar('idSite', false)) {
+        $idSite = Common::getRequestVar('idSite', false);
+        if (!$idSite) {
             return false;
         }
         // Disable report if initialised as instance of itself
         if ((new ReflectionClass($this))->getShortName() === 'GetPerformanceBase') {
             return false;
         }
-        $idSite = Common::getRequestVar('idSite');
+
+        $siteSettings = new MeasurableSettings($idSite);
+        if (!$siteSettings->isAuditEnabled()) {
+            return false;
+        }
 
         return Piwik::isUserHasViewAccess($idSite);
     }

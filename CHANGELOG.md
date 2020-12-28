@@ -1,4 +1,8 @@
 # Changelog
+## 2.0.0
+- Release stable version for Matomo 4
+- Updated: Bumped `symfony/process` and `symfony/polyfill-mbstring` dependency version
+
 ## 2.0.0-Beta3
 - Improved: Merged changes from 1.1.4 into 2.0.0-Beta2
 

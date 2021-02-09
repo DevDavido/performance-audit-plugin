@@ -73,7 +73,7 @@
         "Settings_EmulatedDevice_Help": "Select in what kind of environment performance audits should be executed and measured.",
         "Settings_HasGroupedUrls_Title": "Group URLs for performance audits which only differ in their query string",
         "Settings_HasGroupedUrls_Help": "If you enable this setting, URLs which have the same URL path but differ in their <a href=\"https://en.wikipedia.org/wiki/Query_string\" target=\"_blank\">query string</a> will be grouped together for audits, so only one of those URLs will be audited, all regular other URLs are not affected by this setting. If lots of your URLs only differ in their query string, enabling this setting can speed up the time it takes for the overall performance audit of a site.",
-        "Settings_HasGroupedUrlsByAnchor_Title": "Group URLs for performance audits which only differ in their anchors",        
+        "Settings_HasGroupedUrlsByAnchor_Title": "Group URLs for performance audits which only differ in their anchors",
         "Settings_HasExtraHttpHeader_Title": "Use Custom HTTP header for performance audits",
         "Settings_HasExtraHttpHeader_Help": "If you want to add a custom HTTP header to every performance audit request, e.g. for HTTP Basic Authentication, enable this setting.",
         "Settings_ExtraHttpHeaderKey_Title": "Custom HTTP header key",

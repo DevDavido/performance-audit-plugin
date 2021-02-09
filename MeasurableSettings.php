@@ -62,6 +62,7 @@ class MeasurableSettings extends BaseMeasurableSettings
         $this->runCount = $this->makeRunCountSetting();
         $this->emulatedDevice = $this->makeEmulatedDeviceSetting();
         $this->hasGroupedUrls = $this->makeHasGroupedUrlsSetting();
+        $this->hasGroupedUrlsByAnchor = $this->makeHasGroupedUrlsByAnchorSetting();
         $this->hasExtraHttpHeader = $this->makeHasExtraHttpHeaderSetting();
         $this->extraHttpHeaderKey = $this->makeExtraHttpHeaderKeySetting();
         $this->extraHttpHeaderValue = $this->makeExtraHttpHeaderValueSetting();
@@ -162,6 +163,22 @@ class MeasurableSettings extends BaseMeasurableSettings
         return $this->makeSetting('has_grouped_urls', false, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
             $field->title = Piwik::translate('PerformanceAudit_Settings_HasGroupedUrls_Title');
             $field->inlineHelp = Piwik::translate('PerformanceAudit_Settings_HasGroupedUrls_Help');
+            $field->condition = 'is_enabled';
+            $field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;
+        });
+    }
+
+    /**
+     * Create a grouped URLs setting by anchor.
+     *
+     * @return MeasurableSetting
+     * @throws ValidatorException|Exception
+     */
+    private function makeHasGroupedUrlsByAnchorSetting()
+    {
+        return $this->makeSetting('has_grouped_urls_by_anchor', false, FieldConfig::TYPE_BOOL, function (FieldConfig $field) {
+            $field->title = Piwik::translate('PerformanceAudit_Settings_HasGroupedUrlsByAnchor_Title');
+            $field->inlineHelp = Piwik::translate('PerformanceAudit_Settings_HasGroupedUrlsByAnchor_Help');
             $field->condition = 'is_enabled';
             $field->uiControl = FieldConfig::UI_CONTROL_CHECKBOX;
         });
@@ -291,6 +308,16 @@ class MeasurableSettings extends BaseMeasurableSettings
     public function hasGroupedUrls()
     {
         return $this->getSetting('has_grouped_urls')->getValue();
+    }
+
+    /**
+     * Returns if site has grouped URLs for site.
+     *
+     * @return bool
+     */
+    public function hasGroupedUrlsByAnchor()
+    {
+        return $this->getSetting('has_grouped_urls_by_anchor')->getValue();
     }
 
     /**

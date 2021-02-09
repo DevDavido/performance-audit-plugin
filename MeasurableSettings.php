@@ -36,6 +36,9 @@ class MeasurableSettings extends BaseMeasurableSettings
     public $hasGroupedUrls;
 
     /** @var Setting */
+    public $hasGroupedUrlsByAnchor;
+
+    /** @var Setting */
     public $hasExtraHttpHeader;
 
     /** @var Setting */

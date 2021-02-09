@@ -149,6 +149,16 @@ class Tasks extends BaseTasks
 
             if ($siteSettings->hasGroupedUrls()) {
                 $this->groupUrlsByPath($urls);
+                if ($this->isInDebugMode()) {
+                    $this->logDebug('URLS to audit after group by query string = ' . count($urls) . '  ');
+                }
+            }
+
+            if ($siteSettings->hasGroupedUrlsByAnchor()) {
+                $this->groupUrlsByAnchor($urls);
+                if ($this->isInDebugMode()) {
+                    $this->logDebug('URLS to audit after group by anchor = ' . count($urls) . '  ');
+                }
             }
 
             if ($this->isInDebugMode()) {
@@ -345,6 +355,29 @@ class Tasks extends BaseTasks
         foreach ($urls as $key => $url) {
             $urlBase = current(explode('?', $url, 2));
             // Remove any URLs which differ only by query string
+            // by setting URL base as key and assign actual URL as value
+            $urls[$urlBase] = $url;
+            // Remove old entry by key
+            unset($urls[$key]);
+        }
+        // Reset keys
+        $urls = array_values($urls);
+
+        $this->removeUrlDuplicates($urls);
+    }
+
+    /**
+     * Group by anchor and remove duplicates of URLs
+     * which only differ in their anchors.
+     *
+     * @param array $urls
+     * @return void
+     */
+    private function groupUrlsByAnchor(array &$urls)
+    {
+        foreach ($urls as $key => $url) {
+            $urlBase = current(explode('#', $url, 2));
+            // Remove any URLs which differ only by anchor
             // by setting URL base as key and assign actual URL as value
             $urls[$urlBase] = $url;
             // Remove old entry by key

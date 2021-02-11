@@ -58,7 +58,7 @@ class ExecutableFinder extends BaseExecutableFinder
     public static function getDefaultPath() {
         return ExecutableFinder::isRunningOnWindows() ?
             '%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;' :
-            '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin::/opt/plesk/node/14/bin:/opt/plesk/node/12/bin:/opt/plesk/node/10/bin';
+            '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/plesk/node/14/bin:/opt/plesk/node/12/bin:/opt/plesk/node/10/bin';
     }
 
     /**

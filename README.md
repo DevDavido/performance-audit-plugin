@@ -52,7 +52,10 @@ If any errors occur during activation, please follow the instruction or informat
 - If you use a UNIX based OS [these dependencies are required](https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#chrome-headless-doesnt-launch-on-unix)
 
 ## Impact on server
-Please keep in mind that Performance Audit uses Lighthouse internally in order to perform performance audits in the background for every Matomo tracked URL within the last 1 month. If the Matomo installation has more than 10,000 tracked URLs within the last 1 month, it's suggested to either reduce the number of performed audit iterations in the website settings, group URLs in website settings or increase the server resources. For Matomo installations with over 100,000 tracked URLs within the last 1 month, this plugin architecture is rather unsuitable and therefor not recommended.
+Please keep in mind that Performance Audit uses Lighthouse internally in order to perform performance audits in the background for every Matomo tracked URL within the last 1 month.
+If the Matomo installation has more than 10,000 tracked unique URLs within the last 1 month, it's suggested to either reduce the number of performed audit iterations in the website settings,
+group URLs in website settings or increase the server resources. For Matomo installations with over 100,000 tracked unique URLs within the last 1 month,
+this plugin architecture is rather unsuitable and therefor not recommended.
 
 ## Screenshots
 ### Dashboard

@@ -1,0 +1,17 @@
+{
+    "PerformanceAudit": {
+        "Category": "Prestanda",
+        "CoreAdminHome_MenuPerformance": "Prestanda",
+        "CoreAdminHome_VersionPerformance": "Du använder för närvarande version %1$s%2$s%3$s av %4$s-insticksprogrammet.",
+        "Donate": "Donera",
+        "EnvironmentDesktop": "skrivbord",
+        "EnvironmentMobile": "mobil",
+        "Metrics_Max_Percent": "Högsta %",
+        "Metrics_Max_Seconds": "Max. Sekunder",
+        "Metrics_Min_Percent": "Lägsta %",
+        "Metrics_Min_Seconds": "Min. Sekunder",
+        "Metrics_Tooltip_OutOfRange": "%1$s%2$s ligger utanför räckvidden för alla klassificeringsgrupper.",
+        "PluginCheckStartButtonClicked": "Plugin-kontrollen har startat, vänligen vänta upp till 5 minuter…",
+        "Report_Documentation": "Rapporten innehåller information om %1$s för varje sida i en %2$s -miljö. Om du vill veta hur poängen beräknas kan du kolla in Googles <a href=\"https://web.dev/%3$s/\" target=\"_blank\">%4$s</a> sida."
+    }
+}

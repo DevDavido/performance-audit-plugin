@@ -16,12 +16,15 @@ namespace Ducks\Component\SplTypes;
  *
  * @see SplType http://php.net/manual/en/class.spltype.php
  */
-abstract class SplType {
-
+abstract class SplType
+{
     /**
-     * Default value
+     * Default value.
+     *
+     * @codingStandardsIgnoreStart
      */
     const __default = null;
+    // @codingStandardsIgnoreEnd
 
     /**
      * Internal enum value
@@ -29,50 +32,52 @@ abstract class SplType {
     public $__default;
 
     /**
-     * Creates a new value of some type
+     * Creates a new value of some type.
      *
      * @param mixed $initial_value Type and default value depends on the extension class.
      * @param bool $strict Whether to set the object's sctrictness.
      * @return void
      *
      * @throws \UnexpectedValueException if incompatible type is given.
+     *
+     * @codingStandardsIgnoreStart
      */
-    public function __construct($initial_value=null, $strict=null) {
+    public function __construct($initial_value = self::__default, $strict = true)
+    {
         if ($initial_value === null) {
             $initial_value = static::__default;
         }
-        $class = new \ReflectionClass($this);
-        if(!in_array($initial_value, $class->getConstants())) {
-            throw new \UnexpectedValueException('Value not a const in enum '.$class->getShortName());
-        }
         $this->__default = $initial_value;
     }
+    // @codingStandardsIgnoreEnd
 
     /**
-     * Stringify object
+     * Stringify object.
      *
      * @return string
      */
-    final public function __toString() {
-        return (string)$this->__default;
+    final public function __toString()
+    {
+        return (string) $this->__default;
     }
 
     /**
-     * Export object
+     * Export object.
      *
      * @return SplType
      */
-    final public static function __set_state($properties) {
+    final public static function __set_state($properties)
+    {
         return new static($properties['__default']);
     }
 
     /**
-     * Dumping object (php > 5.6.0)
+     * Dumping object (php > 5.6.0).
      *
      * @return array
      */
-    final public function __debugInfo() {
-        return array( '__default' => $this->__default);
+    final public function __debugInfo()
+    {
+        return array('__default' => $this->__default);
     }
-
 }

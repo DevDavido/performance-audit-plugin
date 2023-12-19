@@ -36,14 +36,6 @@ class ExecutableFinder extends BaseExecutableFinder
         return $executablePath;
     }
 
-    /*
-    public static function getDefaultComposerHomePath() {
-        return ExecutableFinder::isRunningOnWindows() ?
-            '%HOMEDRIVE%%HOMEPATH%\AppData\Roaming\Composer' :
-            '$HOME/.composer';
-    }
-    */
-
     /**
      * Get default path for executables depending on platform.
      *
@@ -51,8 +43,27 @@ class ExecutableFinder extends BaseExecutableFinder
      */
     public static function getDefaultPath() {
         return ExecutableFinder::isRunningOnWindows() ?
-            '%SystemRoot%\system32;%SystemRoot%;%SystemRoot%\System32\Wbem;' :
-            '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/plesk/node/14/bin:/opt/plesk/node/12/bin:/opt/plesk/node/10/bin';
+            implode(";", [
+                '%SystemRoot%\system32',
+                '%SystemRoot%',
+                '%SystemRoot%\System32\Wbem'
+            ]) :
+            implode(":", [
+                '/usr/local/sbin',
+                '/usr/local/bin',
+                '/usr/sbin',
+                '/usr/bin',
+                '/sbin',
+                '/bin',
+                '/opt/plesk/node/24/bin',
+                '/opt/plesk/node/22/bin',
+                '/opt/plesk/node/20/bin',
+                '/opt/plesk/node/18/bin',
+                '/opt/plesk/node/16/bin',
+                '/opt/plesk/node/14/bin',
+                '/opt/plesk/node/12/bin',
+                '/opt/plesk/node/10/bin'
+            ]);
     }
 
     /**

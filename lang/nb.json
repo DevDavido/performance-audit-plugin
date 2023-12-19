@@ -56,7 +56,7 @@
         "Settings_EmulatedDevice_Help": "Velg hvilken type miljøytelsesgjennomsyn som skal kjøres og måles.",
         "Settings_EmulatedDevice_Title": "Ytelsessimuleringsmiljø",
         "Settings_ExtraHttpHeaderKey_Authorization": "Identitetsbekreftelse",
-        "Settings_ExtraHttpHeaderKey_Cookie": "Kake",
+        "Settings_ExtraHttpHeaderKey_Cookie": "Informasjonskapsel",
         "Settings_ExtraHttpHeaderKey_Help": "Velg din brukerdefinert HTTP-hodenøkkel",
         "Settings_ExtraHttpHeaderKey_Title": "Brukerdefinert HTTP-hodenøkkel",
         "Settings_ExtraHttpHeaderValue_Help": "Sett din egendefinerte HTTP-hodeverdi.",

@@ -1,11 +1,5 @@
 <?php
-/**
- * Matomo - free/libre analytics platform
- *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
- */
+
 namespace Piwik\Plugins\PerformanceAudit\tests\Integration;
 
 require PIWIK_INCLUDE_PATH . '/plugins/PerformanceAudit/vendor/autoload.php';
@@ -56,9 +50,9 @@ abstract class PerformanceAuditIntegrationTest extends IntegrationTestCase
 
         // Create sites
         [$website1Id, $website2Id, $website3Id] = [
-            Fixture::createWebsite('2013-01-01 00:00:00', 0, 'Example 1', 'http://example.com/'),
-            Fixture::createWebsite('2013-01-01 00:00:00', 0, 'Example 2', 'http://example.org/'),
-            Fixture::createWebsite('2013-01-01 00:00:00', 0, 'Example 3', 'http://example.net/')
+            Fixture::createWebsite('2013-01-01 00:00:00', 0, 'Example 1', 'https://example.com/'),
+            Fixture::createWebsite('2013-01-01 00:00:00', 0, 'Example 2', 'https://example.org/'),
+            Fixture::createWebsite('2013-01-01 00:00:00', 0, 'Example 3', 'https://example.net/')
         ];
         $this->createBaseData([$website1Id, $website2Id, $website3Id]);
     }

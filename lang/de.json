@@ -36,7 +36,7 @@
         "Report_FirstContentfulPaint_Documentation_Information": "erste zufriedenstellende Farbe",
         "Report_Header_CumulativeLayoutShift_Desktop": "Desktop Cumulative Layout Shift",
         "Report_Header_CumulativeLayoutShift_Mobile": "Mobile kumulative Layout-Verschiebung",
-        "Report_Header_FirstContentfulPaint_Desktop": "Desktop: First Contentful Paint",
+        "Report_Header_FirstContentfulPaint_Desktop": "Desktop First Contentful Paint",
         "Report_Header_FirstContentfulPaint_Mobile": "Mobile First Contentful Paint",
         "Report_Header_Interactive_Desktop": "Desktop-Zeit für Interaktion",
         "Report_Header_Interactive_Mobile": "Mobile Zeit für Interaktion",

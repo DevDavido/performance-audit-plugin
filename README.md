@@ -82,10 +82,10 @@ Please see the [CHANGELOG](CHANGELOG.md) for more information on what has change
 - Add support for [mobile Matomo app](https://matomo.org/mobile/).
 
 ## Contact
-If you have any questions or inquiries, you can contact `github {at} diskoboss {døt} de`.
+If you have any questions or inquiries, you can contact `github{at}diskoboss{døt}de`.
 
 ## Security
-If you discover any security related issues, please contact `github {at} diskoboss {døt} de` instead of using the issue tracker.
+If you discover any security related issues, please contact `github{at}diskoboss{døt}de` instead of using the issue tracker.
 
 Please note that the performance audits will be performed with Chromium which renders Matomo-tracked web pages on your server without the sandbox mode of Chromium. You can find more information about this possible issue on the [lighthouse-cli repository](https://github.com/GoogleChrome/lighthouse-ci/tree/master/docs/recipes/docker-client#--no-sandbox-issues-explained).
 

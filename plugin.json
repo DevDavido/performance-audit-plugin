@@ -9,8 +9,7 @@
     },
     "authors": [
         {
-            "name": "David",
-            "email": "github@diskoboss.de",
+            "name": "DevDavido",
             "homepage": "https://github.com/DevDavido"
         }
     ],
@@ -18,7 +17,7 @@
         "paypal": "david.domainemail@gmx.de"
     },
     "support": {
-        "email": "github@diskoboss.de",
+        "email": "github{at}diskoboss{døt}de",
         "issues": "https://github.com/DevDavido/performance-audit-plugin/issues"
     },
     "homepage": "https://github.com/DevDavido/performance-audit-plugin",

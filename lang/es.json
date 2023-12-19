@@ -1,0 +1,8 @@
+{
+    "PerformanceAudit": {
+        "BrowserFamilies": "Familias de navegadores",
+        "Category": "Rendimiento",
+        "CoreAdminHome_MenuPerformance": "Rendimiento",
+        "CoreAdminHome_PluginPerformance": "Plugin PerformanceAudit"
+    }
+}

@@ -1,1 +1,13 @@
-{}
+{
+    "PerformanceAudit": {
+        "Category": "Швидкодія",
+        "CoreAdminHome_MenuPerformance": "Швидкодія",
+        "CoreAdminHome_VersionPerformance": "Зараз ви використовуєте версію %1$s%2$s%3$s плагіну %4$s.",
+        "EnvironmentDesktop": "комп'ютер",
+        "EnvironmentMobile": "мобільний",
+        "Metrics_Tooltip_OutOfRange": "%1$s%2$s поза діапазоном усіх груп класифікації.",
+        "PluginCheckStartButtonClicked": "Розпочато перевірку плагіна, зачекайте до 5 хвилин…",
+        "Report_Documentation": "Цей звіт містить відомості про %1$s для кожної сторінки в середовищі %2$s. Якщо ви хочете дізнатися, як обчислюється оцінка, відвідайте сторінку Google <a href=\"https://web.dev/%3$s/\" target=\"_blank\">%4$s</a>.",
+        "Version": "Версія"
+    }
+}

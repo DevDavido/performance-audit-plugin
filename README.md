@@ -22,7 +22,7 @@ Continuously monitor those Web Vital metrics over time, allowing detection of un
 ## Support me
 If you installed this plugin and it was useful for you or your business, please don't hesitate to make a donation, I would highly appreciate it. Thank you!
 
-<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=77KW4LBEYBD9U" target="_blank"><img src="https://dantheman827.github.io/images/donate-button.svg" width="130" alt="Donate"></a>
+<a href="https://www.buymeacoffee.com/devdavido" target="_blank"><img src="https://github.com/DevDavido/performance-audit-plugin/assets/997605/0c4e6a4c-9852-4410-a153-fa379fa7aa17" width="180" alt="Buy me a coffee"></a>
 
 ## Installation
 Preferably you install [this plugin](https://plugins.matomo.org/PerformanceAudit) automatically by:

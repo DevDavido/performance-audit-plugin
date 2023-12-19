@@ -46,10 +46,16 @@ enable_plugin_upload = 1
 If any errors occur during activation, please follow the instruction or information of the error message.
 
 ## Minimum requirements
-- Matomo 3.12
-- PHP 7.1
+- Matomo 4.0
+- PHP 7.2.5
 - NPM v6.13 (part of [Node.js](https://nodejs.org/en/download/) 10.18 LTS) to be installed on your server, otherwise plugin cannot be activated.
 - If you use a UNIX based OS [these dependencies are required](https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#chrome-headless-doesnt-launch-on-unix)
+
+## Impact on server
+Please keep in mind that Performance Audit uses Lighthouse internally in order to perform performance audits in the background for every Matomo tracked URL within the last 1 month.
+If the Matomo installation has more than 10,000 tracked unique URLs within the last 1 month, it's suggested to either reduce the number of performed audit iterations in the website settings,
+group URLs in website settings or increase the server resources. For Matomo installations with over 100,000 tracked unique URLs within the last 1 month,
+this plugin architecture is rather unsuitable and therefor not recommended.
 
 ## Screenshots
 ### Dashboard

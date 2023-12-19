@@ -2,8 +2,7 @@
 
 [![Stable Version](https://img.shields.io/github/v/release/DevDavido/performance-audit-plugin)](https://github.com/DevDavido/performance-audit-plugin/releases)
 [![GPL Licensed](https://img.shields.io/github/license/DevDavido/performance-audit-plugin?color=yellow)](LICENSE.md)
-[![Tests Badge](https://img.shields.io/github/workflow/status/DevDavido/performance-audit-plugin/Tests?label=tests)](https://github.com/DevDavido/performance-audit-plugin/actions?query=workflow%3ATests)
-[![Open Issues](https://img.shields.io/github/issues-raw/DevDavido/performance-audit-plugin)](https://github.com/DevDavido/performance-audit-plugin/issues)
+[![Tests Badge](https://img.shields.io/github/actions/workflow/status/DevDavido/performance-audit-plugin/tests.yml)](https://github.com/DevDavido/performance-audit-plugin/actions/workflows/tests.yml)
 
 ## Description
 Daily performance audits of all your sites in Matomo for the following metrics based on Google Lighthouse:

@@ -1,4 +1,11 @@
 # Changelog
+## 2.1.0
+- Added: Site setting to group URLs by anchor which removes auditing duplicates of URLs which only differ in their anchors
+- Added: Support to find latest Node executable in Plesk environment
+- Added: Initial (partial) translation available for Albanian, Basque, Bokmål, Brazilian Portuguese, Bulgarian, Catalan, Chinese (Traditional), Dutch, French, German, Greek, Indonesian, Italian, Japanese, Portuguese, Spanish, Swedish, Turkish, Ukrainian
+- Updated: Bumped `symfony/process`, `ducks-project/spl-types`, `symfony/polyfill-mbstring` and `friendsofphp/php-cs-fixer` dependency version
+- Updated donation links
+
 ## 2.0.0
 - Release stable version for Matomo 4
 - Updated: Bumped `symfony/process` and `symfony/polyfill-mbstring` dependency version

@@ -18,7 +18,7 @@
         "jeroen-g/lighthouse": "^0.2"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.19"
+        "friendsofphp/php-cs-fixer": "^3.4"
     },
     "autoload": {
         "classmap": ["./"]

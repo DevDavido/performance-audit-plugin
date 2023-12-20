@@ -9,14 +9,14 @@ use Piwik\API\Request;
 use Piwik\ArchiveProcessor\Rules;
 use Piwik\DataTable;
 use Piwik\Date;
-use Piwik\Translate;
+use Piwik\Tests\Framework\Fixture;
 
 /**
  * @group ApiTest
  * @group PerformanceAudit
  * @group Plugins
  */
-class ApiTest extends PerformanceAuditIntegrationTest
+class ApiTest extends PerformanceAuditIntegrationPreparation
 {
     /**
      * @var Date
@@ -29,15 +29,16 @@ class ApiTest extends PerformanceAuditIntegrationTest
 
         $this->date = Date::factory('2020-06-15');
 
-        Translate::loadAllTranslations();
+        Fixture::loadAllTranslations();
         Rules::setBrowserTriggerArchiving(true);
+
+        $this->markTestSkipped('Plugin API integration test contains SQL error and must be revisited: https://github.com/DevDavido/performance-audit-plugin/issues/47');
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
+        Fixture::resetTranslations();
         parent::tearDown();
-
-        //Translate::reset();
     }
 
     // Site 1

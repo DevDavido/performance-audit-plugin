@@ -6,6 +6,7 @@ require PIWIK_INCLUDE_PATH . '/plugins/PerformanceAudit/vendor/autoload.php';
 
 use Piwik\Metrics\Formatter;
 use Piwik\Piwik;
+use TypeError;
 
 class MinSeconds extends Min
 {
@@ -35,9 +36,14 @@ class MinSeconds extends Min
      * @param mixed $value
      * @param Formatter $formatter
      * @return mixed $value
+     * @throws TypeError
      */
     public function format($value, Formatter $formatter)
     {
+        if (!is_numeric($value)) {
+            throw new TypeError("A non-numeric value encountered");
+        }
+
         if ($value == 0) {
             return '0.000';
         }

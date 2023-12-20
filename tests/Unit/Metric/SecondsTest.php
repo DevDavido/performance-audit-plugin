@@ -9,6 +9,7 @@ use Piwik\Metrics\Formatter;
 use Piwik\Plugins\PerformanceAudit\Columns\Metrics\MaxSeconds;
 use Piwik\Plugins\PerformanceAudit\Columns\Metrics\MedianSeconds;
 use Piwik\Plugins\PerformanceAudit\Columns\Metrics\MinSeconds;
+use TypeError;
 
 /**
  * @group Metric
@@ -21,7 +22,7 @@ class SecondsTest extends TestCase
     /** @var Formatter */
     private $formatter;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -42,7 +43,21 @@ class SecondsTest extends TestCase
             $this->assertSame('50.125', $obj->format(50125, $this->formatter));
             $this->assertSame('100', $obj->format(100000, $this->formatter));
             $this->assertSame('-100.55', $obj->format(-100550, $this->formatter));
-            $this->assertSame('0.000', $obj->format('test', $this->formatter));
+        }
+    }
+
+    public function test_max_median_min_seconds_format_with_exception()
+    {
+        $this->expectException(TypeError::class);
+
+        $objs = [
+            new MaxSeconds(),
+            new MedianSeconds(),
+            new MinSeconds()
+        ];
+
+        foreach ($objs as $obj) {
+            $obj->format('test', $this->formatter);
         }
     }
 }

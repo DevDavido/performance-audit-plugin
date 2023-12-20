@@ -20,7 +20,7 @@ use Piwik\Site;
 use Piwik\Tests\Framework\Fixture;
 use Piwik\Tests\Framework\TestCase\IntegrationTestCase;
 
-abstract class PerformanceAuditIntegrationTest extends IntegrationTestCase
+abstract class PerformanceAuditIntegrationPreparation extends IntegrationTestCase
 {
     const SERVER_HOST_NAME = 'localhost';
     const SERVER_PORT = 80;
@@ -43,9 +43,10 @@ abstract class PerformanceAuditIntegrationTest extends IntegrationTestCase
 
         // Create user
         $this->addPreexistingSuperUser();
-        $this->superUserTokenAuth = UsersManagerAPI::getInstance()->getTokenAuth(
+        $this->superUserTokenAuth = UsersManagerAPI::getInstance()->createAppSpecificTokenAuth(
             self::TEST_SUPERUSER_LOGIN,
-            md5(self::TEST_SUPERUSER_PASS)
+            self::TEST_SUPERUSER_PASS,
+            "app-specific-pwd-description"
         );
 
         // Create sites

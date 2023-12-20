@@ -6,6 +6,7 @@ require PIWIK_INCLUDE_PATH . '/plugins/PerformanceAudit/vendor/autoload.php';
 
 use Piwik\Metrics\Formatter;
 use Piwik\Piwik;
+use TypeError;
 
 class MaxPercent extends Max
 {
@@ -35,9 +36,14 @@ class MaxPercent extends Max
      * @param mixed $value
      * @param Formatter $formatter
      * @return mixed $value
+     * @throws TypeError
      */
     public function format($value, Formatter $formatter)
     {
+        if (!is_numeric($value)) {
+            throw new TypeError("A non-numeric value encountered");
+        }
+
         return mb_substr($formatter->getPrettyPercentFromQuotient($value / 100), 0, -1);
     }
 }

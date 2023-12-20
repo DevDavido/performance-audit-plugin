@@ -1,6 +1,10 @@
 # Changelog
+## 3.0.0
+- Release stable version for Matomo 5
+- Fixed: CORS template issue
+
 ## 3.0.0-Beta2
-- Improved: Fixed issue with Request handling
+- Fixed: Issue with migrated Request handling
 
 ## 3.0.0-Beta1
 - Added: Support for Matomo 5 🎉

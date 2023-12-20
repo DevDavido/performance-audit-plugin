@@ -6,6 +6,7 @@ require PIWIK_INCLUDE_PATH . '/plugins/PerformanceAudit/vendor/autoload.php';
 
 use PHPUnit\Framework\TestCase;
 use Piwik\Plugins\PerformanceAudit\Columns\Filters\AuditScoreClassifier;
+use Piwik\Tests\Framework\Fixture;
 
 /**
  * @group Filter
@@ -15,6 +16,13 @@ use Piwik\Plugins\PerformanceAudit\Columns\Filters\AuditScoreClassifier;
  */
 class AuditScoreClassifierTest extends TestCase
 {
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        Fixture::loadAllTranslations();
+    }
+
     public function test_get_correct_score_tooltips()
     {
         $tooltips = [

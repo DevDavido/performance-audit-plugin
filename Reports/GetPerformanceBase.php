@@ -36,11 +36,11 @@ class GetPerformanceBase extends Report
      */
     protected function init()
     {
-        if (Request::getIntegerParameter('idSite', 0) == 0) {
+        if (Request::fromRequest()->getIntegerParameter('idSite', 0) == 0) {
             return;
         }
 
-        $siteSettings = new MeasurableSettings(Request::getIntegerParameter('idSite'));
+        $siteSettings = new MeasurableSettings(Request::fromRequest()->getIntegerParameter('idSite'));
         $defaultMetrics = [
             new MinSeconds(),
             new MedianSeconds(),
@@ -69,7 +69,7 @@ class GetPerformanceBase extends Report
      */
     public function isEnabled()
     {
-        $idSite = Request::getIntegerParameter('idSite', -1);
+        $idSite = Request::fromRequest()->getIntegerParameter('idSite', -1);
         if ($idSite < 0) {
             return false;
         }

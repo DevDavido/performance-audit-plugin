@@ -363,7 +363,7 @@ class API extends BaseAPI
      */
     private function disableTotalsRow($dataTable)
     {
-        if ($dataTable instanceof DataTable && Request::getBoolParameter('keep_totals_row', false)) {
+        if ($dataTable instanceof DataTable && Request::fromRequest()->getBoolParameter('keep_totals_row', false)) {
             $dataTable->setTotalsRow(new Row([
                 'label' => DataTable::LABEL_TOTALS_ROW
             ]));

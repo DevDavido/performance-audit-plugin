@@ -1,4 +1,7 @@
 # Changelog
+## 3.0.0-Beta2
+- Improved: Fixed issue with Request handling
+
 ## 3.0.0-Beta1
 - Added: Support for Matomo 5 🎉
 - Updated: Bumped the minimum Node version to 20.x LTS for this new major plugin version

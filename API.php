@@ -6,7 +6,6 @@ require PIWIK_INCLUDE_PATH . '/plugins/PerformanceAudit/vendor/autoload.php';
 
 use Exception;
 use Piwik\Archive;
-use Piwik\Common;
 use Piwik\DataTable;
 use Piwik\DataTable\Map;
 use Piwik\DataTable\Row;
@@ -20,6 +19,7 @@ use Piwik\Plugins\PerformanceAudit\Columns\Metrics\MedianPercent;
 use Piwik\Plugins\PerformanceAudit\Columns\Metrics\MedianSeconds;
 use Piwik\Plugins\PerformanceAudit\Columns\Metrics\MinPercent;
 use Piwik\Plugins\PerformanceAudit\Columns\Metrics\MinSeconds;
+use Piwik\Request;
 use Piwik\Site;
 use Piwik\UrlHelper;
 
@@ -363,7 +363,7 @@ class API extends BaseAPI
      */
     private function disableTotalsRow($dataTable)
     {
-        if ($dataTable instanceof DataTable && Common::getRequestVar('keep_totals_row', false)) {
+        if ($dataTable instanceof DataTable && Request::getBoolParameter('keep_totals_row', false)) {
             $dataTable->setTotalsRow(new Row([
                 'label' => DataTable::LABEL_TOTALS_ROW
             ]));

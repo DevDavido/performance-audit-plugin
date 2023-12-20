@@ -2,12 +2,11 @@
 
 namespace Piwik\Plugins\PerformanceAudit\Commands;
 
-use Piwik\Log;
+use Piwik\Container\StaticContainer;
+use Piwik\Log\Logger;
 use Piwik\Option;
 use Piwik\Plugin\ConsoleCommand;
 use Piwik\Plugins\PerformanceAudit\Tasks;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 
 class ClearTaskRunningFlag extends ConsoleCommand
 {
@@ -16,7 +15,7 @@ class ClearTaskRunningFlag extends ConsoleCommand
      *
      * @return void
      */
-    protected function configure()
+    protected function doInitialize(): void
     {
         $this->setName('performanceaudit:clear-task-running-flag');
         $this->setDescription('Clear flag for currently running performance audit task');
@@ -25,20 +24,21 @@ class ClearTaskRunningFlag extends ConsoleCommand
     /**
      * Execute command.
      *
-     * @return void
+     * @return int
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function doExecute(): int
     {
         $hasRunningTask = !!Option::get(Tasks::hasTaskRunningKey());
         if ($hasRunningTask) {
-            Log::debug('Cleared task running flag manually now');
+            StaticContainer::get(Logger::class)->debug('Cleared task running flag manually now');
             Option::delete(Tasks::hasTaskRunningKey());
 
-            $output->writeln('<info>Performance Audit running task flag was cleared successfully.</info>');
-            return;
+            $this->getOutput()->writeln('<info>Performance Audit running task flag was cleared successfully.</info>');
+            return self::SUCCESS;
         }
 
-        Log::debug('No task running flag available to clear now');
-        $output->writeln('<info>Performance Audit running task flag was not set, so nothing to clear now.</info>');
+        StaticContainer::get(Logger::class)->debug('No task running flag available to clear now');
+        $this->getOutput()->writeln('<info>Performance Audit running task flag was not set, so nothing to clear now.</info>');
+        return self::SUCCESS;
     }
 }

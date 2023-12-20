@@ -7,12 +7,13 @@ require PIWIK_INCLUDE_PATH . '/plugins/PerformanceAudit/vendor/autoload.php';
 use Exception;
 use Piwik\Common;
 use Piwik\Config;
+use Piwik\Container\StaticContainer;
 use Piwik\DataAccess\ArchiveTableCreator;
 use Piwik\DataTable;
 use Piwik\DataTable\Row;
 use Piwik\Date;
 use Piwik\Db;
-use Piwik\Log;
+use Piwik\Log\Logger;
 use Piwik\Period;
 use Piwik\Plugin\Archiver as BaseArchiver;
 use Piwik\Plugins\PerformanceAudit\Columns\Metrics\Audit;
@@ -69,7 +70,7 @@ class Archiver extends BaseArchiver
     public static function shouldRunEvenWhenNoVisits()
     {
         $deletedDuplicateCount = self::deleteArchiveDuplicates();
-        Log::debug($deletedDuplicateCount . ' archive entries got deleted');
+        StaticContainer::get(Logger::class)->debug($deletedDuplicateCount . ' archive entries got deleted');
 
         return true;
     }
@@ -89,7 +90,7 @@ class Archiver extends BaseArchiver
         $emulatedDevices = EmulatedDevice::getList(EmulatedDevice::Both);
 
         foreach ($idSites as $idSite) {
-            Log::info("Will process performance audit for website id = {$idSite}, period = {$period}");
+            StaticContainer::get(Logger::class)->info("Will process performance audit for website id = {$idSite}, period = {$period}");
             foreach ($metrics as $metric) {
                 foreach ($emulatedDevices as $emulatedDevice) {
                     $table = new DataTable();

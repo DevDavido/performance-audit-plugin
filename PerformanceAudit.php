@@ -6,8 +6,9 @@ require PIWIK_INCLUDE_PATH . '/plugins/PerformanceAudit/vendor/autoload.php';
 
 use Exception;
 use Piwik\Common;
+use Piwik\Container\StaticContainer;
 use Piwik\Db;
-use Piwik\Log;
+use Piwik\Log\Logger;
 use Piwik\Plugin;
 use Piwik\Plugins\PerformanceAudit\Exceptions\InstallationFailedException;
 use ReflectionClass;
@@ -60,7 +61,7 @@ class PerformanceAudit extends Plugin
         try {
             (new NodeDependencyInstaller())->install();
         } catch (Exception $exception) {
-            Log::error('Unable to activate plugin.', ['exception' => $exception]);
+            StaticContainer::get(Logger::class)->error('Unable to activate plugin.', ['exception' => $exception]);
 
             // Throw new exception so the plugin doesn't get activated in Matomo
             throw new InstallationFailedException('PerformanceAudit plugin activation failed due to the following error: ' . PHP_EOL . $exception->getMessage());
@@ -90,7 +91,7 @@ class PerformanceAudit extends Plugin
     public function updated($componentName, $updatedVersion) {
         // Only perform action if this plugin got updated
         if ((new ReflectionClass($this))->getShortName() === $componentName) {
-            Log::info($componentName . ' plugin was updated to version: ' . $updatedVersion);
+            StaticContainer::get(Logger::class)->info($componentName . ' plugin was updated to version: ' . $updatedVersion);
 
             // Since an plugin update removes all installed Node dependencies,
             // we re-add them by running the dependencies installer via activate()

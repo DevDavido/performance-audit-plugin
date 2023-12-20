@@ -11,10 +11,11 @@ use FilesystemIterator;
 use OutOfBoundsException;
 use Piwik\API\Request;
 use Piwik\Common;
+use Piwik\Container\StaticContainer;
 use Piwik\DataTable\Map;
 use Piwik\Date;
 use Piwik\Db;
-use Piwik\Log;
+use Piwik\Log\Logger;
 use Piwik\Option;
 use Piwik\Piwik;
 use Piwik\Plugin\Tasks as BaseTasks;
@@ -783,7 +784,7 @@ class Tasks extends BaseTasks
         if ($this->isInDebugMode()) {
             $this->logOutput[] = '[debug] ' . $message;
         }
-        Log::debug($message);
+        StaticContainer::get(Logger::class)->debug($message);
     }
 
     /**
@@ -797,7 +798,7 @@ class Tasks extends BaseTasks
         if ($this->isInDebugMode()) {
             $this->logOutput[] = '[info] ' . $message;
         }
-        Log::info($message);
+        StaticContainer::get(Logger::class)->info($message);
     }
 
     /**
@@ -811,7 +812,7 @@ class Tasks extends BaseTasks
         if ($this->isInDebugMode()) {
             $this->logOutput[] = '[warning] ' . $message;
         }
-        Log::warning($message);
+        StaticContainer::get(Logger::class)->warning($message);
     }
 
     /**
@@ -825,6 +826,6 @@ class Tasks extends BaseTasks
         if ($this->isInDebugMode()) {
             $this->logOutput[] = '[error] ' . $message;
         }
-        Log::error($message);
+        StaticContainer::get(Logger::class)->error($message);
     }
 }

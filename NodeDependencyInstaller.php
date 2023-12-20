@@ -5,7 +5,8 @@ namespace Piwik\Plugins\PerformanceAudit;
 require PIWIK_INCLUDE_PATH . '/plugins/PerformanceAudit/vendor/autoload.php';
 
 use Exception;
-use Piwik\Log;
+use Piwik\Container\StaticContainer;
+use Piwik\Log\Logger;
 use Piwik\Plugins\PerformanceAudit\Exceptions\DependencyNpmMisconfigurationException;
 use Piwik\Plugins\PerformanceAudit\Exceptions\DependencyOfChromeMissingException;
 use Piwik\Plugins\PerformanceAudit\Exceptions\DependencyUnexpectedResultException;
@@ -35,7 +36,7 @@ class NodeDependencyInstaller
             $this->installNpmDependencies();
             $this->checkNpmDependencies();
         } catch (Exception $exception) {
-            Log::error('Unable to install Node dependencies.', ['exception' => $exception]);
+            StaticContainer::get(Logger::class)->error('Unable to install Node dependencies.', ['exception' => $exception]);
 
             throw new InstallationFailedException('Node.js dependency installation failed due to the following error: ' . PHP_EOL . $exception->getMessage());
         }

@@ -5,7 +5,6 @@ namespace Piwik\Plugins\PerformanceAudit\Reports;
 require PIWIK_INCLUDE_PATH . '/plugins/PerformanceAudit/vendor/autoload.php';
 
 use Exception;
-use Piwik\Common;
 use Piwik\DataTable\Filter\Sort;
 use Piwik\Piwik;
 use Piwik\Plugin\Report;
@@ -17,6 +16,7 @@ use Piwik\Plugins\PerformanceAudit\Columns\PageUrl;
 use Piwik\Plugins\PerformanceAudit\EmulatedDevice;
 use Piwik\Plugins\PerformanceAudit\MeasurableSettings;
 use Piwik\Report\ReportWidgetFactory;
+use Piwik\Request;
 use Piwik\Widget\WidgetsList;
 use ReflectionClass;
 
@@ -36,11 +36,11 @@ class GetPerformanceBase extends Report
      */
     protected function init()
     {
-        if (!Common::getRequestVar('idSite', false)) {
+        if (Request::getIntegerParameter('idSite', 0) == 0) {
             return;
         }
 
-        $siteSettings = new MeasurableSettings(Common::getRequestVar('idSite'));
+        $siteSettings = new MeasurableSettings(Request::getIntegerParameter('idSite'));
         $defaultMetrics = [
             new MinSeconds(),
             new MedianSeconds(),
@@ -69,8 +69,8 @@ class GetPerformanceBase extends Report
      */
     public function isEnabled()
     {
-        $idSite = Common::getRequestVar('idSite', false);
-        if (!$idSite) {
+        $idSite = Request::getIntegerParameter('idSite', -1);
+        if ($idSite < 0) {
             return false;
         }
         // Disable report if initialised as instance of itself

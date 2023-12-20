@@ -22,4 +22,4 @@ Under `General Settings` > `Websites` > `Manage` click on the edit button of the
 
 __The plugin cannot install because Chromium cannot be installed due to a missing library?__
 
-Make sure [all necessary dependencies](https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#chrome-headless-doesnt-launch-on-unix) for Chromium are installed.
+Make sure [all necessary dependencies](https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#chrome-doesnt-launch-on-linux) for Chromium are installed.

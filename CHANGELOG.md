@@ -1,4 +1,9 @@
 # Changelog
+## 3.0.0-Beta1
+- Added: Support for Matomo 5 🎉
+- Updated: Bumped the minimum Node version to 20.x LTS for this new major plugin version
+- Improved: Migrated some deprecated Matomo Plugin code
+
 ## 2.1.0
 - Added: Site setting to group URLs by anchor which removes auditing duplicates of URLs which only differ in their anchors
 - Added: Support to find latest Node executable in Plesk environment

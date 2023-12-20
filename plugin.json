@@ -1,11 +1,11 @@
 {
     "name": "PerformanceAudit",
     "description": "Daily performance audits of all your sites in Matomo.",
-    "version": "2.1.0",
+    "version": "3.0.0-b1",
     "theme": false,
     "require": {
         "php": ">=7.2.5",
-        "matomo": ">=4.0.0-b1,<5.0.0-b1"
+        "matomo": ">=5.0.0-b1,<6.0.0-b1"
     },
     "authors": [
         {

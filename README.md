@@ -16,7 +16,7 @@ Daily performance audits of all your sites in Matomo for the following metrics b
 
 Continuously monitor those Web Vital metrics over time, allowing detection of underlying problems before they have an adverse effect for users or simply track changes made to the web application, allowing you to establish a baseline for comparison too.
 
-**Note:** Requires minimum NPM v6.13 (part of Node.js 10.18 LTS) to be installed on your server, otherwise plugin cannot be activated.
+**Note:** Requires minimum NPM v10.x (part of Node.js 20.x LTS) to be installed on your server, otherwise plugin cannot be activated.
 
 ## Support me
 If you installed this plugin and it was useful for you or your business, please don't hesitate to make a donation, I would highly appreciate it. Thank you!
@@ -45,10 +45,10 @@ enable_plugin_upload = 1
 If any errors occur during activation, please follow the instruction or information of the error message.
 
 ## Minimum requirements
-- Matomo 4.0
+- Matomo 5.0
 - PHP 7.2.5
-- NPM v6.13 (part of [Node.js](https://nodejs.org/en/download/) 10.18 LTS) to be installed on your server, otherwise plugin cannot be activated.
-- If you use a UNIX based OS [these dependencies are required](https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#chrome-headless-doesnt-launch-on-unix)
+- NPM v10.x (part of [Node.js](https://nodejs.org/en/download/) 20.x LTS) to be installed on your server, otherwise plugin cannot be activated.
+- If you use a UNIX based OS [these dependencies are required](https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#chrome-doesnt-launch-on-linux)
 
 ## Impact on server
 Please keep in mind that Performance Audit uses Lighthouse internally in order to perform performance audits in the background for every Matomo tracked URL within the last 1 month.

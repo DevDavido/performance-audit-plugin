@@ -5,7 +5,7 @@
         "CoreAdminHome_MenuPerformance": "Performance",
         "CoreAdminHome_PluginPerformance": "PerformanceAudit Plugin",
         "CoreAdminHome_VersionPerformance": "You are currently using version %1$s%2$s%3$s of the %4$s plugin.",
-        "Donate": "Donate",
+        "Donate_BuyMeACoffee": "Buy me a coffee",
         "EnvironmentDesktop": "desktop",
         "EnvironmentMobile": "mobile",
         "Metrics_Max_Percent": "Highest %",

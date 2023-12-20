@@ -2,8 +2,7 @@
 
 [![Stable Version](https://img.shields.io/github/v/release/DevDavido/performance-audit-plugin)](https://github.com/DevDavido/performance-audit-plugin/releases)
 [![GPL Licensed](https://img.shields.io/github/license/DevDavido/performance-audit-plugin?color=yellow)](LICENSE.md)
-[![Tests Badge](https://img.shields.io/github/workflow/status/DevDavido/performance-audit-plugin/Tests?label=tests)](https://github.com/DevDavido/performance-audit-plugin/actions?query=workflow%3ATests)
-[![Open Issues](https://img.shields.io/github/issues-raw/DevDavido/performance-audit-plugin)](https://github.com/DevDavido/performance-audit-plugin/issues)
+[![Tests Badge](https://img.shields.io/github/actions/workflow/status/DevDavido/performance-audit-plugin/tests.yml)](https://github.com/DevDavido/performance-audit-plugin/actions/workflows/tests.yml)
 
 ## Description
 Daily performance audits of all your sites in Matomo for the following metrics based on Google Lighthouse:
@@ -22,7 +21,7 @@ Continuously monitor those Web Vital metrics over time, allowing detection of un
 ## Support me
 If you installed this plugin and it was useful for you or your business, please don't hesitate to make a donation, I would highly appreciate it. Thank you!
 
-<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=77KW4LBEYBD9U" target="_blank"><img src="https://dantheman827.github.io/images/donate-button.svg" width="130" alt="Donate"></a>
+<a href="https://www.buymeacoffee.com/devdavido" target="_blank"><img src="https://github.com/DevDavido/performance-audit-plugin/assets/997605/0c4e6a4c-9852-4410-a153-fa379fa7aa17" width="180" alt="Buy me a coffee"></a>
 
 ## Installation
 Preferably you install [this plugin](https://plugins.matomo.org/PerformanceAudit) automatically by:
@@ -78,14 +77,11 @@ Run the integration and unit tests with:
 ## Changelog
 Please see the [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
-## ToDo
-- Add support for [mobile Matomo app](https://matomo.org/mobile/).
-
 ## Contact
-If you have any questions or inquiries, you can contact `github {at} diskoboss {døt} de`.
+If you have any questions or inquiries, you can contact `github{at}diskoboss{døt}de`.
 
 ## Security
-If you discover any security related issues, please contact `github {at} diskoboss {døt} de` instead of using the issue tracker.
+If you discover any security related issues, please contact `github{at}diskoboss{døt}de` instead of using the issue tracker.
 
 Please note that the performance audits will be performed with Chromium which renders Matomo-tracked web pages on your server without the sandbox mode of Chromium. You can find more information about this possible issue on the [lighthouse-cli repository](https://github.com/GoogleChrome/lighthouse-ci/tree/master/docs/recipes/docker-client#--no-sandbox-issues-explained).
 

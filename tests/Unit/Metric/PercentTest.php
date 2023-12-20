@@ -1,21 +1,15 @@
 <?php
-/**
- * Matomo - free/libre analytics platform
- *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- */
 
 namespace Piwik\Plugins\PerformanceAudit\tests\Unit\Metric;
 
 require PIWIK_INCLUDE_PATH . '/plugins/PerformanceAudit/vendor/autoload.php';
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_Error_Warning;
 use Piwik\Metrics\Formatter;
 use Piwik\Plugins\PerformanceAudit\Columns\Metrics\MaxPercent;
 use Piwik\Plugins\PerformanceAudit\Columns\Metrics\MedianPercent;
 use Piwik\Plugins\PerformanceAudit\Columns\Metrics\MinPercent;
+use TypeError;
 
 /**
  * @group Metric
@@ -28,7 +22,7 @@ class PercentTest extends TestCase
     /** @var Formatter */
     private $formatter;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -51,11 +45,10 @@ class PercentTest extends TestCase
         }
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error_Warning
-     */
-    public function test_max_median_min_percent_format_with_warning()
+    public function test_max_median_min_percent_format_with_exception()
     {
+        $this->expectException(TypeError::class);
+
         $objs = [
             new MaxPercent(),
             new MedianPercent(),
@@ -63,7 +56,7 @@ class PercentTest extends TestCase
         ];
 
         foreach ($objs as $obj) {
-            $this->assertSame('', $obj->format('test', $this->formatter));
+            $obj->format('test', $this->formatter);
         }
     }
 }

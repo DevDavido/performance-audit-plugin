@@ -7,6 +7,7 @@ namespace Composer\Autoload;
 class ComposerStaticInit98dde460e8a16c8877d8f8d8a8e6921c
 {
     public static $files = array (
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         'e9b48b9bab803e9eba6dfd8e270dddfd' => __DIR__ . '/..' . '/ducks-project/spl-types/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
     );
@@ -14,6 +15,7 @@ class ComposerStaticInit98dde460e8a16c8877d8f8d8a8e6921c
     public static $prefixLengthsPsr4 = array (
         'S' => 
         array (
+            'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Component\\Process\\' => 26,
         ),
@@ -25,6 +27,10 @@ class ComposerStaticInit98dde460e8a16c8877d8f8d8a8e6921c
     );
 
     public static $prefixDirsPsr4 = array (
+        'Symfony\\Polyfill\\Php80\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
+        ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
@@ -44,6 +50,7 @@ class ComposerStaticInit98dde460e8a16c8877d8f8d8a8e6921c
     );
 
     public static $classMap = array (
+        'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'ComposerAutoloaderInit98dde460e8a16c8877d8f8d8a8e6921c' => __DIR__ . '/..' . '/composer/autoload_real.php',
         'Composer\\Autoload\\ClassLoader' => __DIR__ . '/..' . '/composer/ClassLoader.php',
         'Composer\\Autoload\\ComposerStaticInit98dde460e8a16c8877d8f8d8a8e6921c' => __DIR__ . '/..' . '/composer/autoload_static.php',
@@ -59,6 +66,7 @@ class ComposerStaticInit98dde460e8a16c8877d8f8d8a8e6921c
         'Dzava\\Lighthouse\\Tests\\Integration\\LighthouseTest' => __DIR__ . '/..' . '/jeroen-g/lighthouse/tests/Integration/LighthouseTest.php',
         'Dzava\\Lighthouse\\Tests\\Unit\\LighthouseTest' => __DIR__ . '/..' . '/jeroen-g/lighthouse/tests/Unit/LighthouseTest.php',
         'Dzava\\Lighthouse\\Tests\\Unit\\MockLighthouse' => __DIR__ . '/..' . '/jeroen-g/lighthouse/tests/Unit/LighthouseTest.php',
+        'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
         'Piwik\\Plugins\\PerformanceAudit\\API' => __DIR__ . '/../..' . '/API.php',
         'Piwik\\Plugins\\PerformanceAudit\\Archiver' => __DIR__ . '/../..' . '/Archiver.php',
         'Piwik\\Plugins\\PerformanceAudit\\Columns\\Filters\\AuditScoreClassifier' => __DIR__ . '/../..' . '/Columns/Filters/AuditScoreClassifier.php',
@@ -118,6 +126,7 @@ class ComposerStaticInit98dde460e8a16c8877d8f8d8a8e6921c
         'Piwik\\Plugins\\PerformanceAudit\\tests\\Unit\\Filter\\AuditScoreClassifierTest' => __DIR__ . '/../..' . '/tests/Unit/Filter/AuditScoreClassifierTest.php',
         'Piwik\\Plugins\\PerformanceAudit\\tests\\Unit\\Metric\\PercentTest' => __DIR__ . '/../..' . '/tests/Unit/Metric/PercentTest.php',
         'Piwik\\Plugins\\PerformanceAudit\\tests\\Unit\\Metric\\SecondsTest' => __DIR__ . '/../..' . '/tests/Unit/Metric/SecondsTest.php',
+        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'Symfony\\Component\\Process\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/symfony/process/Exception/ExceptionInterface.php',
         'Symfony\\Component\\Process\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/symfony/process/Exception/InvalidArgumentException.php',
         'Symfony\\Component\\Process\\Exception\\LogicException' => __DIR__ . '/..' . '/symfony/process/Exception/LogicException.php',
@@ -136,6 +145,10 @@ class ComposerStaticInit98dde460e8a16c8877d8f8d8a8e6921c
         'Symfony\\Component\\Process\\Process' => __DIR__ . '/..' . '/symfony/process/Process.php',
         'Symfony\\Component\\Process\\ProcessUtils' => __DIR__ . '/..' . '/symfony/process/ProcessUtils.php',
         'Symfony\\Polyfill\\Mbstring\\Mbstring' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/Mbstring.php',
+        'Symfony\\Polyfill\\Php80\\Php80' => __DIR__ . '/..' . '/symfony/polyfill-php80/Php80.php',
+        'Symfony\\Polyfill\\Php80\\PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/PhpToken.php',
+        'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
+        'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

@@ -16,28 +16,28 @@ namespace Ducks\Component\SplTypes;
  *
  * @see SplString http://php.net/manual/en/class.splstring.php
  */
-class SplString extends SplType {
-
+class SplString extends SplType
+{
     /**
      * @var string
+     *
+     * @codingStandardsIgnoreStart
      */
     const __default = '';
+    // @codingStandardsIgnoreEnd
 
     /**
-     * Creates a new value of some type
-     *
-     * @param mixed $initial_value Type and default value depends on the extension class.
-     * @param bool $strict Whether to set the object's sctrictness.
-     * @return void
-     *
-     * @throws \UnexpectedValueException if incompatible type is given.
+     * {@inheritdoc}
      */
-    public function __construct($initial_value, $strict=null) {
-        $class = new \ReflectionClass($this);
-        if(!is_string($initial_value)) {
+    public function __construct($initial_value = self::__default, $strict = true)
+    {
+        parent::__construct($initial_value, $strict);
+        if (!$strict) {
+            $initial_value = (string) $initial_value;
+        }
+        if (!is_string($initial_value)) {
             throw new \UnexpectedValueException('Value not a string');
         }
         $this->__default = $initial_value;
     }
-
 }

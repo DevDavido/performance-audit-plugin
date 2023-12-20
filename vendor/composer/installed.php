@@ -1,60 +1,68 @@
-<?php return array (
-  'root' =>
-  array (
-    'pretty_version' => 'dev-4.x-dev',
-    'version' => 'dev-4.x-dev',
-    'aliases' =>
-    array (
+<?php return array(
+    'root' => array(
+        'name' => 'devdavido/performance-audit-plugin',
+        'pretty_version' => 'dev-5.x-dev',
+        'version' => 'dev-5.x-dev',
+        'reference' => '6bfad409aa2af43772a1dc53d87927a53fd3df26',
+        'type' => 'project',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => false,
     ),
-    'reference' => '966739c860cee8c164e596688c3e6055c8de29a9',
-    'name' => 'devdavido/performance-audit-plugin',
-  ),
-  'versions' =>
-  array (
-    'devdavido/performance-audit-plugin' =>
-    array (
-      'pretty_version' => 'dev-4.x-dev',
-      'version' => 'dev-4.x-dev',
-      'aliases' =>
-      array (
-      ),
-      'reference' => '966739c860cee8c164e596688c3e6055c8de29a9',
+    'versions' => array(
+        'devdavido/performance-audit-plugin' => array(
+            'pretty_version' => 'dev-5.x-dev',
+            'version' => 'dev-5.x-dev',
+            'reference' => '6bfad409aa2af43772a1dc53d87927a53fd3df26',
+            'type' => 'project',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'ducks-project/spl-types' => array(
+            'pretty_version' => 'v1.2.0',
+            'version' => '1.2.0.0',
+            'reference' => '57fbd86788341f0d026c29f368058414f809870f',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../ducks-project/spl-types',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'jeroen-g/lighthouse' => array(
+            'pretty_version' => 'v0.2',
+            'version' => '0.2.0.0',
+            'reference' => '9cabb6a857b1a9ccc537328956b4e0af2c370f9a',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../jeroen-g/lighthouse',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'symfony/polyfill-mbstring' => array(
+            'pretty_version' => 'v1.28.0',
+            'version' => '1.28.0.0',
+            'reference' => '42292d99c55abe617799667f454222c54c60e229',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/polyfill-mbstring',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'symfony/polyfill-php80' => array(
+            'pretty_version' => 'v1.28.0',
+            'version' => '1.28.0.0',
+            'reference' => '6caa57379c4aec19c0a12a38b59b26487dcfe4b5',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/polyfill-php80',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'symfony/process' => array(
+            'pretty_version' => 'v4.4.44',
+            'version' => '4.4.44.0',
+            'reference' => '5cee9cdc4f7805e2699d9fd66991a0e6df8252a2',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/process',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
     ),
-    'ducks-project/spl-types' =>
-    array (
-      'pretty_version' => 'v1.1.0',
-      'version' => '1.1.0.0',
-      'aliases' =>
-      array (
-      ),
-      'reference' => '814f5b719fb39975321db0eaf66c4e0d2d93f53e',
-    ),
-    'jeroen-g/lighthouse' =>
-    array (
-      'pretty_version' => 'v0.2',
-      'version' => '0.2.0.0',
-      'aliases' =>
-      array (
-      ),
-      'reference' => '9cabb6a857b1a9ccc537328956b4e0af2c370f9a',
-    ),
-    'symfony/polyfill-mbstring' =>
-    array (
-      'pretty_version' => 'v1.20.0',
-      'version' => '1.20.0.0',
-      'aliases' =>
-      array (
-      ),
-      'reference' => '39d483bdf39be819deabf04ec872eb0b2410b531',
-    ),
-    'symfony/process' =>
-    array (
-      'pretty_version' => 'v4.4.18',
-      'version' => '4.4.18.0',
-      'aliases' =>
-      array (
-      ),
-      'reference' => '075316ff72233ce3d04a9743414292e834f2cb4a',
-    ),
-  ),
 );

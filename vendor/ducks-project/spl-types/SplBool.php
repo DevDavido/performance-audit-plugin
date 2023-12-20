@@ -16,21 +16,29 @@ namespace Ducks\Component\SplTypes;
  *
  * @see SplBool http://php.net/manual/en/class.splbool.php
  */
-class SplBool extends SplEnum {
-
+class SplBool extends SplEnum
+{
     /**
      * @var bool
+     *
+     * @codingStandardsIgnoreStart
      */
     const __default = self::false;
+    // @codingStandardsIgnoreEnd
 
     /**
      * @var bool
+     *
+     * @codingStandardsIgnoreStart
      */
     const false = false;
+    // @codingStandardsIgnoreEnd
 
     /**
      * @var bool
+     *
+     * @codingStandardsIgnoreStart
      */
     const true = true;
-
+    // @codingStandardsIgnoreEnd
 }

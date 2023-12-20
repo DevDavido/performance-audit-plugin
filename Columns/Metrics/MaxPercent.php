@@ -1,10 +1,4 @@
 <?php
-/**
- * Matomo - free/libre analytics platform
- *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- */
 
 namespace Piwik\Plugins\PerformanceAudit\Columns\Metrics;
 
@@ -12,6 +6,7 @@ require PIWIK_INCLUDE_PATH . '/plugins/PerformanceAudit/vendor/autoload.php';
 
 use Piwik\Metrics\Formatter;
 use Piwik\Piwik;
+use TypeError;
 
 class MaxPercent extends Max
 {
@@ -41,9 +36,14 @@ class MaxPercent extends Max
      * @param mixed $value
      * @param Formatter $formatter
      * @return mixed $value
+     * @throws TypeError
      */
     public function format($value, Formatter $formatter)
     {
+        if (!is_numeric($value)) {
+            throw new TypeError("A non-numeric value encountered");
+        }
+
         return mb_substr($formatter->getPrettyPercentFromQuotient($value / 100), 0, -1);
     }
 }

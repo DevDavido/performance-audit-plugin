@@ -1,11 +1,5 @@
 <?php
-/**
- * Matomo - free/libre analytics platform
- *
- * @link https://matomo.org
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPL v3 or later
- *
- */
+
 namespace Piwik\Plugins\PerformanceAudit\tests\Integration;
 
 require PIWIK_INCLUDE_PATH . '/plugins/PerformanceAudit/vendor/autoload.php';
@@ -26,7 +20,7 @@ use Piwik\Site;
 use Piwik\Tests\Framework\Fixture;
 use Piwik\Tests\Framework\TestCase\IntegrationTestCase;
 
-abstract class PerformanceAuditIntegrationTest extends IntegrationTestCase
+abstract class PerformanceAuditIntegrationPreparation extends IntegrationTestCase
 {
     const SERVER_HOST_NAME = 'localhost';
     const SERVER_PORT = 80;
@@ -49,16 +43,17 @@ abstract class PerformanceAuditIntegrationTest extends IntegrationTestCase
 
         // Create user
         $this->addPreexistingSuperUser();
-        $this->superUserTokenAuth = UsersManagerAPI::getInstance()->getTokenAuth(
+        $this->superUserTokenAuth = UsersManagerAPI::getInstance()->createAppSpecificTokenAuth(
             self::TEST_SUPERUSER_LOGIN,
-            md5(self::TEST_SUPERUSER_PASS)
+            self::TEST_SUPERUSER_PASS,
+            "app-specific-pwd-description"
         );
 
         // Create sites
         [$website1Id, $website2Id, $website3Id] = [
-            Fixture::createWebsite('2013-01-01 00:00:00', 0, 'Example 1', 'http://example.com/'),
-            Fixture::createWebsite('2013-01-01 00:00:00', 0, 'Example 2', 'http://example.org/'),
-            Fixture::createWebsite('2013-01-01 00:00:00', 0, 'Example 3', 'http://example.net/')
+            Fixture::createWebsite('2013-01-01 00:00:00', 0, 'Example 1', 'https://example.com/'),
+            Fixture::createWebsite('2013-01-01 00:00:00', 0, 'Example 2', 'https://example.org/'),
+            Fixture::createWebsite('2013-01-01 00:00:00', 0, 'Example 3', 'https://example.net/')
         ];
         $this->createBaseData([$website1Id, $website2Id, $website3Id]);
     }

@@ -13,7 +13,7 @@
         "ext-json": "*",
         "ext-spl": "*",
         "ducks-project/spl-types": "^1.2",
-        "symfony/polyfill-mbstring": "^1.28",
+        "symfony/polyfill-mbstring": "^1.27",
         "symfony/process": "^4.4",
         "jeroen-g/lighthouse": "^0.2"
     },

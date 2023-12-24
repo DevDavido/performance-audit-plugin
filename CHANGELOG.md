@@ -1,4 +1,8 @@
 # Changelog
+## 3.1.0
+- Added: Search for Node executable additionally in paths of `PATH` environment variable
+- Improved: Provide directory search path in error message if executable cannot be found
+
 ## 3.0.0
 - Release stable version for Matomo 5
 - Fixed: CORS template issue

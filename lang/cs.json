@@ -1,1 +1,36 @@
-{}
+{
+    "PerformanceAudit": {
+        "BrowserFamilies": "Rodiny prohlížečů",
+        "Category": "Výkon",
+        "CoreAdminHome_MenuPerformance": "Výkon",
+        "CoreAdminHome_PluginPerformance": "Zásuvný modul PerformanceAudit",
+        "CoreAdminHome_VersionPerformance": "V současné době používáte verzi %1$s%2$s%3$s zásuvného modulu %4$s.",
+        "Donate_BuyMeACoffee": "Kupte mi kávu",
+        "EnvironmentDesktop": "desktop",
+        "EnvironmentMobile": "mobil",
+        "Metrics_Max_Percent": "Nejvyšší %",
+        "Metrics_Max_Percent_Documentation": "Maximální procento, kterého stránka dosáhla v této výkonnostní kategorii.",
+        "Metrics_Max_Seconds": "Max. Sekundy",
+        "Metrics_Max_Seconds_Documentation": "Horní hranice v sekundách, kterou stránka zabrala v této výkonnostní kategorii.",
+        "Metrics_Median_Percent": "Median %",
+        "Metrics_Median_Percent_Documentation": "Celkový medián procent, kterého stránka dosáhla v této výkonnostní kategorii.",
+        "Metrics_Median_Seconds": "Median Sekund",
+        "Metrics_Median_Seconds_Documentation": "Celkový medián v sekundách, který stránka v této kategorii výkonu potřebovala.",
+        "Metrics_Min_Percent": "Nejnižší %",
+        "Metrics_Min_Percent_Documentation": "Minimální procento, kterého stránka dosáhla v této výkonnostní kategorii.",
+        "Metrics_Min_Seconds": "Min. Sekundy",
+        "Metrics_Min_Seconds_Documentation": "Spodní hranice v sekundách, kterou stránka v této výkonnostní kategorii zabrala.",
+        "Metrics_Tooltip": "%1$s%2$s je klasifikováno jako %3$s! \n Do této klasifikační skupiny patří hodnoty v rozmezí %4$s%2$s - %5$s%2$s.",
+        "Metrics_Tooltip_OutOfRange": "%1$s%2$s je mimo rozsah všech klasifikačních skupin.",
+        "MobileOverview": "Přehled mobilních zařízení",
+        "Overview": "Přehled výkonu",
+        "PluginCheck": "Kontrola pluginu",
+        "PluginCheckAlertNoSystemIssues": "Všechny předběžné kontroly pluginů proběhly úspěšně, nevyskytly se žádné chyby. Nyní můžete spustit vlastní kontrolu zásuvného modulu kliknutím na následující tlačítko:",
+        "PluginCheckAlertSystemIssue": "Ve vašem systému je problém. Došlo k následující chybě:",
+        "PluginCheckHasErrors": "Ve vašem systému jsou určité problémy. Matomo bude spuštěn, ale mohou se vyskytnout problémy s tímto pluginem. Další informace naleznete níže.",
+        "PluginCheckLogOutput": "Výstup protokolu",
+        "PluginCheckStartButton": "Spuštění kontroly pluginů",
+        "PluginCheckStartButtonClicked": "Kontrola pluginu byla zahájena, vyčkejte prosím až 5 minut…",
+        "Report_CumulativeLayoutShift_Documentation_Information": "kumulativní posun rozložení"
+    }
+}

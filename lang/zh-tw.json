@@ -1,6 +1,8 @@
 {
     "PerformanceAudit": {
         "BrowserFamilies": "瀏覽器系列",
-        "Category": "性能"
+        "Category": "性能",
+        "CoreAdminHome_MenuPerformance": "效能",
+        "CoreAdminHome_PluginPerformance": "PerformanceAudit 外掛"
     }
 }

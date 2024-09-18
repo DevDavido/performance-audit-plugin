@@ -6,6 +6,7 @@
         "CoreAdminHome_PluginPerformance": "Plugin PerformanceAudit",
         "CoreAdminHome_VersionPerformance": "Vous utilisez actuellement la version %1$s%2$s%3$s du plugin %4$s.",
         "Donate": "Faire un don",
+        "Donate_BuyMeACoffee": "Offrez-moi un café",
         "EnvironmentDesktop": "bureau",
         "EnvironmentMobile": "mobile",
         "Metrics_Max_Percent": "Plus haut %",

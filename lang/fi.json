@@ -1,1 +1,7 @@
-{}
+{
+    "PerformanceAudit": {
+        "Category": "Suorituskyky",
+        "CoreAdminHome_MenuPerformance": "Suorituskyky",
+        "Version": "Versio"
+    }
+}

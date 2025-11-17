@@ -1,1 +1,7 @@
-{}
+{
+    "PerformanceAudit": {
+        "Category": "性能",
+        "CoreAdminHome_MenuPerformance": "性能",
+        "Version": "版本"
+    }
+}

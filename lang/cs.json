@@ -31,6 +31,7 @@
         "PluginCheckLogOutput": "Výstup protokolu",
         "PluginCheckStartButton": "Spuštění kontroly pluginů",
         "PluginCheckStartButtonClicked": "Kontrola pluginu byla zahájena, vyčkejte prosím až 5 minut…",
-        "Report_CumulativeLayoutShift_Documentation_Information": "kumulativní posun rozložení"
+        "Report_CumulativeLayoutShift_Documentation_Information": "kumulativní posun rozložení",
+        "Version": "Verze"
     }
 }

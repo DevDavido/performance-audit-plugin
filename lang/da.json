@@ -1,1 +1,7 @@
-{}
+{
+    "PerformanceAudit": {
+        "Category": "Ydelse",
+        "CoreAdminHome_MenuPerformance": "Ydelse",
+        "Version": "Version"
+    }
+}

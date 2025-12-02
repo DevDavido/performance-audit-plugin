@@ -1,5 +1,7 @@
 {
     "PerformanceAudit": {
+        "Category": "Greitaveika",
+        "CoreAdminHome_MenuPerformance": "Greitaveika",
         "Version": "Versija"
     }
 }

@@ -4,6 +4,8 @@
         "Category": "Rendimiento",
         "CoreAdminHome_MenuPerformance": "Rendimiento",
         "CoreAdminHome_PluginPerformance": "Plugin PerformanceAudit",
+        "CoreAdminHome_VersionPerformance": "Está utilizando actualmente la versión %1$s%2$s%3$s del plugin %4$s.",
+        "Donate_BuyMeACoffee": "Cómprame un café",
         "Version": "Versión"
     }
 }

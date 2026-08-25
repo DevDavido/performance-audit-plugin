@@ -1,1 +1,21 @@
-{}
+{
+    "PerformanceAudit": {
+        "EnvironmentDesktop": "desktop",
+        "EnvironmentMobile": "mobilni uređaj",
+        "Metrics_Max_Percent": "Najviši %",
+        "Metrics_Max_Percent_Documentation": "Maksimalni postotak koji je stranica postigla u ovoj kategoriji performansi.",
+        "Metrics_Max_Seconds": "Maks. broj sekundi",
+        "Metrics_Max_Seconds_Documentation": "Gornja granica u sekundama koju je stranica trebala u ovoj kategoriji performansi.",
+        "Metrics_Median_Percent": "Medijan %",
+        "Metrics_Median_Percent_Documentation": "Postotak ukupnog medijana koji je stranica postigla u ovoj kategoriji performansi.",
+        "Metrics_Median_Seconds": "Medijan sekundi",
+        "Metrics_Median_Seconds_Documentation": "Ukupni medijan u sekundama koji je stranica trebala u ovoj kategoriji performansi.",
+        "Metrics_Min_Percent": "Najniži %",
+        "Metrics_Min_Percent_Documentation": "Minimalni postotak koji je stranica postigla u ovoj kategoriji performansi.",
+        "Metrics_Min_Seconds": "Min. broj sekundi",
+        "Metrics_Min_Seconds_Documentation": "Donja granica u sekundama koju je stranica trebala u ovoj kategoriji performansi.",
+        "Metrics_Tooltip": "%1$s%2$s je klasificiran kao %3$s! \n Vrijednosti između %4$s%2$s i %5$s%2$s se nalaze u ovoj klasifikacijskoj grupi.",
+        "Metrics_Tooltip_OutOfRange": "%1$s%2$s je izvan raspona svih klasifikacijskih grupa.",
+        "Report_Documentation": "Ovaj izvještaj sadrži informacije o %1$s za svaku stranicu u %2$s okruženju. Ako želiš znati kako se izračunava rezultat, pogledaj Googleovu stranicu <a href=\"https://web.dev/%3$s/\" target=\"_blank\">%4$s</a>."
+    }
+}

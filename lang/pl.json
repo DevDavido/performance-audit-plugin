@@ -1,1 +1,9 @@
-{}
+{
+    "PerformanceAudit": {
+        "Category": "Wydajność",
+        "CoreAdminHome_MenuPerformance": "Wydajność",
+        "EnvironmentDesktop": "pulpit",
+        "Settings_ExtraHttpHeaderKey_Cookie": "Ciasteczko",
+        "Version": "Wersja"
+    }
+}

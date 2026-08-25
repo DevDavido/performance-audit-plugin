@@ -1,1 +1,7 @@
-{}
+{
+    "PerformanceAudit": {
+        "Category": "Эффективность",
+        "CoreAdminHome_MenuPerformance": "Эффективность",
+        "Version": "Версия"
+    }
+}
